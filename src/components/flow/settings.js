@@ -1,17 +1,45 @@
 /**
- * 流光组设置行：色板、速率。
+ * 流光组设置行：明暗、色板、速率。
  *
  * 只在背景为流光时出现；缩放 / 浓淡是点阵与流光共用的，在 backdrop/settings.js。
  * 本文件被 scripts/build.mjs 原样内联进 client.js，只能引用参数 api。
  */
 function flowSettings(api) {
   const { h, props, state, helpers, modes, limits } = api;
-  const { FLOW_MODES, FLOW_HINT } = modes;
-  const { bg, flow, speed } = state;
+  const { FLOW_MODES, FLOW_HINT, FLOW_INVERT_MODES, FLOW_INVERT_HINT } = modes;
+  const { bg, flow, flowInvert, speed } = state;
 
   if (bg !== "flow") return [];
 
   return [
+    {
+      group: "background",
+      order: 20,
+      node: h(
+        "div",
+        { className: "av-deco-row" },
+        h("span", { className: "av-theme-sub" }, "明暗"),
+        FLOW_INVERT_MODES.map((mode) =>
+          h(
+            "button",
+            {
+              key: mode.id,
+              type: "button",
+              className: "av-deco-chip" + (flowInvert === mode.id ? " av-deco-chip--on" : ""),
+              "aria-pressed": flowInvert === mode.id,
+              onClick: () => props.selectFlowInvert(mode.id),
+            },
+            mode.label,
+          ),
+        ),
+        h(
+          "span",
+          { className: "av-theme-state" },
+          // 深色两档一样，提一句省得在深色下找差别。
+          (FLOW_INVERT_HINT[flowInvert] ?? FLOW_INVERT_HINT.on) + "（只影响浅色）",
+        ),
+      ),
+    },
     {
       group: "background",
       order: 30,

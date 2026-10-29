@@ -582,3 +582,14 @@ kbd {
   font-family: Consolas, "Cascadia Code", monospace;
   text-align: center;
 }
+
+/* 只留背景层：单独截背景 / 看背景时用，壳 / 控制条 / 菜单都收起来。 */
+html[data-av-bgonly] .app,
+html[data-av-bgonly] .theme-stack,
+html[data-av-bgonly] .menu {
+  display: none !important;
+}
+
+html[data-av-bgonly] body {
+  min-height: 100vh;
+}

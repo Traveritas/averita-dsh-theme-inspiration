@@ -19,6 +19,7 @@ window.__ModuleLoader__.load({
     const BREATHE_KEY = PLUGIN_ID + ":breathe";
     const BG_KEY = PLUGIN_ID + ":bg";
     const FLOW_KEY = PLUGIN_ID + ":flow";
+    const FLOW_INVERT_KEY = PLUGIN_ID + ":flow-invert";
     const SPEED_KEY = PLUGIN_ID + ":speed";
     const WORDMARK_KEY = PLUGIN_ID + ":wordmark";
     const HERO_TEXT_KEY = PLUGIN_ID + ":hero-text";
@@ -96,6 +97,16 @@ window.__ModuleLoader__.load({
       dusk: "薄暮紫，给深色留一层光",
       jade: "青灰，像雨后的窗",
       amber: "暖沙，纸上的夕照",
+    };
+    /** 流光明暗：浅色下默认反转（白做底，深色只落在光带上）；深色两种写法一样。 */
+    const DEFAULT_FLOW_INVERT = "on";
+    const FLOW_INVERT_MODES = [
+      { id: "on", label: "反转" },
+      { id: "off", label: "不反转" },
+    ];
+    const FLOW_INVERT_HINT = {
+      on: "白做底，色斑落在光带上",
+      off: "底色下沉，白带提亮",
     };
     /** 字符底纹用哪个字：字号按墨量调过，和圆点 / 方块同一档。 */
     const GLYPH_MODES = [
@@ -227,6 +238,7 @@ window.__ModuleLoader__.load({
     let breatheMode = DEFAULT_BREATHE;
     let bgMode = "dots";
     let flowPalette = DEFAULT_FLOW;
+    let flowInvert = DEFAULT_FLOW_INVERT;
     let wordmark = DEFAULT_WORDMARK;
     let heroText = null;
     let flowRenderer = null;
@@ -247,6 +259,7 @@ window.__ModuleLoader__.load({
     let getBreathe = () => breatheMode;
     let getBg = () => bgMode;
     let getFlow = () => flowPalette;
+    let getFlowInvert = () => flowInvert;
     let getFlowAvailable = () => !flowUnavailable;
     let selectTheme = () => {};
     let selectWordmark = () => {};
@@ -263,6 +276,7 @@ window.__ModuleLoader__.load({
     let selectBreathe = () => {};
     let selectBg = () => {};
     let selectFlow = () => {};
+    let selectFlowInvert = () => {};
 
     function storedTheme() {
       try {
@@ -472,6 +486,24 @@ window.__ModuleLoader__.load({
     function rememberFlow(id) {
       try {
         window.localStorage.setItem(FLOW_KEY, id);
+      } catch {
+        /* 同上 */
+      }
+    }
+
+    /** 流光明暗：默认反转；读不到 / 值不认就回默认。 */
+    function storedFlowInvert() {
+      try {
+        const id = window.localStorage.getItem(FLOW_INVERT_KEY);
+        return FLOW_INVERT_MODES.some((mode) => mode.id === id) ? id : DEFAULT_FLOW_INVERT;
+      } catch {
+        return DEFAULT_FLOW_INVERT;
+      }
+    }
+
+    function rememberFlowInvert(id) {
+      try {
+        window.localStorage.setItem(FLOW_INVERT_KEY, id);
       } catch {
         /* 同上 */
       }
@@ -761,6 +793,7 @@ __COMPONENT_SETTINGS__
         breathe: props.getBreathe(),
         bg: props.getBg(),
         flow: props.getFlow(),
+        flowInvert: props.getFlowInvert(),
         flowOk: props.getFlowAvailable(),
       });
       const [state, setState] = React.useState(read);
@@ -815,6 +848,8 @@ __COMPONENT_SETTINGS__
           DOT_HINT,
           FLOW_MODES,
           FLOW_HINT,
+          FLOW_INVERT_MODES,
+          FLOW_INVERT_HINT,
           GLYPH_MODES,
           MOTION_MODES,
           MOTION_HINT,
@@ -851,7 +886,7 @@ __COMPONENT_SETTINGS__
             { type: "button", className: "av-deco-chip", onClick: () => props.resetBackground() },
             "恢复默认",
           ),
-          h("span", { className: "av-theme-state" }, "背景 / 底纹 / 色板 / 缩放 / 浓淡 回默认"),
+          h("span", { className: "av-theme-state" }, "背景 / 底纹 / 色板 / 明暗 / 缩放 / 浓淡 回默认"),
         ),
       });
 
@@ -1122,11 +1157,23 @@ __COMPONENT_SETTINGS__
       };
       getFlow = () => flowPalette;
 
+      /* 明暗：只改 html 属性，浅色那几组色板自己换；深色两档一样。
+         默认反转，落在 html[data-av-flow-invert]，CSS 里 [data-av-flow-invert="off"] 是旧写法。 */
+      selectFlowInvert = (id) => {
+        flowInvert = FLOW_INVERT_MODES.some((mode) => mode.id === id) ? id : DEFAULT_FLOW_INVERT;
+        root.setAttribute("data-av-flow-invert", flowInvert);
+        rememberFlowInvert(flowInvert);
+        flowRenderer?.refreshPalette();
+        for (const fn of listeners) fn();
+      };
+      getFlowInvert = () => flowInvert;
+
       // 背景那一组一键回默认（主题 / 装饰 / 星形不动）。
       const resetBackground = () => {
         selectBg("dots");
         selectDots("dot");
         selectFlow(DEFAULT_FLOW);
+        selectFlowInvert(DEFAULT_FLOW_INVERT);
         selectGlyph("plus");
         selectScale(1);
         selectDepth(1);
@@ -1146,6 +1193,7 @@ __COMPONENT_SETTINGS__
         selectStar(storedStar());
         selectFade(storedFade());
         selectFlow(storedFlow());
+        selectFlowInvert(storedFlowInvert());
         selectGlyph(storedGlyph());
         selectScale(storedScale());
         selectDepth(storedDepth());
@@ -1168,6 +1216,7 @@ __COMPONENT_SETTINGS__
           root.removeAttribute("data-av-motion");
           root.removeAttribute("data-av-bg");
           root.removeAttribute("data-av-flow-palette");
+          root.removeAttribute("data-av-flow-invert");
           root.removeAttribute("data-av-hero-text");
           root.removeAttribute("data-av-hero-empty");
           root.removeAttribute("data-av-scale");
@@ -1241,6 +1290,8 @@ __COMPONENT_SETTINGS__
               getBg: () => getBg(),
               selectFlow: (id) => selectFlow(id),
               getFlow: () => getFlow(),
+              selectFlowInvert: (id) => selectFlowInvert(id),
+              getFlowInvert: () => getFlowInvert(),
               getFlowAvailable: () => getFlowAvailable(),
               resetBackground: () => resetBackground(),
               subscribe: (fn) => {

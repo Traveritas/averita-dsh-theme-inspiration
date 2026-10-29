@@ -226,6 +226,7 @@ for (const name of names) {
 if (attrs.get('data-av-theme') !== 'averita') throw new Error('default theme marker missing');
 if (attrs.has('data-av-hero-text')) throw new Error('default hero text should follow DSH');
 if (attrs.has('data-av-fade')) throw new Error('default composer fade should be off');
+if (attrs.get('data-av-flow-invert') !== 'on') throw new Error('default flow invert attr missing');
 
 /** 2. 样式：注入一个 style，含四套主题变量；卸载时干净移除。 */
 if (head.length !== 1) throw new Error(`expected 1 style tag, got ${head.length}`);
@@ -238,6 +239,7 @@ for (const needle of [
   'data-av-bg="flow"',
   'data-av-flow-palette="theme"',
   'data-av-flow-palette="dusk"',
+  'data-av-flow-invert="off"',
   'color-mix(in srgb, var(--av-space)',
   '--av-flow-3',
   '.av-flow',
@@ -318,6 +320,7 @@ if (attrs.has('data-av-glyph')) throw new Error('data-av-glyph was not removed o
 if (attrs.has('data-av-motion')) throw new Error('data-av-motion was not removed on dispose');
 if (attrs.has('data-av-bg')) throw new Error('data-av-bg was not removed on dispose');
 if (attrs.has('data-av-flow-palette')) throw new Error('data-av-flow-palette was not removed on dispose');
+if (attrs.has('data-av-flow-invert')) throw new Error('data-av-flow-invert was not removed on dispose');
 if (attrs.has('data-av-hero-text')) throw new Error('data-av-hero-text was not removed on dispose');
 if (attrs.has('data-av-hero-empty')) throw new Error('data-av-hero-empty was not removed on dispose');
 if (styles.has('--av-scale')) throw new Error('--av-scale was not removed on dispose');
@@ -387,6 +390,9 @@ if (typeof props.selectBg !== 'function' || typeof props.getBg !== 'function') {
 }
 if (typeof props.selectFlow !== 'function' || typeof props.getFlow !== 'function') {
   throw new Error('settings.section inject payload missing flow palette controls');
+}
+if (typeof props.selectFlowInvert !== 'function' || typeof props.getFlowInvert !== 'function') {
+  throw new Error('settings.section inject payload missing flow invert controls');
 }
 if (typeof props.selectSpeed !== 'function' || typeof props.getSpeed !== 'function') {
   throw new Error('settings.section inject payload missing flow speed controls');
@@ -521,6 +527,13 @@ if (attrs.get('data-av-flow-palette') !== 'dusk') throw new Error('selectFlow(du
 if (storage.get('dsh-theme-averita:flow') !== 'dusk') throw new Error('flow palette was not persisted');
 props.selectFlow('nope');
 if (props.getFlow() !== 'theme') throw new Error('unknown flow palette must fall back to theme');
+if (props.getFlowInvert() !== 'on') throw new Error('default flow invert must be on (reversed)');
+props.selectFlowInvert('off');
+if (props.getFlowInvert() !== 'off') throw new Error('selectFlowInvert(off) did not stick');
+if (attrs.get('data-av-flow-invert') !== 'off') throw new Error('selectFlowInvert(off) did not set the invert attr');
+if (storage.get('dsh-theme-averita:flow-invert') !== 'off') throw new Error('flow invert was not persisted');
+props.selectFlowInvert('nope');
+if (props.getFlowInvert() !== 'on') throw new Error('unknown flow invert must fall back to on');
 if (!near(props.getSpeed(), 1)) throw new Error('default flow speed must be 1');
 props.selectSpeed('1.6');
 if (!near(props.getSpeed(), 1.6)) throw new Error('selectSpeed(1.6) did not stick');
@@ -595,6 +608,7 @@ props.selectDots('wall');
 props.selectGlyph('star');
 props.selectBg('flow');
 props.selectFlow('amber');
+props.selectFlowInvert('off');
 props.selectScale('2.2');
 props.selectDepth('1.4');
 props.selectSpeed('1.8');
@@ -603,6 +617,7 @@ props.selectBreathe('0.2');
 props.resetBackground();
 if (props.getBg() !== 'dots' || attrs.has('data-av-bg')) throw new Error('resetBackground did not restore dots background');
 if (props.getFlow() !== 'theme' || attrs.get('data-av-flow-palette') !== 'theme') throw new Error('resetBackground did not restore flow palette');
+if (props.getFlowInvert() !== 'on' || attrs.get('data-av-flow-invert') !== 'on') throw new Error('resetBackground did not restore flow invert');
 if (bodyNodes.length !== 0) throw new Error('resetBackground did not remove the flow canvas');
 if (props.getDots() !== 'dot' || props.getGlyph() !== 'plus') throw new Error('resetBackground did not restore dots/glyph');
 if (!near(props.getScale(), 1) || !near(props.getDepth(), 1)) throw new Error('resetBackground did not restore scale/depth');
@@ -755,7 +770,11 @@ if (attrs.has('data-av-dots')) throw new Error('selectDots(dot) did not clear da
 /** 8. 流光面板：只剩 背景 / 色板 / 缩放 / 浓淡 / 重置，滑杆换成流光的说法。 */
 props.selectBg('flow');
 labels = rowLabels();
-if (labels.join('/') !== '字标/首屏文案/背景/色板/速率/缩放/浓淡/装饰/底部遮罩/重置背景') throw new Error('panel rows (flow) = ' + labels.join('/'));
+if (labels.join('/') !== '字标/首屏文案/背景/明暗/色板/速率/缩放/浓淡/装饰/底部遮罩/重置背景') throw new Error('panel rows (flow) = ' + labels.join('/'));
+const invertChips = panelNodes()
+  .filter((node) => node.type === 'button' && ['反转', '不反转'].includes(node.children?.[0]))
+  .map((node) => node.children[0]);
+if (invertChips.join('/') !== '反转/不反转') throw new Error('flow invert chips = ' + invertChips.join('/'));
 const flowChips = panelNodes()
   .filter((node) => node.type === 'button' && ['跟随主题', '雾蓝', '暮紫', '青灰', '暖沙'].includes(node.children?.[0]))
   .map((node) => node.children[0]);

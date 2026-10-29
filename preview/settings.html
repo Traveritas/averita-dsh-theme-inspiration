@@ -1,0 +1,243 @@
+<!doctype html>
+<html lang="zh-CN" data-av-theme="averita">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>AveritA's DSH · 设置 → 主题（预览壳）</title>
+  <link rel="stylesheet" href="tokens.css" />
+  <link rel="stylesheet" href="../src/theme.css" />
+  <style>
+    :root {
+      --mono: "Cascadia Mono", "Cascadia Code", Consolas, monospace;
+      --sans: "Segoe UI", "Microsoft YaHei UI", "Microsoft YaHei", system-ui, sans-serif;
+    }
+    * { box-sizing: border-box; }
+    html, body { min-height: 100%; }
+    body {
+      margin: 0;
+      font-family: var(--sans);
+      color: var(--dsw-alias-label-primary);
+      background-color: var(--av-space) !important;
+      background-image:
+        radial-gradient(circle at 1px 1px, rgba(55, 63, 79, 0.07) 1px, transparent 1.4px),
+        linear-gradient(180deg, rgba(255, 255, 255, 0.34), rgba(255, 255, 255, 0) 420px);
+      background-size: 10px 10px, 100% 100%;
+    }
+    .page {
+      width: 980px;
+      margin: 0 auto;
+      padding: 54px 0 64px;
+    }
+    .crumbs {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-family: var(--mono);
+      font-size: 10px;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--dsw-alias-label-caption);
+      margin-bottom: 16px;
+    }
+    .crumbs span { color: var(--dsw-alias-label-tertiary); }
+    .panel {
+      background: var(--dsw-alias-bg-layer-1);
+      border: 0.5px solid var(--dsw-alias-border-l2);
+      border-radius: var(--dsw-radius-panel);
+      box-shadow: var(--dsw-shadow-lv2);
+      padding: 24px 26px 22px;
+      backdrop-filter: blur(14px) saturate(120%);
+    }
+    .panel-title {
+      display: flex;
+      align-items: baseline;
+      gap: 12px;
+      margin-bottom: 4px;
+    }
+    .panel-title h1 {
+      margin: 0;
+      font-family: var(--av-serif);
+      font-size: 20px;
+      font-weight: 500;
+      letter-spacing: 0.04em;
+    }
+    .panel-title small {
+      font-family: var(--mono);
+      font-size: 9px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--dsw-alias-label-caption);
+    }
+    .panel-note {
+      margin: 0 0 18px;
+      color: var(--dsw-alias-label-tertiary);
+      font-size: 12px;
+      line-height: 1.7;
+    }
+    .av-theme-panel { gap: 14px; }
+    .av-theme-grid { gap: 9px; }
+    .av-theme-card { padding: 8px 10px; }
+    .av-theme-chip { width: 28px; height: 28px; }
+    .av-theme-label { font-size: 12.5px; }
+    .av-theme-state { font-size: 10.5px; }
+    .av-theme-sub { font-size: 10px; }
+    .av-deco-chip { font-size: 11.5px; padding: 3px 9px; }
+    .av-text-input { font-size: 12.5px; padding: 4px 8px; }
+    .av-range { width: 190px; }
+    .av-theme-state--num { min-width: 150px; font-size: 10.5px; }
+    .av-theme-group { margin-top: 8px; font-size: 10.5px; }
+    .group-note {
+      margin-left: auto;
+      font-family: var(--mono);
+      font-size: 8.5px;
+      letter-spacing: 0.1em;
+      color: var(--dsw-alias-label-caption);
+      text-transform: uppercase;
+    }
+    .footer-note {
+      display: flex;
+      justify-content: space-between;
+      gap: 20px;
+      margin-top: 16px;
+      padding-top: 12px;
+      border-top: 0.5px solid var(--dsw-alias-border-l1);
+      font-size: 10px;
+      line-height: 1.7;
+      color: var(--dsw-alias-label-caption);
+    }
+    .footer-note .mono {
+      font-family: var(--mono);
+      font-size: 9px;
+      letter-spacing: 0.08em;
+      white-space: nowrap;
+    }
+  </style>
+</head>
+<body>
+  <main class="page">
+    <div class="crumbs">设置 <span>/</span> 主题 <span>/</span> AveritA's DSH 主题集</div>
+    <section class="panel" aria-label="设置 → 主题">
+      <div class="panel-title">
+        <h1>主题</h1>
+        <small>AveritA's DSH 主题集</small>
+      </div>
+      <p class="panel-note">四套令牌 + 品牌 / 背景 / 装饰 / 界面。所有选择即时落到 <code>html</code> 的属性与 CSS 变量上，不重装插件。</p>
+
+      <div class="av-theme-panel">
+        <div class="av-theme-grid">
+          <button type="button" class="av-theme-card av-theme-card--on">
+            <span class="av-theme-chip" style="background: linear-gradient(135deg, #e5eaf0 0%, #0e131e 100%)"></span>
+            <span class="av-theme-label">昼雾 · 靛夜</span>
+            <span class="av-theme-state">使用中</span>
+          </button>
+          <button type="button" class="av-theme-card">
+            <span class="av-theme-chip" style="background: linear-gradient(135deg, #e4e9e9 0%, #101820 100%)"></span>
+            <span class="av-theme-label">冷晨</span>
+            <span class="av-theme-state">切换</span>
+          </button>
+          <button type="button" class="av-theme-card">
+            <span class="av-theme-chip" style="background: linear-gradient(135deg, #ecdfdb 0%, #1b1418 100%)"></span>
+            <span class="av-theme-label">暮玫瑰</span>
+            <span class="av-theme-state">切换</span>
+          </button>
+          <button type="button" class="av-theme-card">
+            <span class="av-theme-chip" style="background: linear-gradient(135deg, #e2ddec 0%, #110e1a 100%)"></span>
+            <span class="av-theme-label">暮紫</span>
+            <span class="av-theme-state">切换</span>
+          </button>
+        </div>
+
+        <div class="av-theme-group">品牌 <span class="group-note">brand</span></div>
+        <div class="av-deco-row av-deco-row--text">
+          <span class="av-theme-sub">字标</span>
+          <input type="text" class="av-text-input" value="AveritA's DSH" aria-label="字标" />
+          <button type="button" class="av-deco-chip">恢复默认</button>
+          <span class="av-theme-state">侧栏字标 · 13/32</span>
+        </div>
+        <div class="av-deco-row av-deco-row--text">
+          <span class="av-theme-sub">首屏文案</span>
+          <input type="text" class="av-text-input" placeholder="跟随 DSH 原文「做些什么？」" aria-label="首屏文案" />
+          <button type="button" class="av-deco-chip">恢复默认</button>
+          <span class="av-theme-state">跟随 DSH 原文</span>
+        </div>
+
+        <div class="av-theme-group">背景 <span class="group-note">background</span></div>
+        <div class="av-deco-row">
+          <span class="av-theme-sub">背景</span>
+          <button type="button" class="av-deco-chip av-deco-chip--on">点阵</button>
+          <button type="button" class="av-deco-chip">流光</button>
+          <button type="button" class="av-deco-chip">关闭</button>
+          <span class="av-theme-state">极慢漂移 + 透明度呼吸</span>
+        </div>
+        <div class="av-deco-row">
+          <span class="av-theme-sub">底纹</span>
+          <button type="button" class="av-deco-chip av-deco-chip--on">圆点</button>
+          <button type="button" class="av-deco-chip">方块</button>
+          <button type="button" class="av-deco-chip">字符</button>
+          <button type="button" class="av-deco-chip">字符墙</button>
+          <span class="av-theme-state">10px 网格、1.5px 圆点</span>
+        </div>
+        <div class="av-deco-row">
+          <span class="av-theme-sub">字符</span>
+          <button type="button" class="av-deco-chip av-deco-chip--glyph av-deco-chip--on">+</button>
+          <button type="button" class="av-deco-chip av-deco-chip--glyph">#</button>
+          <button type="button" class="av-deco-chip av-deco-chip--glyph">*</button>
+          <button type="button" class="av-deco-chip av-deco-chip--glyph">×</button>
+          <span class="av-theme-state">加号铺格</span>
+        </div>
+        <div class="av-deco-row av-deco-row--range">
+          <span class="av-theme-sub">缩放</span>
+          <input type="range" class="av-range" min="0.5" max="4" step="0.1" value="1" style="--av-fill: 14%" aria-label="缩放" />
+          <span class="av-theme-state av-theme-state--num">1× · 10px 格距</span>
+        </div>
+        <div class="av-deco-row av-deco-row--range">
+          <span class="av-theme-sub">浓淡</span>
+          <input type="range" class="av-range" min="0.3" max="4" step="0.05" value="1" style="--av-fill: 19%" aria-label="浓淡" />
+          <span class="av-theme-state av-theme-state--num">100% · 跟主题墨色一致</span>
+        </div>
+        <div class="av-deco-row">
+          <span class="av-theme-sub">动效</span>
+          <button type="button" class="av-deco-chip av-deco-chip--on">都开</button>
+          <button type="button" class="av-deco-chip">呼吸</button>
+          <button type="button" class="av-deco-chip">漂移</button>
+          <button type="button" class="av-deco-chip">都关</button>
+          <span class="av-theme-state">极慢漂移 + 透明度呼吸</span>
+        </div>
+        <div class="av-deco-row av-deco-row--range">
+          <span class="av-theme-sub">呼吸下限</span>
+          <input type="range" class="av-range" min="0" max="1" step="0.05" value="0.65" style="--av-fill: 65%" aria-label="呼吸下限" />
+          <span class="av-theme-state av-theme-state--num">65% · 淡入到 100%</span>
+        </div>
+
+        <div class="av-theme-group">装饰 <span class="group-note">deco</span></div>
+        <div class="av-deco-row">
+          <span class="av-theme-sub">装饰</span>
+          <button type="button" class="av-deco-chip av-deco-chip--on">纸品</button>
+          <button type="button" class="av-deco-chip">星芒</button>
+          <button type="button" class="av-deco-chip">原生</button>
+          <span class="av-theme-state">纸品：书签带 / 星章 / 齿孔</span>
+        </div>
+
+        <div class="av-theme-group">界面 <span class="group-note">interface</span></div>
+        <div class="av-deco-row">
+          <span class="av-theme-sub">底部遮罩</span>
+          <button type="button" class="av-deco-chip av-deco-chip--on">关</button>
+          <button type="button" class="av-deco-chip">开</button>
+          <span class="av-theme-state">背景透到输入框后</span>
+        </div>
+
+        <div class="av-deco-row">
+          <span class="av-theme-sub">重置</span>
+          <button type="button" class="av-deco-chip">恢复默认</button>
+          <span class="av-theme-state">背景 / 底纹 / 色板 / 速率 / 字形 / 缩放 / 浓淡 / 动效 / 呼吸下限</span>
+        </div>
+      </div>
+
+      <div class="footer-note">
+        <span>预览壳：按 <code>src/components/*/settings.js</code> 的行与 <code>src/theme.css</code> 的面板样式重建；实际控件以实机为准。</span>
+        <span class="mono">preview/settings.html</span>
+      </div>
+    </section>
+  </main>
+</body>
+</html>

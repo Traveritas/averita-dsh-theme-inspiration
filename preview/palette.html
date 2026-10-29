@@ -1,0 +1,567 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>AveritA's DSH · 配色总览</title>
+  <link rel="stylesheet" href="tokens.css" />
+  <style>
+    :root {
+      --paper: #f1eee8;
+      --paper-2: #e9e5dd;
+      --ink: #24282f;
+      --ink-2: #58606b;
+      --ink-3: #7f8894;
+      --rule: rgba(55, 63, 79, 0.16);
+      --rule-soft: rgba(55, 63, 79, 0.09);
+      --panel: rgba(255, 255, 255, 0.46);
+      --dark-panel: #17171a;
+      --dark-ink: #f4f1ea;
+      --dark-ink-2: #a9a5a0;
+      --dark-rule: rgba(255, 255, 255, 0.12);
+      --mono: "Cascadia Mono", "Cascadia Code", Consolas, "SFMono-Regular", monospace;
+      --serif: "Source Serif 4", "Noto Serif SC", "Source Han Serif SC", "Songti SC", "SimSun", Georgia, serif;
+      --sans: "Segoe UI", "Microsoft YaHei UI", "Microsoft YaHei", system-ui, sans-serif;
+    }
+
+    * { box-sizing: border-box; }
+
+    html, body {
+      margin: 0;
+      padding: 0;
+      background: var(--paper);
+      color: var(--ink);
+      font-family: var(--sans);
+      -webkit-font-smoothing: antialiased;
+      text-rendering: geometricPrecision;
+    }
+
+    body {
+      min-height: 100vh;
+      background-color: var(--paper);
+      background-image:
+        radial-gradient(circle at 1px 1px, rgba(55, 63, 79, 0.075) 1px, transparent 1.5px),
+        linear-gradient(180deg, rgba(255, 255, 255, 0.34), rgba(255, 255, 255, 0) 260px);
+      background-size: 10px 10px, 100% 100%;
+    }
+
+    .board {
+      width: 1600px;
+      margin: 0 auto;
+      padding: 54px 42px 44px;
+    }
+
+    /* ── header ─────────────────────────────────────────────────────── */
+    header {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 28px;
+      align-items: end;
+      padding-bottom: 22px;
+      border-bottom: 1px solid var(--ink);
+    }
+
+    .eyebrow {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-family: var(--mono);
+      font-size: 10px;
+      letter-spacing: 0.24em;
+      text-transform: uppercase;
+      color: var(--ink-3);
+    }
+
+    .mark {
+      width: 22px;
+      height: 22px;
+      color: var(--ink);
+      flex: 0 0 auto;
+    }
+
+    h1 {
+      margin: 12px 0 0;
+      font-family: var(--serif);
+      font-weight: 500;
+      font-size: 58px;
+      line-height: 0.98;
+      letter-spacing: 0.01em;
+    }
+
+    .lede {
+      margin: 12px 0 0;
+      max-width: 700px;
+      color: var(--ink-2);
+      font-size: 13px;
+      line-height: 1.85;
+    }
+
+    .lede code {
+      font-family: var(--mono);
+      font-size: 11px;
+      color: var(--ink);
+    }
+
+    .meta {
+      text-align: right;
+      font-family: var(--mono);
+      font-size: 10px;
+      line-height: 1.9;
+      letter-spacing: 0.08em;
+      color: var(--ink-3);
+      white-space: nowrap;
+      padding-bottom: 4px;
+    }
+
+    .meta strong {
+      display: block;
+      color: var(--ink);
+      font-weight: 500;
+      font-size: 12px;
+      letter-spacing: 0.14em;
+    }
+
+    /* ── theme grid ─────────────────────────────────────────────────── */
+    .themes {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 26px;
+      margin-top: 28px;
+    }
+
+    .theme {
+      --accent: #61567d;
+      position: relative;
+      background: var(--panel);
+      border: 1px solid var(--rule);
+      padding: 20px 20px 18px;
+      box-shadow: 0 1px 0 rgba(255, 255, 255, 0.7) inset;
+    }
+
+    .theme::before {
+      content: "";
+      position: absolute;
+      inset: 0 auto 0 0;
+      width: 3px;
+      background: var(--accent);
+      opacity: 0.85;
+    }
+
+    .theme-head {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding-bottom: 14px;
+      border-bottom: 1px solid var(--rule-soft);
+    }
+
+    .theme-chip {
+      width: 44px;
+      height: 44px;
+      flex: 0 0 auto;
+      border: 1px solid var(--rule);
+      background: linear-gradient(135deg, var(--chip-light) 0%, var(--chip-dark) 100%);
+    }
+
+    .theme-name {
+      font-family: var(--serif);
+      font-size: 23px;
+      font-weight: 500;
+      line-height: 1.1;
+      letter-spacing: 0.02em;
+    }
+
+    .theme-sub {
+      margin-top: 5px;
+      font-family: var(--mono);
+      font-size: 9.5px;
+      letter-spacing: 0.14em;
+      color: var(--ink-3);
+      text-transform: uppercase;
+    }
+
+    .theme-sub b {
+      color: var(--accent);
+      font-weight: 500;
+    }
+
+    .theme-body {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+      margin-top: 14px;
+    }
+
+    /* ── mode column ────────────────────────────────────────────────── */
+    .mode {
+      background: #fbfaf7;
+      border: 1px solid var(--rule-soft);
+      padding: 11px 11px 12px;
+    }
+
+    .mode.dark {
+      background: var(--dark-panel);
+      border-color: var(--dark-rule);
+      color: var(--dark-ink);
+    }
+
+    .mode-head {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 8px;
+      margin-bottom: 10px;
+      padding-bottom: 8px;
+      border-bottom: 1px solid var(--rule-soft);
+    }
+
+    .mode.dark .mode-head {
+      border-bottom-color: var(--dark-rule);
+    }
+
+    .mode-name {
+      font-family: var(--serif);
+      font-size: 14px;
+      font-weight: 500;
+      letter-spacing: 0.05em;
+    }
+
+    .mode-en {
+      font-family: var(--mono);
+      font-size: 8px;
+      letter-spacing: 0.2em;
+      color: var(--ink-3);
+    }
+
+    .mode.dark .mode-en {
+      color: var(--dark-ink-2);
+    }
+
+    .swatches {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 7px;
+    }
+
+    .swatch {
+      min-width: 0;
+    }
+
+    .field {
+      position: relative;
+      height: 52px;
+      border: 1px solid rgba(55, 63, 79, 0.14);
+      background-color: #fff;
+      background-image:
+        linear-gradient(45deg, rgba(55, 63, 79, 0.075) 25%, transparent 25%, transparent 75%, rgba(55, 63, 79, 0.075) 75%),
+        linear-gradient(45deg, rgba(55, 63, 79, 0.075) 25%, transparent 25%, transparent 75%, rgba(55, 63, 79, 0.075) 75%);
+      background-size: 8px 8px;
+      background-position: 0 0, 4px 4px;
+      overflow: hidden;
+    }
+
+    .mode.dark .field {
+      border-color: rgba(255, 255, 255, 0.16);
+    }
+
+    .fill {
+      position: absolute;
+      inset: 0;
+    }
+
+    .sample {
+      position: absolute;
+      left: 7px;
+      top: 5px;
+      font-family: var(--serif);
+      font-size: 13px;
+      line-height: 1;
+      letter-spacing: 0.02em;
+      opacity: 0.72;
+      pointer-events: none;
+    }
+
+    .alpha {
+      position: absolute;
+      right: 4px;
+      bottom: 4px;
+      padding: 1px 3px;
+      font-family: var(--mono);
+      font-size: 7.5px;
+      line-height: 1.2;
+      letter-spacing: 0.02em;
+      color: #fff;
+      background: rgba(20, 22, 27, 0.58);
+      backdrop-filter: blur(2px);
+    }
+
+    .label {
+      margin-top: 4px;
+      font-size: 10px;
+      line-height: 1.2;
+      letter-spacing: 0.04em;
+      color: var(--ink-2);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .mode.dark .label {
+      color: var(--dark-ink-2);
+    }
+
+    .value {
+      margin-top: 2px;
+      font-family: var(--mono);
+      font-size: 8px;
+      line-height: 1.2;
+      letter-spacing: 0.02em;
+      color: var(--ink-3);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .mode.dark .value {
+      color: #8c8984;
+    }
+
+    /* ── footer ─────────────────────────────────────────────────────── */
+    footer {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 30px;
+      margin-top: 30px;
+      padding-top: 14px;
+      border-top: 1px solid var(--rule);
+      font-size: 10px;
+      line-height: 1.8;
+      color: var(--ink-3);
+    }
+
+    footer p {
+      margin: 0;
+    }
+
+    footer .mono {
+      font-family: var(--mono);
+      font-size: 9px;
+      letter-spacing: 0.08em;
+    }
+
+    .legend {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 4px 14px;
+      margin-top: 8px;
+    }
+
+    .legend span::before {
+      content: "▪";
+      margin-right: 5px;
+      color: var(--ink-2);
+    }
+
+    @media print {
+      body { background: var(--paper); }
+    }
+  </style>
+</head>
+<body>
+  <main class="board">
+    <header>
+      <div>
+        <div class="eyebrow">
+          <svg class="mark" viewBox="-20 -20 40 40" aria-hidden="true">
+            <g fill="currentColor">
+              <path d="M0.95 -1.65L-11.31 -6.53L-0.95 1.65L1.21 0.70Z" fill-opacity="0.537"/><path d="M0.95 1.65L11.31 -6.53L-0.95 -1.65L-1.21 0.70Z" fill-opacity="0.537"/><path d="M-1.90 0.00L0.00 13.06L1.90 0.00L0.00 -1.40Z" fill-opacity="0.537"/><path d="M1.90 0.00L0.00 -13.06L-1.90 0.00L0.00 1.40Z" fill-opacity="0.803"/><path d="M-0.95 -1.65L-11.31 6.53L0.95 1.65L1.21 -0.70Z" fill-opacity="0.803"/><path d="M-0.95 1.65L11.31 6.53L0.95 -1.65L-1.21 -0.70Z" fill-opacity="0.803"/>
+              <circle r="1.7" fill-opacity="0.45"/>
+            </g>
+          </svg>
+          AveritA's DSH · colour specimen
+        </div>
+        <h1>配色总览</h1>
+        <p class="lede">
+          四套主题，浅色与深色各一套令牌。色块是实际算出的 sRGB 值；半透明令牌先按
+          <code>--dsw-alias-bg-base</code> 合成，角标保留原始 alpha。换主题时只换令牌图层，
+          星标、纸品与背景都从这几枚颜色里派生。
+        </p>
+      </div>
+      <div class="meta">
+        <strong>04 THEMES × 02 MODES</strong>
+        128 semantic aliases<br />
+        77 static palette steps<br />
+        16 key roles shown
+      </div>
+    </header>
+
+    <section class="themes" id="themes" aria-label="四套主题的配色"></section>
+
+    <footer>
+      <div>
+        <p><strong>怎么读这张表：</strong>「底 / 面 / 侧栏 / 气泡 / 输入 / 代码」是表面，「正文 / 次文 / 说明」是字色，
+          「星标 / 强调 / 链接」是强调色，「成功 / 警示 / 错误」是状态色，「墨点」是点阵底纹的墨色。</p>
+        <div class="legend">
+          <span>棋盘格 = 透明区域</span>
+          <span>角标 = 原始 alpha</span>
+          <span>色值 = 合成后的 sRGB</span>
+        </div>
+      </div>
+      <p class="mono">preview/palette.html · data-av-theme × data-ds-dark-theme</p>
+    </footer>
+  </main>
+
+  <script>
+    (function () {
+      const THEMES = [
+        { id: 'averita', name: '昼雾 · 靛夜', en: 'AVERITA', note: '断章雾面纸 / 首页靛夜' },
+        { id: 'coldmorning', name: '冷晨', en: 'COLD MORNING', note: '冷灰绿晨雾 / 亮部偏青' },
+        { id: 'duskrose', name: '暮玫瑰', en: 'DUSK ROSE', note: '暖玫瑰纸 / 暮紫褐夜色' },
+        { id: 'duskpurple', name: '暮紫', en: 'DUSK PURPLE', note: '淡紫纸 / 暮紫夜色' },
+      ];
+
+      const MODES = [
+        { id: 'light', name: '浅色', en: 'LIGHT' },
+        { id: 'dark', name: '深色', en: 'DARK' },
+      ];
+
+      const ROLES = [
+        { label: '底', token: '--dsw-alias-bg-base', text: false },
+        { label: '面', token: '--dsw-alias-bg-layer-1', text: false },
+        { label: '侧栏', token: '--dsw-specific-sidebar-fill', text: false },
+        { label: '气泡', token: '--dsw-specific-bubble', text: false },
+        { label: '输入', token: '--dsw-specific-input-major', text: false },
+        { label: '正文', token: '--dsw-alias-label-primary', text: true },
+        { label: '次文', token: '--dsw-alias-label-secondary', text: true },
+        { label: '说明', token: '--dsw-alias-label-caption', text: true },
+        { label: '星标', token: '--av-mark', text: true },
+        { label: '强调', token: '--dsw-alias-brand-primary', text: true },
+        { label: '链接', token: '--dsw-alias-link', text: true },
+        { label: '成功', token: '--dsw-alias-state-success-primary', text: true },
+        { label: '警示', token: '--dsw-alias-state-warn-primary', text: true },
+        { label: '错误', token: '--dsw-alias-state-error-primary', text: true },
+        { label: '代码', token: '--dsw-alias-markdown-code-block', text: false },
+        { label: '墨点', token: '--av-dot', text: false },
+      ];
+
+      const html = document.documentElement;
+      const body = document.body;
+      const probe = document.createElement('span');
+      probe.style.cssText = 'position:fixed;left:-9999px;top:-9999px;visibility:hidden;pointer-events:none;';
+      body.appendChild(probe);
+
+      function computedColor(raw) {
+        probe.style.color = '';
+        probe.style.color = raw;
+        const value = getComputedStyle(probe).color;
+        const m = value.match(/rgba?\(([^)]+)\)/i);
+        if (!m) return { r: 0, g: 0, b: 0, a: 0 };
+        const parts = m[1].split(/[,\s/]+/).filter(Boolean).map(Number);
+        return { r: parts[0], g: parts[1], b: parts[2], a: parts.length > 3 ? parts[3] : 1 };
+      }
+
+      function over(fg, bg) {
+        const a = Math.max(0, Math.min(1, fg.a));
+        return {
+          r: Math.round(fg.r * a + bg.r * (1 - a)),
+          g: Math.round(fg.g * a + bg.g * (1 - a)),
+          b: Math.round(fg.b * a + bg.b * (1 - a)),
+          a: 1,
+        };
+      }
+
+      function hex(c) {
+        return '#' + [c.r, c.g, c.b].map((v) => Math.max(0, Math.min(255, v)).toString(16).padStart(2, '0')).join('').toUpperCase();
+      }
+
+      function luminance(c) {
+        const f = (v) => {
+          v /= 255;
+          return v <= 0.03928 ? v / 12.92 : ((v + 0.055) / 1.055) ** 2.4;
+        };
+        return 0.2126 * f(c.r) + 0.7152 * f(c.g) + 0.0722 * f(c.b);
+      }
+
+      function readTheme(id, dark) {
+        html.dataset.avTheme = id;
+        if (dark) body.setAttribute('data-ds-dark-theme', '');
+        else body.removeAttribute('data-ds-dark-theme');
+
+        const cs = getComputedStyle(html);
+        const base = computedColor(cs.getPropertyValue('--dsw-alias-bg-base').trim() || '#ffffff');
+        const rows = ROLES.map((role) => {
+          const raw = cs.getPropertyValue(role.token).trim();
+          const c = computedColor(raw || 'transparent');
+          const solid = over(c, base);
+          return {
+            ...role,
+            raw,
+            alpha: c.a,
+            color: solid,
+            hex: hex(solid),
+            ink: luminance(c) > 0.48 ? '#16181c' : '#ffffff',
+          };
+        });
+        const mark = computedColor(cs.getPropertyValue('--av-mark').trim() || '#61567d');
+        const space = computedColor(cs.getPropertyValue('--av-space').trim() || '#ffffff');
+        const darkBase = computedColor(cs.getPropertyValue('--dsw-alias-bg-base').trim() || '#000000');
+        const result = { rows, mark: hex(mark), space: hex(space), base: hex(darkBase) };
+        html.removeAttribute('data-av-theme');
+        body.removeAttribute('data-ds-dark-theme');
+        return result;
+      }
+
+      function render() {
+        const host = document.getElementById('themes');
+        host.innerHTML = THEMES.map((theme) => {
+          const light = readTheme(theme.id, false);
+          const dark = readTheme(theme.id, true);
+          const accent = light.mark;
+          const chipLight = light.base;
+          const chipDark = dark.base;
+          const columns = [light, dark].map((data, index) => {
+            const mode = MODES[index];
+            return `
+              <div class="mode ${mode.id}">
+                <div class="mode-head">
+                  <span class="mode-name">${mode.name}</span>
+                  <span class="mode-en">${mode.en}</span>
+                </div>
+                <div class="swatches">
+                  ${data.rows.map((row) => `
+                    <div class="swatch">
+                      <div class="field">
+                        <span class="fill" style="background:${row.hex}"></span>
+                        ${row.text ? `<span class="sample" style="color:${row.ink}">Aa</span>` : ''}
+                        ${row.alpha < 0.995 ? `<span class="alpha">${Math.round(row.alpha * 100)}%</span>` : ''}
+                      </div>
+                      <div class="label">${row.label}</div>
+                      <div class="value">${row.hex}</div>
+                    </div>
+                  `).join('')}
+                </div>
+              </div>
+            `;
+          }).join('');
+          return `
+            <article class="theme" style="--accent:${accent};--chip-light:${chipLight};--chip-dark:${chipDark}">
+              <div class="theme-head">
+                <span class="theme-chip" aria-hidden="true"></span>
+                <div>
+                  <div class="theme-name">${theme.name}</div>
+                  <div class="theme-sub"><b>${theme.en}</b> · ${theme.id} · ${theme.note}</div>
+                </div>
+              </div>
+              <div class="theme-body">${columns}</div>
+            </article>
+          `;
+        }).join('');
+      }
+
+      render();
+      window.__paletteReady = true;
+    })();
+  </script>
+</body>
+</html>

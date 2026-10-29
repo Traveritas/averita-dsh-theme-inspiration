@@ -45,7 +45,7 @@ export default [
     label: '流光背景',
     css: 'flow/style.css',
     settings: { file: 'flow/settings.js', name: 'flowSettings' },
-    probes: ['data-av-bg="flow"', '.av-flow', 'image-rendering: pixelated'],
+    probes: ['data-av-bg="flow"', 'data-av-flow-invert="off"', '.av-flow', 'image-rendering: pixelated'],
   },
   {
     id: 'motion',

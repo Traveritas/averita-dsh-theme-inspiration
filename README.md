@@ -12,7 +12,7 @@
 
 ---
 
-四套 DSH 主题的宿主插件。背景二选一：**点阵**（圆点 / 方块 / 字符 / 字符墙，缩放 / 浓淡 / 动效 / 呼吸下限可调）或**流光**（移植个人站的域扭曲 fbm 场，默认从当前主题取色，另有四套固定色板，缩放 / 浓淡可调）。另有星标、位移动效与纸品装饰（用户消息 / 输入框）；输入框背后的底衬默认去掉（背景透到输入框后），可在「设置 → 主题 → 界面 → 底部遮罩」开回 DSH 的渐隐；左上角 logo 右侧的字标可在设置里改，留空只留星标；新会话首屏也换成同一颗星，标题可自定义（「预览版」徽章隐藏）。**设置 → 主题**里即时切换，选择存在 localStorage。
+四套 DSH 主题的宿主插件。背景二选一：**点阵**（圆点 / 方块 / 字符 / 字符墙，缩放 / 浓淡 / 动效 / 呼吸下限可调）或**流光**（移植个人站的域扭曲 fbm 场，默认从当前主题取色，另有四套固定色板，缩放 / 浓淡可调，明暗默认反转：浅色下白做底、深色只落在光带上）。另有星标、位移动效与纸品装饰（用户消息 / 输入框）；输入框背后的底衬默认去掉（背景透到输入框后），可在「设置 → 主题 → 界面 → 底部遮罩」开回 DSH 的渐隐；左上角 logo 右侧的字标可在设置里改，留空只留星标；新会话首屏也换成同一颗星，标题可自定义（「预览版」徽章隐藏）。**设置 → 主题**里即时切换，选择存在 localStorage。
 
 | 主题 | 方向 | 数据 |
 |---|---|---|
@@ -60,9 +60,9 @@ git clone --depth 1 https://github.com/Traveritas/averita-dsh-theme-inspiration 
 
 ## 预览
 
-这里放的是按 DSH 三栏骨架搭的近似壳截图，只用来量配色与比例；实机图见顶部。
+这里放的是按 DSH 三栏骨架搭的近似壳截图，只用来量配色与比例；实机图见顶部。下面另有「配色」与「主要内容」两节，把四套主题的关键角色和主界面六块补齐。
 
-直接用浏览器打开 `preview/index.html`（左下角可切四套主题、背景（点阵 / 流光 / 关闭）、底衬（开 / 关）、底纹四形、色板（跟随主题 + 四套固定）、字符四形、缩放（0.5–4×）、浓淡（30–400%）、动效四选、呼吸下限（0–100%），`?theme=coldmorning`、`?bg=flow`、`?fade=on|off`、`?flow=theme|mist|dusk|jade|amber`、`?speed=1.6`、`?dots=dot|square|char|wall`、`?glyph=plus|hash|star|cross`、`?scale=2.4`、`?depth=2.6`、`?motion=both|breathe|drift|off`、`?breathe=0.3` 也能直达，`?dark=1` 看深色，`?soft=1` 放行软件渲染给截图用），或看：
+直接用浏览器打开 `preview/index.html`（左下角可切四套主题、背景（点阵 / 流光 / 关闭）、底衬（开 / 关）、底纹四形、色板（跟随主题 + 四套固定）、明暗（反转 / 不反转）、字符四形、缩放（0.5–4×）、浓淡（30–400%）、动效四选、呼吸下限（0–100%），`?theme=coldmorning`、`?bg=flow`、`?fade=on|off`、`?flow=theme|mist|dusk|jade|amber`、`?invert=on|off`、`?speed=1.6`、`?dots=dot|square|char|wall`、`?glyph=plus|hash|star|cross`、`?scale=2.4`、`?depth=2.6`、`?motion=both|breathe|drift|off`、`?breathe=0.3` 也能直达，`?dark=1` 看深色，`?soft=1` 放行软件渲染给截图用，`?bgonly=1` 只留背景层给截图用），或看：
 
 - `preview/screenshots/real-light.png` / `preview/screenshots/real-dark.png`（DSH 实机）
 
@@ -82,6 +82,74 @@ git clone --depth 1 https://github.com/Traveritas/averita-dsh-theme-inspiration 
 
 预览是按 DSH 三栏骨架搭的**近似壳**（字体、间距与真实 DSH 有差异），只用来判断配色、点阵与材质比例；最终以实机为准。壳里 composer 与用户消息的 DOM 按真实结构同构（`data-composer-seat`、`_card`、`_input`、`data-chat-flow-kind="user"`、`_bubble`），所以 `src/components/*/style.css` 的结构选择器在预览里也会如实命中（三个页面按 manifest 顺序引了这些文件）。
 
+### 配色
+
+四套主题 × 浅 / 深，抽 16 个关键角色。色块是合成到 `--dsw-alias-bg-base` 之后的 sRGB；带 alpha 的令牌在角标里保留原始透明度。16 个角色的浅 / 深对照见 [`preview/palette.html`](preview/palette.html)；每套主题实际有 128 个语义令牌 + 77 个静态色板阶。
+
+[![四套主题的配色总览](preview/palette-themes.png)](preview/palette-themes.png)
+
+| 主题 | 浅色 · 底 / 正文 / 星标 | 深色 · 底 / 正文 / 星标 |
+|---|---|---|
+| 昼雾 · 靛夜 | `#E5EAF0` / `#24282F` / `#61567D` | `#0E131E` / `#E7EBF0` / `#BAADD2` |
+| 冷晨 | `#E4E9E9` / `#333B3E` / `#5D6D80` | `#101820` / `#E2EAEC` / `#A9C6D4` |
+| 暮玫瑰 | `#ECDFDB` / `#3C3236` / `#7A4F5C` | `#1B1418` / `#F2E6E6` / `#D3A6AD` |
+| 暮紫 | `#E2DDEC` / `#302A36` / `#6F5685` | `#110E1A` / `#F1E9F7` / `#CCB4F0` |
+
+> 面 / 侧栏 / 气泡 / 输入 / 代码 / 墨点带 alpha；表里只列不透明的底、正文与星标。主题文件在 `src/tokens.js` 与 `src/themes/`。
+
+### 主要内容
+
+按主界面六块各截一张：侧栏与品牌、会话与装饰、输入框、新会话首屏、设置 → 主题、背景。除首屏与「实机细节」外都用预览壳；壳的字体、间距与实机有差异，看配色与比例即可。
+
+#### 侧栏与品牌
+
+<a href="preview/content-shell/sidebar.png"><img src="preview/content-shell/sidebar.png" width="300" alt="侧栏与品牌：星标、字标、新会话、会话列表" /></a>
+
+星标是 32px 三轴正交六芒星，字标默认衬线 `AveritA's DSH`；留空只留星标。
+
+#### 会话与装饰
+
+| 纸品（浅色） | 星芒（深色） |
+|---|---|
+| <a href="preview/content-shell/conversation-paper.png"><img src="preview/content-shell/conversation-paper.png" width="420" alt="纸品装饰的用户消息与正文" /></a> | <a href="preview/content-shell/conversation-star.png"><img src="preview/content-shell/conversation-star.png" width="420" alt="星芒装饰的用户消息与正文" /></a> |
+
+纸品：左缘书签带、右上星章、右下折角、底缘齿孔；星芒：右上 8 角星 + 底缘光边，圆角 14px。
+
+#### 输入框
+
+| 纸品 | 星芒 |
+|---|---|
+| <a href="preview/content-shell/composer-paper.png"><img src="preview/content-shell/composer-paper.png" width="420" alt="纸品输入框：信头、装订孔、票根虚线" /></a> | <a href="preview/content-shell/composer-star.png"><img src="preview/content-shell/composer-star.png" width="420" alt="星芒输入框：右上星与放射光束" /></a> |
+
+纸品给 15px 信头窄带、三枚装订孔、票根虚线与横格线；星芒给右上角纯色星、放射光束与聚焦放大。
+
+#### 新会话首屏（实机）
+
+<a href="preview/content-live/hero.png"><img src="preview/content-live/hero.png" width="620" alt="新会话首屏：星标、做些什么？标题、背景" /></a>
+
+`conversation.hero.brand.mark` 换成同一颗星，标题可在「设置 → 主题 → 品牌 → 首屏文案」改；这张是当前 DSH 窗口的实机裁图。
+
+#### 设置 → 主题
+
+<a href="preview/content-shell/settings.png"><img src="preview/content-shell/settings.png" width="760" alt="设置 → 主题：四张主题卡、品牌、背景、装饰、界面" /></a>
+
+四张主题卡 + 品牌 / 背景 / 装饰 / 界面四组。这张是按 `src/components/*/settings.js` 的行与 `src/theme.css` 的面板样式重建的预览壳，实际控件以实机为准。
+
+#### 背景五形
+
+<a href="preview/content-shell/backgrounds.png"><img src="preview/content-shell/backgrounds.png" width="760" alt="背景五形：圆点、方块、字符、字符墙、流光" /></a>
+
+四格点阵为了看清形状把浓淡调到 300–800%、字符格放到 2×；默认都是 100% / 1×。打开 [`preview/bg-board.html`](preview/bg-board.html) 可单独看。
+
+<details>
+<summary>实机细节（品牌 / 背景，2 张）</summary>
+
+| 品牌 | 背景 |
+|---|---|
+| <a href="preview/content-live/brand.png"><img src="preview/content-live/brand.png" width="320" alt="实机品牌位" /></a> | <a href="preview/content-live/background.png"><img src="preview/content-live/background.png" width="320" alt="实机背景" /></a> |
+
+</details>
+
 ## 组件化复用
 
 CSS 按组件拆在 `src/components/`，构建按 `manifest.js` 的顺序拼进 `client.js`。每个目录有两到三件：`style.css`（有视觉组件才有）、`settings.js`（有设置行才有）、`README.md`；README 固定写四栏：**挂什么属性、读写什么变量、存什么、依赖宿主哪些选择器**。
@@ -90,7 +158,7 @@ CSS 按组件拆在 `src/components/`，构建按 `manifest.js` 的顺序拼进 
 |---|---|---|---|
 | 新会话首屏 | `src/components/hero/style.css` | `data-av-hero-text` / `-empty` | `--av-hero-text` / `--av-mark` |
 | 点阵底纹 | `src/components/dots/style.css` | `data-av-dots` / `-glyph` / `-motion` | `--av-space` / `--av-dot` / `--av-scale` / `--av-depth` / `--av-breathe-min` |
-| 流光背景 | `src/components/flow/style.css` | `data-av-bg="flow"` / `data-av-flow-palette` | `--av-flow-0..3` / `--av-flow-glow` |
+| 流光背景 | `src/components/flow/style.css` | `data-av-bg="flow"` / `data-av-flow-palette` / `data-av-flow-invert` | `--av-flow-0..3` / `--av-flow-glow` |
 | 位移动效 | `src/components/motion/style.css` | 无 | 无（用宿主 `--ds-transition-*`） |
 | 纸品装饰 | `src/components/paper/style.css` | `data-av-deco="paper"` | `--av-mark` 及派生的线 |
 | 星芒装饰 | `src/components/star/style.css` | `data-av-deco="star"` / `data-av-star` | `--av-mark` / `--av-star-*` |
@@ -147,6 +215,7 @@ canvas.av-flow  1/5 视口分辨率（1080p 约 384×216），5px 一格像素�
 - 场来自个人站 `src/scripts/wander/light.js` 的 `field()`：两次域扭曲、每层 5 次 fbm，映射到 4 档色板，再量化到 26 阶并叠 4×4 Bayer 抖动。站点自己的三条斜缝、夜色池、塌缩圈、风痕、天气与镜头没有搬。
 - 画布只有视口的 1/5：1080p 下每帧约 8.3 万片元、每像素一遍场，对 GPU 是零头；代价主要是常驻刷新（锁 30fps）和首次编译着色器。检测到 SwiftShader / Basic Render Driver 这类软件渲染就不建画布，回退点阵。
 - 色板默认**跟随主题**：四阶由 `color-mix(in srgb, var(--av-space) …, var(--av-mark) …)` 混出，换主题 / 切深浅自动跟，不会和界面撞色。另有雾蓝 / 暮紫 / 青灰 / 暖沙四套固定色板，各带浅深两版；切换只改 `html[data-av-flow-palette]`，画布下一帧重新取色，不重建上下文。
+- 明暗默认**反转**：场里大部分面积落在前两档，所以第 0 档决定整页明暗。浅色反转时 0 档是纸白、深色只落在第 2/3 档的窄带上，整页不会被压成一块灰；`html[data-av-flow-invert="off"]` 回到旧写法（0 档从纸色往下压，白带再提亮）。深色两档一样——底色本来就是场底。
 - `flow.js` 读 `--av-flow-*` 时先用隐藏探针把 `color-mix(...)` 解析成 `color(srgb …)` 再解析；固定色板仍走原来的十六进制 / `rgb()` 路径。
 - 窗口隐藏 / 系统减少动效时停帧；减少动效只画一帧静态。切到点阵或关闭时画布整个拆掉、上下文一起丢。
 
@@ -184,6 +253,7 @@ canvas.av-flow  1/5 视口分辨率（1080p 约 384×216），5px 一格像素�
 
 ### 流光
 
+- **明暗**：反转（默认）/ 不反转，只影响浅色；反转时白做底、色斑落在光带上，不反转是底色下沉、白带提亮。挂在 `html[data-av-flow-invert]`，选择存在 `<plugin-id>:flow-invert`，深色下两档看不出差别。
 - **色板**：跟随主题（默认）/ 雾蓝 / 暮紫 / 青灰 / 暖沙，浅深各自动切，选择存在 `<plugin-id>:flow`。跟随主题时四阶由当前主题的 `--av-space` / `--av-mark` 混出；固定色板是手选值，不跟主题变。
 - **速率**：0.2–2.5×，步进 0.1，默认 1×；只乘时间步长，不动别的参数，选择存在 `<plugin-id>:speed`。
 - **缩放**：场的缩放，0.5–4×，默认 1。
@@ -191,9 +261,9 @@ canvas.av-flow  1/5 视口分辨率（1080p 约 384×216），5px 一格像素�
 - 系统减少动效时只画一帧，设置面板会提示「流光静止」；没有 WebGL2 时切不过去，面板会说明并留在点阵。
 
 - 关闭背景时下面几排自动收起。
-- 末尾「重置 → 恢复默认」把背景 / 底纹 / 色板 / 速率 / 字形 / 缩放 / 浓淡 / 动效 / 呼吸下限一键回默认，主题与装饰不动。
+- 末尾「重置 → 恢复默认」把背景 / 底纹 / 色板 / 明暗 / 速率 / 字形 / 缩放 / 浓淡 / 动效 / 呼吸下限一键回默认，主题与装饰不动。
 
-选择存在 localStorage 的 `<plugin-id>:wordmark` / `:bg` / `:dots` / `:flow` / `:speed` / `:glyph` / `:scale` / `:depth` / `:motion` / `:breathe` / `:fade`（速率 / 缩放 / 浓淡 / 呼吸下限存乘数，1 = 1× / 1× / 100% / 100%），落成 `html[data-av-bg="flow"|"off"]`、`html[data-av-dots="square"|"char"|"wall"]`、`html[data-av-flow-palette="theme"|"mist"|"dusk"|"jade"|"amber"]`、`html[data-av-glyph="plus"|"hash"|"star"|"cross"]`、`html[data-av-motion="breathe"|"drift"|"off"]`、`html[data-av-fade="on"]`；缩放 / 浓淡 / 呼吸下限直接写成 `html` 行内的 `--av-scale` / `--av-depth` / `--av-breathe-min`，不再挂 data 属性；「都开」把 `data-av-motion` 摘掉，选「圆点」把 `data-av-dots` 摘掉，选「点阵」把 `data-av-bg` 摘掉，选「关」把 `data-av-fade` 摘掉。切换只改属性 / 变量；点阵不动 DOM，流光按需建 / 拆画布；字符缺字形时 CSS 退回加号，不会把整块涂实。
+选择存在 localStorage 的 `<plugin-id>:wordmark` / `:bg` / `:dots` / `:flow` / `:flow-invert` / `:speed` / `:glyph` / `:scale` / `:depth` / `:motion` / `:breathe` / `:fade`（速率 / 缩放 / 浓淡 / 呼吸下限存乘数，1 = 1× / 1× / 100% / 100%），落成 `html[data-av-bg="flow"|"off"]`、`html[data-av-dots="square"|"char"|"wall"]`、`html[data-av-flow-palette="theme"|"mist"|"dusk"|"jade"|"amber"]`、`html[data-av-flow-invert="on"|"off"]`、`html[data-av-glyph="plus"|"hash"|"star"|"cross"]`、`html[data-av-motion="breathe"|"drift"|"off"]`、`html[data-av-fade="on"]`；缩放 / 浓淡 / 呼吸下限直接写成 `html` 行内的 `--av-scale` / `--av-depth` / `--av-breathe-min`，不再挂 data 属性；「都开」把 `data-av-motion` 摘掉，选「圆点」把 `data-av-dots` 摘掉，选「点阵」把 `data-av-bg` 摘掉，选「关」把 `data-av-fade` 摘掉。切换只改属性 / 变量；点阵不动 DOM，流光按需建 / 拆画布；字符缺字形时 CSS 退回加号，不会把整块涂实。
 
 首屏文案存在 `<plugin-id>:hero-text`：键不存在 = 跟随 DSH 原文，空串 = 只留星标，其余 = 替换标题；落成 `html[data-av-hero-text]` / `html[data-av-hero-empty]` 与行内 `--av-hero-text`。
 
@@ -255,7 +325,7 @@ node scripts/gen-themes.mjs  # 可选：重派生冷晨/暮玫瑰/暮紫基础�
 - **颗粒遮罩依赖 `mask-composite`**：四种颗粒与渐隐两层遮罩相交需要 Chromium 120+ / Safari 15.4+；更老的内核会退化成两层叠加，颗粒照旧、中心渐隐失效，不影响可用性。字符 / 符号走 SVG `<text>`，字体栈是 Consolas / Segoe UI Symbol，换机器字形会有细微差别。
 - **浓淡依赖相对色语法**：`rgb(from var(--av-dot) …)` 需要 Chromium 119+ / Safari 16.4+；不支持的内核退回主题原色，浓淡滑杆静默失效，其余照旧。
 - **流光要 WebGL2 + 硬件渲染**：SwiftShader / Basic Render Driver 这类软件渲染会被 `src/flow.js` 直接拒掉，切流光时回退点阵并在面板提示；切到流光会新建一个 WebGL 上下文，切走即丢。默认锁 30fps，窗口隐藏 / 系统减少动效时停帧。
-- **流光固定色板仍是绝对的**：默认「跟随主题」不会撞色；手动切到雾蓝 / 暮紫 / 青灰 / 暖沙时是写死的四阶，不随主题变，仍可能和某些主题不搭。色板的四阶在 `src/components/flow/style.css`（`--av-flow-0..3` / `--av-flow-glow`），5px 像素格与 30fps 在 `src/flow.js` 顶部。
+- **流光固定色板仍是绝对的**：默认「跟随主题」不会撞色；手动切到雾蓝 / 暮紫 / 青灰 / 暖沙时是写死的四阶（明暗反转各一套浅色值），不随主题变，仍可能和某些主题不搭。色板的四阶在 `src/components/flow/style.css`（`--av-flow-0..3` / `--av-flow-glow`），5px 像素格与 30fps 在 `src/flow.js` 顶部。
 - **「跟随主题」的流光依赖 `color-mix` 探针**：`flow.js` 会把 `color-mix(...)` 挂到隐藏探针上读计算值；Chromium 111+ 支持 `color-mix`，更老的内核读不到颜色时会退回默认色板。固定色板不受影响。
 - **极端缩放会放大合成面积**：fixed 伪元素按缩放留漂移余量，4× 时约为视口面积的 2.5 倍；低端 GPU 上大面积遮罩 + 位移动画的合成开销会上升。这是放开上限的代价，觉得不划算就把上限收回去。
 - **深色发送键对比偏弱**：输入框发送键用 `--dsw-alias-button-info-fill`（深色 `#baadd2`），DSH 前景写死 `#ffffff`，白字压在亮紫上约 1.7:1。要修得改深色令牌（`tokens.js` 的 info-fill），不是 CSS 能补的。

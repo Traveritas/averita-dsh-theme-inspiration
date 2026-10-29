@@ -5,8 +5,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>AveritA's DSH —— 主题预览（非 DSH 实机）</title>
   <script>
-    document.documentElement.dataset.avTheme =
-      new URLSearchParams(location.search).get('theme') || 'averita';
+    const previewParams = new URLSearchParams(location.search);
+    document.documentElement.dataset.avTheme = previewParams.get('theme') || 'averita';
+    if (previewParams.has('bgonly')) document.documentElement.dataset.avBgonly = '';
   </script>
   <link rel="stylesheet" href="tokens.css" />
   <link rel="stylesheet" href="preview.css" />
@@ -171,6 +172,11 @@
       <button type="button" data-flow-pick="dusk">暮紫</button>
       <button type="button" data-flow-pick="jade">青灰</button>
       <button type="button" data-flow-pick="amber">暖沙</button>
+    </div>
+    <div class="theme-picker" data-invert-picker hidden role="group" aria-label="流光明暗">
+      <span>明暗</span>
+      <button type="button" data-invert-pick="on">反转</button>
+      <button type="button" data-invert-pick="off">不反转</button>
     </div>
     <div class="theme-picker" data-speed-picker hidden role="group" aria-label="流光速率">
       <span>速率</span>

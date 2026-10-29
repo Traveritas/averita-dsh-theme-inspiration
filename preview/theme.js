@@ -1,6 +1,7 @@
 /* 预览用的控制条：只改 html 上的 CSS 变量 / data 属性，令牌与 --av-* 都在 tokens.css。
    ?dark 让整页按深色令牌渲染，方便截图对照；
-   ?bg=dots|flow|off、?flow=theme|mist|dusk|jade|amber、?dots=dot|square|char|wall、
+   ?bg=dots|flow|off、?flow=theme|mist|dusk|jade|amber、?invert=on|off（流光明暗）、
+   ?dots=dot|square|char|wall、
    ?glyph=plus|hash|star|cross、?scale=0.5…4、?depth=0.3…4、
    ?motion=both|breathe|drift|off、?breathe=0…1、?fade=on|off 看背景；
    ?soft=1 放行软件渲染（截图用）。 */
@@ -83,6 +84,7 @@
   const bgButtons = Array.from(document.querySelectorAll('[data-bg-pick]'));
   const dotsPicker = document.querySelector('[data-dots-picker]');
   const flowPicker = document.querySelector('[data-flow-picker]');
+  const invertPicker = document.querySelector('[data-invert-picker]');
   const speedPicker = document.querySelector('[data-speed-picker]');
   const glyphPicker = document.querySelector('[data-glyph-picker]');
   const scalePicker = document.querySelector('[data-scale-picker]');
@@ -95,6 +97,7 @@
   let currentScale = 1;
   let currentDepth = 1;
   let currentSpeed = 1;
+  let currentInvert = 'on';
 
   const ensureFlow = () => {
     if (flow) return true;
@@ -130,6 +133,7 @@
     const onFlow = currentBg === 'flow';
     if (dotsPicker !== null) dotsPicker.hidden = !onDots;
     if (flowPicker !== null) flowPicker.hidden = !onFlow;
+    if (invertPicker !== null) invertPicker.hidden = !onFlow;
     if (glyphPicker !== null) glyphPicker.hidden = !(onDots && currentDots === 'char');
     if (scalePicker !== null) scalePicker.hidden = currentBg === 'off';
     if (depthPicker !== null) depthPicker.hidden = currentBg === 'off';
@@ -183,6 +187,26 @@
     button.addEventListener('click', () => {
       applyFlowPalette(button.dataset.flowPick);
       writeParam('flow', button.dataset.flowPick);
+    }),
+  );
+
+  /* 明暗：反转（默认）= 浅色下白做底；不反转 = 底色下沉、白带提亮。深色两档一样。 */
+  const INVERSIONS = ['on', 'off'];
+  const invertButtons = Array.from(document.querySelectorAll('[data-invert-pick]'));
+  const applyFlowInvert = (id) => {
+    const mode = INVERSIONS.includes(id) ? id : 'on';
+    currentInvert = mode;
+    root.setAttribute('data-av-flow-invert', mode);
+    invertButtons.forEach((button) => {
+      button.setAttribute('aria-pressed', String(button.dataset.invertPick === mode));
+    });
+    if (flow) flow.refreshPalette();
+    return mode;
+  };
+  invertButtons.forEach((button) =>
+    button.addEventListener('click', () => {
+      applyFlowInvert(button.dataset.invertPick);
+      writeParam('invert', button.dataset.invertPick);
     }),
   );
 
@@ -340,6 +364,7 @@
       applyBg('dots');
       applyDots('dot');
       applyFlowPalette('theme');
+      applyFlowInvert('on');
       applyGlyph('plus');
       applyScale(1);
       applyDepth(1);
@@ -348,6 +373,7 @@
       applyBreathe(DEFAULT_BREATHE);
       writeParam('bg', 'dots');
       writeParam('flow', 'theme');
+      writeParam('invert', 'on');
       writeParam('dots', 'dot');
       writeParam('glyph', 'plus');
       writeParam('scale', '1');
@@ -360,6 +386,7 @@
 
   /* 初始值：URL 参数优先，其次默认 */
   applyFlowPalette(FLOWS.includes(params.get('flow')) ? params.get('flow') : 'theme');
+  applyFlowInvert(params.get('invert') === 'off' ? 'off' : 'on');
   applyGlyph(GLYPHS.includes(params.get('glyph')) ? params.get('glyph') : 'plus');
   applyScale(clampNumber(params.get('scale'), SCALE_MIN, SCALE_MAX, SCALE_STEP, 1));
   applyDepth(clampNumber(params.get('depth'), DEPTH_MIN, DEPTH_MAX, DEPTH_STEP, 1));

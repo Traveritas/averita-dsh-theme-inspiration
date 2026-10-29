@@ -7,6 +7,8 @@ WebGL2 画布：1/5 视口分辨率、5px 一格放大、锁 30fps；场来自�
 
 - `data-av-bg="flow"`：启用（不挂就不建画布）
 - `data-av-flow-palette="theme" | "mist" | "dusk" | "jade" | "amber"`：色板，默认跟随主题
+- `data-av-flow-invert="on" | "off"`：浅色明暗，默认 `on`（反转：0 阶纸白、深色落在光带上）；
+  不挂属性等于 `on`，`off` 是旧写法（底色下沉、白带提亮）。深色两档一样
 - `data-av-idle`：窗口失焦暂停
 
 ## 变量
@@ -17,7 +19,7 @@ WebGL2 画布：1/5 视口分辨率、5px 一格放大、锁 30fps；场来自�
 
 ## 存
 
-不存。插件存 `dsh-theme-averita:bg` / `:flow` / `:speed`。
+不存。插件存 `dsh-theme-averita:bg` / `:flow` / `:flow-invert` / `:speed`。
 
 ## 依赖
 
