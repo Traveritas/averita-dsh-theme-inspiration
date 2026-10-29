@@ -1,7 +1,8 @@
 # AveritA 的 DSH 主题灵感集
 
-给 [DeepSeek Harness](https://github.com/deepseek-ai/dsh) 的三套主题，连同背景、装饰和可以按组件拿走的 CSS。
-仓库根目录就是插件包：克隆后把根目录填进插件管理器；`src/components/` 下每个目录都是一个可以单独拿走的组件。
+[DeepSeek Harness](https://github.com/deepseek-ai/dsh) 的主题。
+
+**分享出来给大家提供DSH个性化灵感~可以随意二次开发❤**
 
 | 实机 · 浅色（纸品） | 实机 · 深色（星芒） |
 |---|---|
