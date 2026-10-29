@@ -2,7 +2,13 @@
 
 [DeepSeek Harness](https://github.com/deepseek-ai/dsh) 的主题。
 
-**分享出来给大家提供DSH个性化灵感~可以随意二次开发❤**
+**一个轻量主题插件，分享出来希望给大家提供一些个性化专属自己的DSH的灵感~可以随意取用/魔改❤**
+
+推荐配套字体：
+
+正文："Source Serif 4", "霞鹜文楷"
+
+代码："Hurmit Nerd Font Mono Light", "Microsoft YaHei"
 
 | 主题 | 浅色实机 | 深色实机 |
 |---|---|---|
