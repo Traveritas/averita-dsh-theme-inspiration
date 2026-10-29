@@ -4,11 +4,14 @@
 
 **分享出来给大家提供DSH个性化灵感~可以随意二次开发❤**
 
-| 实机 · 浅色（纸品） | 实机 · 深色（星芒） |
-|---|---|
-| ![实机 · 浅色（纸品）](preview/screenshots/real-light.png) | ![实机 · 深色（星芒）](preview/screenshots/real-dark.png) |
+| 主题 | 浅色实机 | 深色实机 |
+|---|---|---|
+| 昼雾 · 靛夜 | <a href="preview/shots-new/a-l.png"><img src="preview/shots-new/a-l.png" width="350" alt="昼雾 · 靛夜 浅色实机首屏" /></a> | <a href="preview/shots-new/a-d.png"><img src="preview/shots-new/a-d.png" width="350" alt="昼雾 · 靛夜 深色实机首屏" /></a> |
+| 冷晨 | <a href="preview/shots-new/b-l.png"><img src="preview/shots-new/b-l.png" width="350" alt="冷晨 浅色实机首屏" /></a> | <a href="preview/shots-new/b-d.png"><img src="preview/shots-new/b-d.png" width="350" alt="冷晨 深色实机首屏" /></a> |
+| 暮玫瑰 | <a href="preview/shots-new/c-l.png"><img src="preview/shots-new/c-l.png" width="350" alt="暮玫瑰 浅色实机首屏" /></a> | <a href="preview/shots-new/c-d.png"><img src="preview/shots-new/c-d.png" width="350" alt="暮玫瑰 深色实机首屏" /></a> |
+| 暮紫 | <a href="preview/shots-new/d-l.png"><img src="preview/shots-new/d-l.png" width="350" alt="暮紫 浅色实机首屏" /></a> | <a href="preview/shots-new/d-d.png"><img src="preview/shots-new/d-d.png" width="350" alt="暮紫 深色实机首屏" /></a> |
 
-> DSH 0.2.1-rc.3 · Windows 实机截图；侧栏会话列表已隐去。`preview/` 下另有近似壳预览图，只用来量比例。
+> DSH 0.2.1-rc.3 · Windows 实机；四套主题 × 浅 / 深，侧栏会话列表用搜索框过滤（none）后截的。`preview/` 下另有近似壳预览图，只用来量比例。
 
 ---
 
@@ -64,7 +67,7 @@ git clone --depth 1 https://github.com/Traveritas/averita-dsh-theme-inspiration 
 
 直接用浏览器打开 `preview/index.html`（左下角可切四套主题、背景（点阵 / 流光 / 关闭）、底衬（开 / 关）、底纹四形、色板（跟随主题 + 四套固定）、明暗（反转 / 不反转）、字符四形、缩放（0.5–4×）、浓淡（30–400%）、动效四选、呼吸下限（0–100%），`?theme=coldmorning`、`?bg=flow`、`?fade=on|off`、`?flow=theme|mist|dusk|jade|amber`、`?invert=on|off`、`?speed=1.6`、`?dots=dot|square|char|wall`、`?glyph=plus|hash|star|cross`、`?scale=2.4`、`?depth=2.6`、`?motion=both|breathe|drift|off`、`?breathe=0.3` 也能直达，`?dark=1` 看深色，`?soft=1` 放行软件渲染给截图用，`?bgonly=1` 只留背景层给截图用），或看：
 
-- `preview/screenshots/real-light.png` / `preview/screenshots/real-dark.png`（DSH 实机）
+- 开头八张：`preview/shots-new/a-l.png` … `d-d.png`（四套主题 × 浅 / 深，实机首屏）
 
 - `preview/preview-averita.png` / `preview/preview-averita-dark.png`
 - `preview/preview-coldmorning.png` / `preview/preview-coldmorning-dark.png`
@@ -99,7 +102,7 @@ git clone --depth 1 https://github.com/Traveritas/averita-dsh-theme-inspiration 
 
 ### 主要内容
 
-按主界面六块各截一张：侧栏与品牌、会话与装饰、输入框、新会话首屏、设置 → 主题、背景。除首屏与「实机细节」外都用预览壳；壳的字体、间距与实机有差异，看配色与比例即可。
+按主界面六块整理：侧栏与品牌、会话与装饰、输入框、新会话首屏、设置 → 主题、背景。首屏用开头的实机八张，其余都用预览壳；壳的字体、间距与实机有差异，看配色与比例即可。
 
 #### 侧栏与品牌
 
@@ -123,11 +126,9 @@ git clone --depth 1 https://github.com/Traveritas/averita-dsh-theme-inspiration 
 
 纸品给 15px 信头窄带、三枚装订孔、票根虚线与横格线；星芒给右上角纯色星、放射光束与聚焦放大。
 
-#### 新会话首屏（实机）
+#### 新会话首屏
 
-<a href="preview/content-live/hero.png"><img src="preview/content-live/hero.png" width="620" alt="新会话首屏：星标、做些什么？标题、背景" /></a>
-
-`conversation.hero.brand.mark` 换成同一颗星，标题可在「设置 → 主题 → 品牌 → 首屏文案」改；这张是当前 DSH 窗口的实机裁图。
+四套主题的实机首屏见开头八张；`conversation.hero.brand.mark` 换成同一颗星，标题可在「设置 → 主题 → 品牌 → 首屏文案」改。
 
 #### 设置 → 主题
 
@@ -140,15 +141,6 @@ git clone --depth 1 https://github.com/Traveritas/averita-dsh-theme-inspiration 
 <a href="preview/content-shell/backgrounds.png"><img src="preview/content-shell/backgrounds.png" width="760" alt="背景五形：圆点、方块、字符、字符墙、流光" /></a>
 
 四格点阵为了看清形状把浓淡调到 300–800%、字符格放到 2×；默认都是 100% / 1×。打开 [`preview/bg-board.html`](preview/bg-board.html) 可单独看。
-
-<details>
-<summary>实机细节（品牌 / 背景，2 张）</summary>
-
-| 品牌 | 背景 |
-|---|---|
-| <a href="preview/content-live/brand.png"><img src="preview/content-live/brand.png" width="320" alt="实机品牌位" /></a> | <a href="preview/content-live/background.png"><img src="preview/content-live/background.png" width="320" alt="实机背景" /></a> |
-
-</details>
 
 ## 组件化复用
 
