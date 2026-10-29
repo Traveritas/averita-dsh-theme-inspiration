@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="zh-CN" data-av-theme="averita" data-av-deco="star" data-av-star="a">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>星形变体对照</title>
+  <link rel="stylesheet" href="tokens.css" />
+  <link rel="stylesheet" href="preview.css" />
+  <link rel="stylesheet" href="../src/theme.css" />
+  <link rel="stylesheet" href="../src/components/dots/style.css" />
+  <link rel="stylesheet" href="../src/components/flow/style.css" />
+  <link rel="stylesheet" href="../src/components/motion/style.css" />
+  <link rel="stylesheet" href="../src/components/paper/style.css" />
+  <link rel="stylesheet" href="../src/components/star/style.css" />
+  <style>
+    body { margin: 0; }
+    .wrap {
+      display: flex;
+      flex-direction: column;
+      gap: 26px;
+      max-width: 900px;
+      margin: 36px auto 60px;
+      padding: 0 24px;
+    }
+    .cap {
+      font-family: Consolas, "Cascadia Code", monospace;
+      font-size: 9px;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--dsw-alias-label-caption);
+      margin: 0 0 8px;
+    }
+    .composer { padding: 0; }
+    .composer-box { max-width: 100%; }
+    .row { display: flex; justify-content: flex-end; }
+  </style>
+</head>
+<body>
+  <main class="wrap">
+    <section>
+      <p class="cap">a · 罗盘刻星（四长四短）</p>
+      <div data-av-star="a" data-composer-seat>
+        <div class="composer">
+          <div class="composer-stack p_composerStack">
+            <div class="composer-box p_card">
+              <div class="p_scroll">
+                <div class="p_grow">
+                  <div class="composer-input p_input" data-input-scroll></div>
+                </div>
+              </div>
+              <div class="p_placeholder" aria-hidden="true">输入消息，或 / 打开命令面板…</div>
+              <div class="composer-actions p_row">
+                <span class="p_standardControls">
+                  <span class="p_add" aria-hidden="true">＋</span>
+                  <span class="p_select">deepseek-flash</span>
+                  <span class="p_tools" aria-hidden="true">⌘K</span>
+                </span>
+                <span class="send p_primary" role="button" aria-label="发送">↑</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <p class="cap">b · 针芒（只留四根长针）</p>
+      <div data-av-star="b" data-composer-seat>
+        <div class="composer">
+          <div class="composer-stack p_composerStack">
+            <div class="composer-box p_card">
+              <div class="p_scroll">
+                <div class="p_grow">
+                  <div class="composer-input p_input" data-input-scroll></div>
+                </div>
+              </div>
+              <div class="p_placeholder" aria-hidden="true">输入消息，或 / 打开命令面板…</div>
+              <div class="composer-actions p_row">
+                <span class="p_standardControls">
+                  <span class="p_add" aria-hidden="true">＋</span>
+                  <span class="p_select">deepseek-flash</span>
+                  <span class="p_tools" aria-hidden="true">⌘K</span>
+                </span>
+                <span class="send p_primary" role="button" aria-label="发送">↑</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <p class="cap">同一组星在用户消息上的样子</p>
+      <div class="row" data-chat-flow-kind="user" data-av-star="a">
+        <div class="bubble p_bubble">a：罗盘刻星。先只改用户消息和输入框。</div>
+      </div>
+      <div class="row" data-chat-flow-kind="user" data-av-star="b" style="margin-top: 14px">
+        <div class="bubble p_bubble">b：针芒。先只改用户消息和输入框。</div>
+      </div>
+    </section>
+  </main>
+  <script>
+    document.documentElement.dataset.avTheme =
+      new URLSearchParams(location.search).get('theme') || 'averita';
+    if (new URLSearchParams(location.search).has('dark')) {
+      document.body.setAttribute('data-ds-dark-theme', '');
+    }
+  </script>
+</body>
+</html>

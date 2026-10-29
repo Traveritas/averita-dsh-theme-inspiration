@@ -1,0 +1,190 @@
+/* ============================================================================
+   组件 · 星芒装饰（用户消息 / 输入框 / 发送键）
+   ----------------------------------------------------------------------------
+   挂 html[data-av-deco="star"] 生效，与纸品互斥。
+   星形再挂 html[data-av-star="a" | "b"]：a 罗盘刻星、b 针芒。
+   命中的宿主选择器与纸品相同，两套装饰共用一批选择器，靠 data-av-deco 分流。
+   变量：--av-mark（星与光线）· --av-star-shape / -size / -offset / -bubble
+   存储：不存；插件写 html[data-av-deco] / data-av-star。
+   风险：同纸品，钉在宿主结构与 CSS Modules 后缀上。
+
+   单独复用：复制本文件，挂 data-av-deco="star"；不挂 data-av-star 时按 a 画。
+   下面的兜底只在没装主题时生效。
+   ========================================================================== */
+
+/* 兜底：没有 data-av-theme 时用昼雾 · 靛夜的值。 */
+html[data-av-deco="star"]:not([data-av-theme]) {
+  --av-mark: #61567d;
+}
+
+html[data-av-deco="star"]:not([data-av-theme]):has(body[data-ds-dark-theme]) {
+  --av-mark: #baadd2;
+}
+
+/* ══════════════════════════════════════════════════════════════════════
+   星芒装饰：以四角星芒与放射线为中心的对话框
+   ──────────────────────────────────────────────────────────────────────
+   与纸品（paper）互斥，同由「设置 → 主题 → 装饰」切换。
+   语言：一枚焦点星芒 + 极淡放射线 + 柔光；形状收圆，靠光和发散射程，不靠纸。
+   命中点与纸品相同，两套装饰共用同一批选择器，靠 html[data-av-deco] 分流。
+   ══════════════════════════════════════════════════════════════════════ */
+
+/* ── 星形变体：两组造型，挂在 [data-av-star] 上（容器级也能覆盖）────────
+   a = 罗盘刻星：四长四短，端正
+   b = 针芒：只留四根长针，更薄更利
+   星只做剪影：不转、不加内部渐变、不加光晕，靠形状说话。 */
+[data-av-star="a"],
+html[data-av-deco="star"]:not([data-av-star]) {
+  --av-star-shape: polygon(
+    50% 0%, 55% 39%, 78% 24%, 61% 45%,
+    100% 50%, 61% 55%, 78% 76%, 55% 61%,
+    50% 100%, 45% 61%, 22% 76%, 39% 55%,
+    0% 50%, 39% 45%, 22% 24%, 45% 39%
+  );
+  --av-star-size: 32px;
+  --av-star-offset: -15px;
+  --av-star-bubble: 16px;
+}
+
+[data-av-star="b"] {
+  --av-star-shape: polygon(
+    50% 0%, 51.9% 45.4%, 64.8% 35.2%, 54.6% 47.9%,
+    100% 50%, 54.6% 52.1%, 64.8% 64.8%, 51.9% 54.6%,
+    50% 100%, 48.1% 54.6%, 35.2% 64.8%, 45.4% 52.1%,
+    0% 50%, 45.4% 47.9%, 35.2% 35.2%, 48.1% 45.4%
+  );
+  --av-star-size: 40px;
+  --av-star-offset: -19px;
+  --av-star-bubble: 20px;
+}
+
+/* ── 输入框：星芒卡 ───────────────────────────────────────────────────── */
+html[data-av-deco="star"] [data-composer-seat] [class*="_card"] {
+  position: relative;
+  border: 1px solid color-mix(in srgb, var(--av-mark) 36%, transparent);
+  border-radius: 16px;
+  background-color: var(--dsw-specific-input-major);
+  box-shadow: 0 0 0 4px color-mix(in srgb, var(--av-mark) 5%, transparent);
+  transition:
+    box-shadow var(--ds-transition-duration) var(--ds-ease-in-out),
+    border-color var(--ds-transition-duration) var(--ds-ease-in-out);
+}
+
+/* 放射线：以右上角星为圆心，向左下渐隐；每 12° 一束，只当氛围 */
+html[data-av-deco="star"] [data-composer-seat] [class*="_card"]::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background-image: repeating-conic-gradient(
+    from 8deg at 100% 0%,
+    transparent 0deg 12deg,
+    color-mix(in srgb, var(--av-mark) 18%, transparent) 12deg 13.2deg
+  );
+  -webkit-mask-image: radial-gradient(circle 620px at 100% 0%, #000 0%, transparent 92%);
+  mask-image: radial-gradient(circle 620px at 100% 0%, #000 0%, transparent 92%);
+  opacity: 0.55;
+  filter: blur(0.5px);
+  pointer-events: none;
+}
+
+/* 焦点星：纯色剪影，聚焦时放大一成 */
+html[data-av-deco="star"] [data-composer-seat] [class*="_card"]::after {
+  content: "";
+  position: absolute;
+  right: var(--av-star-offset);
+  top: var(--av-star-offset);
+  width: var(--av-star-size);
+  height: var(--av-star-size);
+  background: var(--av-mark);
+  clip-path: var(--av-star-shape);
+  transform: scale(1);
+  transform-origin: 50% 50%;
+  transition: transform var(--ds-transition-duration) var(--ds-ease-in-out);
+  pointer-events: none;
+}
+
+html[data-av-deco="star"] [data-composer-seat] [class*="_card"]:focus-within::after {
+  transform: scale(1.12);
+}
+
+html[data-av-deco="star"] [data-composer-seat] [class*="_card"]:focus-within {
+  border-color: color-mix(in srgb, var(--av-mark) 70%, transparent);
+  box-shadow: 0 0 0 4px color-mix(in srgb, var(--av-mark) 9%, transparent);
+}
+
+/* 发送键：一圈硬边，hover 撑开 */
+html[data-av-deco="star"] [data-composer-seat] [class*="_primary"] {
+  box-shadow: 0 0 0 1px color-mix(in srgb, var(--av-mark) 45%, transparent);
+  transition: box-shadow var(--ds-transition-duration) var(--ds-ease-in-out);
+}
+
+html[data-av-deco="star"] [data-composer-seat] [class*="_primary"]:hover:not(:disabled) {
+  box-shadow: 0 0 0 2px color-mix(in srgb, var(--av-mark) 70%, transparent);
+}
+
+/* ── 用户消息：一颗星 + 一条底光 ─────────────────────────────────────── */
+html[data-av-deco="star"] [data-chat-flow-kind="user"] [class*="_bubble"] {
+  position: relative;
+  border: 1px solid color-mix(in srgb, var(--av-mark) 30%, transparent);
+  border-radius: 14px 14px 4px 14px;
+  padding: 12px 24px 14px 20px;
+  background-color: var(--dsw-specific-bubble);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--av-mark) 4%, transparent);
+  transition: box-shadow var(--ds-transition-duration) var(--ds-ease-in-out);
+}
+
+html[data-av-deco="star"] [data-chat-flow-kind="user"] [class*="_bubble"]::before {
+  content: "";
+  position: absolute;
+  right: 7px;
+  top: 7px;
+  width: var(--av-star-bubble);
+  height: var(--av-star-bubble);
+  background: var(--av-mark);
+  clip-path: var(--av-star-shape);
+  pointer-events: none;
+}
+
+html[data-av-deco="star"] [data-chat-flow-kind="user"] [class*="_bubble"]::after {
+  content: "";
+  position: absolute;
+  left: 16px;
+  right: 16px;
+  bottom: 0;
+  height: 1px;
+  border-radius: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    color-mix(in srgb, var(--av-mark) 55%, transparent) 100%
+  );
+}
+
+@media (hover: hover) {
+  html[data-av-deco="star"] [data-chat-flow-kind="user"] [class*="_bubble"]:hover {
+    box-shadow: 0 0 0 3px color-mix(in srgb, var(--av-mark) 8%, transparent);
+  }
+}
+
+/* 深色：射线换成亮紫，当光束用（浅色只留一层质感） */
+html[data-av-deco="star"]:has(body[data-ds-dark-theme]) [data-composer-seat] [class*="_card"]::before {
+  background-image: repeating-conic-gradient(
+    from 8deg at 100% 0%,
+    transparent 0deg 12deg,
+    color-mix(in srgb, var(--av-mark) 75%, transparent) 12deg 13.2deg
+  );
+  opacity: 0.85;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html[data-av-deco="star"] [data-composer-seat] [class*="_card"]::after,
+  html[data-av-deco="star"] [data-composer-seat] [class*="_card"],
+  html[data-av-deco="star"] [data-composer-seat] [class*="_primary"] {
+    transition: none;
+  }
+
+  html[data-av-deco="star"] [data-composer-seat] [class*="_card"]:focus-within::after {
+    transform: none;
+  }
+}

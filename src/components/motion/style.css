@@ -1,0 +1,103 @@
+/* ============================================================================
+   组件 · 位移动效
+   ----------------------------------------------------------------------------
+   纯 CSS，没有 JS、没有存储、没有 data-av-* 开关：
+     1. 会话切换上浮 6px；2. 会话行 hover 横移 2px；3. 按钮按下 0.5px；
+     4. 侧栏折叠 300ms；5. 最后一条回复上浮 6px；
+     6. 控件颜色 / 边框 / 阴影过渡（:where 零特异性，不压组件自己的过渡）。
+   依赖宿主令牌：--ds-transition-duration / -fast / -slow · --ds-ease-in-out
+   （主题在 tokens.js 里把宿主默认值换成 180ms / 120ms 与柔出曲线）。
+
+   单独复用：整份复制即可；不想要某条就删对应选择器。
+   ========================================================================== */
+
+/* ── 位移动效 ──────────────────────────────────────────────────────────
+   只动 transform，且都短：
+     1. 会话切换：会话区上浮 6px；
+     2. 会话行：hover 横移 2px；
+     3. 按钮按下：下压 0.5px；
+     后面还有：侧栏折叠的 grid 过渡、最后一条回复的上浮（见下）。
+   菜单不做位移——DSH 的菜单带锚定定位，动它容易跳。 */
+[data-conversation-session] {
+  animation: avSessionIn 160ms var(--ds-ease-in-out);
+}
+
+@keyframes avSessionIn {
+  from { opacity: 0.7; transform: translateY(6px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+[data-row-key] {
+  transition: transform var(--ds-transition-duration-fast) var(--ds-ease-in-out);
+}
+
+[data-row-key]:hover {
+  transform: translateX(2px);
+}
+
+:where(button):active:not(:disabled) {
+  transform: translateY(0.5px);
+}
+/* ── 折叠：frame 的 grid 过渡常开 ─────────────────────────────────────
+   DSH 只在部分切换路径上给 [data-animating] 过渡，折叠时可能直接跳。
+   这里给 frame 常开 300ms 曲线，拖动改宽时再关掉。 */
+[class*="_frame"] {
+  transition: grid-template-columns var(--ds-transition-duration-slow) var(--ds-ease-in-out);
+}
+
+[class*="_frame"][data-dragging] {
+  transition: none;
+}
+
+/* ── 新回复：只给最后一个 turn 挂进入动画 ─────────────────────────────
+   用“后面没有同级 turn”来认定最后一个；历史分页插在上方，不会触发。
+   依赖 turn 是同级兄弟；DSH 结构若变，这条会静默失效（不影响其它）。 */
+[data-chat-turn]:not(:has(~ [data-chat-turn])) {
+  animation: avTurnIn 180ms var(--ds-ease-in-out);
+}
+
+@keyframes avTurnIn {
+  from { opacity: 0.55; transform: translateY(6px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  [class*="_frame"] {
+    transition: none;
+  }
+
+  [data-chat-turn]:not(:has(~ [data-chat-turn])) {
+    animation: none;
+  }
+}
+
+
+@media (prefers-reduced-motion: reduce) {
+  [data-conversation-session],
+  [data-row-key],
+  :where(button):active:not(:disabled) {
+    animation: none !important;
+    transition: none !important;
+    transform: none !important;
+  }
+}
+
+
+/* ── UI 动效：过渡令牌 + 轻量 hover 过渡 ───────────────────────────────
+   1. tokens.js 里的 --ds-transition-* 把宿主的 0.2s/0.1s 改成 180/120ms，
+      曲线换成个人站那种柔出；
+   2. :where() 补颜色/边框/阴影过渡，零 specificity——组件自己声明的
+      过渡仍然优先，不覆盖宿主行为；
+   3. 菜单不做动效：它的显隐由宿主控制，叠加 opacity 会在收尾时跳。 */
+:where(button, [role="button"], a, summary, input, textarea) {
+  transition:
+    background-color var(--ds-transition-duration-fast) var(--ds-ease-in-out),
+    border-color var(--ds-transition-duration-fast) var(--ds-ease-in-out),
+    color var(--ds-transition-duration-fast) var(--ds-ease-in-out),
+    box-shadow var(--ds-transition-duration) var(--ds-ease-in-out),
+    opacity var(--ds-transition-duration) var(--ds-ease-in-out);
+}
+@media (prefers-reduced-motion: reduce) {
+  :where(button, [role="button"], a, summary, input, textarea) {
+    transition: none !important;
+  }}

@@ -1,0 +1,574 @@
+/* 预览外壳：按 DSH 的三栏骨架简化，所有颜色/形状都读令牌，不另写色号。 */
+
+* { box-sizing: border-box; }
+html, body { height: 100%; }
+
+body {
+  margin: 0;
+  font-family: "Segoe UI", "Microsoft YaHei UI", "Microsoft YaHei", system-ui, sans-serif;
+  color: var(--dsw-alias-label-primary);
+  -webkit-font-smoothing: antialiased;
+}
+
+::selection { background: var(--dsw-alias-bg-document-selection); }
+
+.app {
+  display: grid;
+  grid-template-columns: 280px minmax(0, 1fr);
+  height: 100vh;
+}
+
+/* ── 侧栏 ── */
+.sidebar {
+  display: flex;
+  flex-direction: column;
+  padding: 10px 12px;
+  border-right: 0.5px solid var(--dsw-alias-border-l2);
+  background: var(--dsw-specific-sidebar-fill);
+}
+
+.brand-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  height: 40px;
+  padding: 0 2px;
+  margin-bottom: 10px;
+}
+
+.brand-caption {
+  margin-left: auto;
+  font-family: Consolas, "Cascadia Code", monospace;
+  font-size: 9px;
+  letter-spacing: 0.22em;
+  color: var(--dsw-alias-label-caption);
+  text-transform: uppercase;
+}
+
+.new-session {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  width: 100%;
+  padding: 7px 9px;
+  font: inherit;
+  font-size: 12.5px;
+  color: var(--dsw-alias-label-primary);
+  background: var(--dsw-alias-bg-layer-1);
+  border: 0.5px solid var(--dsw-alias-border-l3);
+  border-radius: var(--dsw-radius-sm);
+  cursor: pointer;
+}
+
+.new-session span { color: var(--dsw-alias-label-tertiary); }
+
+.new-session kbd { margin-left: auto; }
+
+kbd {
+  font-family: Consolas, "Cascadia Code", monospace;
+  font-size: 9px;
+  color: var(--dsw-alias-label-tertiary);
+  border: 0.5px solid var(--dsw-alias-border-l2);
+  border-radius: 2px;
+  padding: 0 4px;
+}
+
+.side-label {
+  margin: 18px 4px 6px;
+  font-family: Consolas, "Cascadia Code", monospace;
+  font-size: 9px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--dsw-alias-label-caption);
+}
+
+.side-label em { font-style: normal; margin-left: 4px; color: var(--dsw-alias-label-tertiary); }
+
+.sessions { display: flex; flex-direction: column; gap: 1px; }
+
+.session {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  padding: 7px 8px;
+  border-radius: var(--dsw-radius-sm);
+  color: var(--dsw-alias-label-secondary);
+  text-decoration: none;
+  font-size: 12.5px;
+}
+
+.session .s-title { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+
+.session .s-meta {
+  margin-left: auto;
+  flex: none;
+  font-family: Consolas, "Cascadia Code", monospace;
+  font-size: 9px;
+  letter-spacing: 0.08em;
+  color: var(--dsw-alias-label-caption);
+}
+
+.session.active {
+  color: var(--dsw-alias-label-primary);
+  background: var(--dsw-specific-sidebar-nav-item-active);
+  box-shadow: inset 1px 0 0 var(--dsw-alias-state-business-primary);
+}
+
+.side-foot {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: auto;
+  padding-top: 10px;
+  border-top: 0.5px solid var(--dsw-alias-border-l1);
+  font-size: 12px;
+  color: var(--dsw-alias-label-secondary);
+}
+
+/* ── 主列 ── */
+.main {
+  position: relative;
+  display: grid;
+  grid-template-rows: 46px minmax(0, 1fr) auto;
+  min-width: 0;
+}
+
+.topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 18px;
+  border-bottom: 0.5px solid var(--dsw-alias-border-l1);
+}
+
+.crumb {
+  font-family: Consolas, "Cascadia Code", monospace;
+  font-size: 10px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--dsw-alias-label-tertiary);
+}
+
+.crumb span { margin: 0 6px; color: var(--dsw-alias-label-dimmed); }
+
+.top-actions { display: flex; align-items: center; gap: 8px; }
+
+.chip {
+  font-family: Consolas, "Cascadia Code", monospace;
+  font-size: 10px;
+  letter-spacing: 0.06em;
+  color: var(--dsw-alias-label-secondary);
+  background: var(--dsw-alias-bg-layer-1);
+  border: 0.5px solid var(--dsw-alias-border-l2);
+  border-radius: var(--dsw-radius-sm);
+  padding: 4px 8px;
+}
+
+.icon-btn {
+  font-family: Consolas, monospace;
+  font-size: 11px;
+  color: var(--dsw-alias-label-secondary);
+  background: transparent;
+  border: 0.5px solid var(--dsw-alias-border-l2);
+  border-radius: var(--dsw-radius-sm);
+  padding: 4px 7px;
+}
+
+/* ── 对话 ── */
+.chat {
+  overflow: hidden;
+  padding: 22px 26px 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.chat > * { max-width: 760px; width: 100%; margin-inline: auto; }
+
+.meta-line {
+  font-family: Consolas, "Cascadia Code", monospace;
+  font-size: 9px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--dsw-alias-label-caption);
+}
+
+.msg user { display: flex; }
+
+.msg.user { justify-content: flex-end; }
+
+.bubble {
+  max-width: 66%;
+  font-family: "Noto Serif SC", "Source Han Serif SC", "Songti SC", "SimSun", serif;
+  padding: 9px 13px;
+  font-size: 13.5px;
+  line-height: 1.8;
+  color: var(--dsw-alias-label-primary);
+  background: var(--dsw-specific-bubble);
+  border: 0.5px solid var(--dsw-alias-border-l2);
+  border-radius: var(--dsw-radius-lg);
+}
+
+.msg.assistant { display: flex; gap: 11px; }
+
+.avatar {
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 22px;
+  height: 22px;
+  margin-top: 3px;
+  border-radius: 50%;
+  border: 0.5px solid var(--dsw-alias-border-l3);
+  font-family: "Noto Serif SC", "SimSun", serif;
+  font-size: 10px;
+  color: var(--dsw-alias-state-business-primary);
+}
+
+.content { min-width: 0; flex: 1; }
+
+.content h2 {
+  margin: 0 0 8px;
+  font-family: "Noto Serif SC", "Source Han Serif SC", "Songti SC", "SimSun", serif;
+  font-size: 22px;
+  font-weight: 500;
+  line-height: 1.45;
+  letter-spacing: 0.02em;
+}
+
+.content p {
+  margin: 0 0 11px;
+  font-family: "Noto Serif SC", "Source Han Serif SC", "Songti SC", "SimSun", serif;
+  font-size: 13.5px;
+  line-height: 1.9;
+  text-align: justify;
+  color: var(--dsw-alias-label-primary);
+}
+
+.content code {
+  font-family: Consolas, "Cascadia Code", "IBM Plex Mono", monospace;
+  font-size: 0.86em;
+  padding: 1px 4px;
+  border-radius: 2px;
+  background: var(--dsw-alias-markdown-inline-code);
+  border: 0.5px solid var(--dsw-alias-border-l1);
+}
+
+.content ul { margin: 0 0 11px; padding-left: 1.2em; }
+.content li { font-family: "Noto Serif SC", "Source Han Serif SC", "Songti SC", "SimSun", serif; font-size: 13.5px; line-height: 1.9; color: var(--dsw-alias-label-primary); }
+.content li::marker { color: var(--dsw-alias-label-tertiary); }
+
+.code {
+  display: block;
+  margin: 0 0 12px;
+  background: var(--dsw-alias-markdown-code-block);
+  border: 0.5px solid var(--dsw-alias-border-l2);
+  border-radius: var(--dsw-radius-md);
+  overflow: hidden;
+}
+
+.code-head {
+  display: block;
+  padding: 5px 10px;
+  border-bottom: 0.5px solid var(--dsw-alias-border-l1);
+  background: var(--dsw-alias-markdown-code-block-banner);
+  font-family: Consolas, "Cascadia Code", monospace;
+  font-size: 9px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--dsw-alias-label-tertiary);
+}
+
+.code code {
+  display: block;
+  padding: 10px 12px;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  font-family: Consolas, "Cascadia Code", "IBM Plex Mono", monospace;
+  font-size: 11.5px;
+  line-height: 1.75;
+  color: var(--dsw-alias-label-primary);
+  white-space: pre;
+}
+
+.tok-kw { color: var(--shiki-token-keyword); }
+.tok-fn { color: var(--shiki-token-function); }
+.tok-num { color: var(--shiki-token-constant); }
+
+.tool {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 0 0 12px;
+  padding: 6px 10px;
+  border: 0.5px solid var(--dsw-alias-border-l2);
+  border-radius: var(--dsw-radius-sm);
+  background: var(--dsw-alias-bg-layer-1);
+  font-family: Consolas, "Cascadia Code", monospace;
+  font-size: 10px;
+  letter-spacing: 0.02em;
+  color: var(--dsw-alias-label-secondary);
+}
+
+.tool-icon { color: var(--dsw-alias-state-business-primary); }
+.tool-name { color: var(--dsw-alias-label-primary); }
+.tool-arg { color: var(--dsw-alias-label-tertiary); }
+.tool-ok { margin-left: auto; color: var(--dsw-alias-state-success-primary); }
+
+.turn-meta {
+  margin: 4px 0 0;
+  font-family: Consolas, "Cascadia Code", monospace;
+  font-size: 9px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--dsw-alias-label-caption);
+}
+
+.content blockquote {
+  margin: 0;
+  font-family: "Noto Serif SC", "Source Han Serif SC", "Songti SC", "SimSun", serif;
+  padding: 2px 0 2px 13px;
+  border-left: 1px solid var(--dsw-alias-border-l3);
+  font-size: 13px;
+  line-height: 1.9;
+  color: var(--dsw-alias-label-secondary);
+}
+
+/* ── 输入区（结构与真实 DSH 的 composer 同构：seat > stack > card > input/row） ── */
+.composer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 26px 13px;
+}
+
+.composer-stack {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--dsh-composer-stack-gap, 6px);
+  width: 100%;
+}
+
+.composer-box {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  width: 100%;
+  max-width: 760px;
+  padding: 8px 0 0;
+  background: var(--dsw-specific-input-major);
+  border-radius: var(--dsw-radius-panel);
+  box-shadow: var(--dsw-shadow-lv2);
+}
+
+.p_scroll { max-height: 336px; margin-right: 4px; overflow: hidden; }
+.p_grow { position: relative; }
+
+.p_input {
+  min-height: 52px;
+  padding: 4px 8px 0 14px;
+  font-size: 14px;
+  line-height: 24px;
+  outline: none;
+}
+
+.p_placeholder {
+  position: absolute;
+  inset: 12px 22px auto 14px;
+  font-size: 14px;
+  line-height: 24px;
+  color: var(--dsw-alias-label-caption);
+  pointer-events: none;
+}
+
+.composer-actions {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 2px 8px 6px;
+}
+
+.p_standardControls { display: flex; align-items: center; gap: 8px; min-width: 0; }
+
+.p_add {
+  display: grid;
+  place-items: center;
+  flex: none;
+  width: 28px;
+  height: 28px;
+  border-radius: 999px;
+  background: var(--dsw-specific-selector);
+  color: var(--dsw-alias-label-primary);
+  font-size: 13px;
+  line-height: 1;
+}
+
+.p_select {
+  display: inline-flex;
+  align-items: center;
+  height: 28px;
+  padding: 0 8px;
+  border-radius: var(--dsw-radius-sm);
+  font-family: Consolas, "Cascadia Code", monospace;
+  font-size: 10px;
+  letter-spacing: 0.08em;
+  color: var(--dsw-alias-label-secondary);
+}
+
+.p_tools {
+  font-family: Consolas, "Cascadia Code", monospace;
+  font-size: 10px;
+  letter-spacing: 0.08em;
+  color: var(--dsw-alias-label-caption);
+}
+
+.send {
+  display: grid;
+  place-items: center;
+  flex: none;
+  width: 34px;
+  height: 34px;
+  border-radius: 999px;
+  font-size: 13px;
+  color: var(--dsw-alias-label-primary-foreground);
+  background: var(--dsw-alias-button-info-fill);
+  transform: translateY(-2px);
+}
+
+.composer-dock {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  padding-top: 2px;
+}
+
+.p_pill {
+  padding: 2px 7px;
+  border-radius: 999px;
+  font-family: Consolas, "Cascadia Code", monospace;
+  font-size: 9px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--dsw-alias-label-tertiary);
+  background: var(--dsw-alias-bg-layer-1);
+}
+
+.composer-hint {
+  font-family: Consolas, "Cascadia Code", monospace;
+  font-size: 8.5px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--dsw-alias-label-caption);
+}
+
+/* ── 浮层 ── */
+.menu {
+  position: absolute;
+  top: 54px;
+  right: 18px;
+  width: 208px;
+  padding: 5px;
+  border-radius: var(--dsw-radius-lg);
+  background: var(--dsw-specific-menu);
+  backdrop-filter: var(--dsw-menu-backdrop-filter);
+  -webkit-backdrop-filter: var(--dsw-menu-backdrop-filter);
+  box-shadow: var(--dsw-shadow-lv3);
+}
+
+.menu-title {
+  padding: 6px 8px;
+  font-family: Consolas, "Cascadia Code", monospace;
+  font-size: 8.5px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--dsw-alias-label-caption);
+}
+
+.menu-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 6px 8px;
+  border-radius: var(--dsw-radius-sm);
+  font-size: 12px;
+  color: var(--dsw-alias-label-primary);
+  cursor: pointer;
+}
+
+.menu-item:hover { background: var(--dsw-alias-interactive-bg-hover); }
+.menu-item.danger { color: var(--dsw-alias-state-error-primary); }
+.menu-sep { height: 0.5px; margin: 4px 2px; background: var(--dsw-alias-border-l1); }
+
+/* 细滚动条预览 */
+* { scrollbar-width: thin; scrollbar-color: var(--dsw-alias-scrollbar-bg-l1) transparent; }
+
+/* 预览用控制条（不属于 DSH 主题本身）：整叠叠在左下角，隐藏的行自然收回 */
+.theme-stack {
+  position: fixed;
+  left: 16px;
+  bottom: 46px;
+  z-index: 20;
+  display: flex;
+  flex-direction: column-reverse;
+  gap: 6px;
+  align-items: flex-start;
+}
+
+.theme-picker {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 9px;
+  border: 0.5px solid var(--dsw-alias-border-l2);
+  border-radius: 10px;
+  background: var(--dsw-alias-bg-layer-2);
+  backdrop-filter: blur(10px);
+  font-size: 11px;
+  color: var(--dsw-alias-label-tertiary);
+}
+
+.theme-picker button {
+  padding: 3px 8px;
+  border: 0.5px solid transparent;
+  border-radius: 7px;
+  background: transparent;
+  color: var(--dsw-alias-label-secondary);
+  font: inherit;
+  cursor: pointer;
+}
+
+.theme-picker button[aria-pressed='true'] {
+  border-color: var(--dsw-alias-border-l2);
+  background: var(--dsw-alias-interactive-bg-hover);
+  color: var(--dsw-alias-label-primary);
+}
+
+/* 预览控制条里的滑杆压窄一点，读数右对齐。 */
+.theme-picker .av-range {
+  width: 112px;
+}
+
+.theme-range-value {
+  min-width: 38px;
+  font-variant-numeric: tabular-nums;
+  text-align: right;
+  color: var(--dsw-alias-label-secondary);
+}
+
+/* 字符切换 / 缩放 / 浓淡 / 动效：跟着底纹状态显隐，位置交给 .theme-stack */
+.theme-picker[hidden],
+.av-deco-row[hidden] {
+  display: none;
+}
+
+.theme-picker--glyphs button {
+  min-width: 26px;
+  font-family: Consolas, "Cascadia Code", monospace;
+  text-align: center;
+}

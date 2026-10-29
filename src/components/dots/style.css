@@ -1,0 +1,147 @@
+/* ============================================================================
+   组件 · 点阵底纹
+   ----------------------------------------------------------------------------
+   挂 html[data-av-dots="square" | "char" | "wall"] 换颗粒；不挂属性 = 圆点。
+   字符再挂 html[data-av-glyph="plus" | "hash" | "star" | "cross"]；
+   动效挂 html[data-av-motion="breathe" | "drift" | "off"]；
+   html[data-av-bg="flow" | "off"] 时整层不画。
+
+   变量：--av-dot（墨色）· --av-scale（格距倍数）·
+         --av-depth（浓淡乘数）· --av-breathe-min（呼吸低谷）
+   存储：不存；由插件把选择写成属性 / html 行内变量。
+   宿主选择器：只用 body::before，不插 DOM。
+
+   单独复用：复制本文件即可，下面兜底只在没装主题时生效。
+   要让整块底色透出来，还需要给 html 铺 --av-space，并把 AppFrame /
+   centerCol / ConversationRoot 的底色置空（见 theme.css「让外壳透出背景」）。
+   ========================================================================== */
+
+/* 兜底：没有 data-av-theme 时用昼雾 · 靛夜的值。 */
+html:not([data-av-theme]) {
+  --av-space: #e5eaf0;
+  --av-dot: rgba(55, 63, 79, 0.055);
+  --av-scale: 1;
+  --av-depth: 1;
+  --av-breathe-min: 0.65;
+}
+
+html:not([data-av-theme]):has(body[data-ds-dark-theme]) {
+  --av-space: #0e131e;
+  --av-dot: rgba(217, 230, 243, 0.085);
+}
+
+/* ── 底纹：一层 fixed 伪元素，四种颗粒共用 ──────────────────────────────
+   圆点 / 方块 / 字符 / 字符墙都画成 SVG 遮罩（前三种 10px 一格，字符墙
+   120×80 一块），再和中心渐隐遮罩相交；颜色由填充色给，所以换主题 / 深浅
+   自动跟。缩放 = 缩放遮罩 tile，浓淡 = 乘在墨色 alpha 上。
+   开关在「设置 → 主题 → 背景」，落成 html[data-av-dots] / [data-av-glyph] /
+   [data-av-motion]，缩放 / 浓淡直接写 html 行内变量。 */
+
+body::before {
+  /* 中心压淡的渐隐，四种颗粒共用。 */
+  --av-vig: radial-gradient(ellipse 82% 74% at 52% 42%, rgba(0, 0, 0, 0.5) 0%, #000 78%);
+  /* 默认颗粒：圆点（r 1.5px ≈ 原来的 1.4px 点 + 一点渐隐边）。 */
+  --av-tile: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='10'%3E%3Ccircle cx='5' cy='5' r='1.5' fill='%23000'/%3E%3C/svg%3E");
+  --av-tile-size: calc(10px * var(--av-scale));
+  content: "";
+  position: fixed;
+  /* 留出漂移余量：最大 64px / 36px 乘缩放，四边各留 80px 乘缩放。 */
+  inset: calc(-80px * var(--av-scale));
+  z-index: -1;
+  pointer-events: none;
+  /* 墨色按浓淡乘 alpha；不支持相对色语法的内核退回主题原色。 */
+  background-color: var(--av-dot);
+  background-color: rgb(from var(--av-dot) r g b / calc(alpha * var(--av-depth)));
+  -webkit-mask-image: var(--av-tile), var(--av-vig);
+  mask-image: var(--av-tile), var(--av-vig);
+  -webkit-mask-size: var(--av-tile-size), 100% 100%;
+  mask-size: var(--av-tile-size), 100% 100%;
+  -webkit-mask-repeat: repeat, no-repeat;
+  mask-repeat: repeat, no-repeat;
+  -webkit-mask-composite: source-in, source-over;
+  mask-composite: intersect, add;
+  animation:
+    avDotDrift 60s linear infinite alternate,
+    avDotBreathe 30s ease-in-out infinite alternate;
+  will-change: transform, opacity;
+  transform: translateZ(0);
+}
+
+/* 漂移幅度跟着缩放走，不然放大后看着漂得更慢。 */
+@keyframes avDotDrift {
+  from { transform: translate3d(calc(-64px * var(--av-scale)), calc(-36px * var(--av-scale)), 0); }
+  to   { transform: translate3d(calc(64px * var(--av-scale)), calc(36px * var(--av-scale)), 0); }
+}
+
+@keyframes avDotBreathe {
+  from { opacity: var(--av-breathe-min, 0.65); }
+  to   { opacity: 1; }
+}
+
+/* 动效档：默认（both / 不挂属性）漂移 + 呼吸；也可只留一种或全停。
+   这里只重写 animation，不动别的样式。 */
+html[data-av-motion="breathe"] body::before {
+  animation: avDotBreathe 30s ease-in-out infinite alternate;
+}
+
+html[data-av-motion="drift"] body::before {
+  animation: avDotDrift 60s linear infinite alternate;
+}
+
+html[data-av-motion="off"] body::before {
+  animation: none;
+  will-change: auto;
+  transform: none;
+}
+
+/* 窗口不在前台时暂停；减少动效时直接停住。 */
+html[data-av-idle] body::before {
+  animation-play-state: paused;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  body::before {
+    animation: none !important;
+  }
+}
+
+/* ── 颗粒：方块 / 字符 / 字符墙（圆点就是上面的默认值） ────────────────── */
+
+/* 方块：2.8px，与圆点同一个包围盒。 */
+html[data-av-dots="square"] body::before {
+  --av-tile: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='10'%3E%3Crect x='3.6' y='3.6' width='2.8' height='2.8' fill='%23000'/%3E%3C/svg%3E");
+}
+
+/* 字符：10px 格子里一个等宽字符；字号按墨量调过，和圆点 / 方块同一档。 */
+html[data-av-dots="char"] body::before {
+  --av-tile: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='10'%3E%3Ctext x='5' y='7.2' font-family='Consolas,Segoe UI Symbol,monospace' font-size='8' text-anchor='middle' fill='%23000'%3E%2B%3C/text%3E%3C/svg%3E");
+}
+
+html[data-av-dots="char"][data-av-glyph="hash"] body::before {
+  --av-tile: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='10'%3E%3Ctext x='5' y='7.2' font-family='Consolas,Segoe UI Symbol,monospace' font-size='6.5' text-anchor='middle' fill='%23000'%3E%23%3C/text%3E%3C/svg%3E");
+}
+
+html[data-av-dots="char"][data-av-glyph="star"] body::before {
+  --av-tile: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='10'%3E%3Ctext x='5' y='7.2' font-family='Consolas,Segoe UI Symbol,monospace' font-size='8' text-anchor='middle' fill='%23000'%3E%2A%3C/text%3E%3C/svg%3E");
+}
+
+html[data-av-dots="char"][data-av-glyph="cross"] body::before {
+  --av-tile: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='10'%3E%3Ctext x='5' y='7.2' font-family='Consolas,Segoe UI Symbol,monospace' font-size='8' text-anchor='middle' fill='%23000'%3E%C3%97%3C/text%3E%3C/svg%3E");
+}
+
+/* 字符墙：120×80 一块、8 行密排符号；fill-opacity 压过半，整体比圆点还淡一点。 */
+html[data-av-dots="wall"] body::before {
+  --av-tile: url("data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20width%3D%27120%27%20height%3D%2780%27%3E%3Cg%20fill%3D%27%2523000%27%20fill-opacity%3D%270.55%27%20font-family%3D%27Consolas%2CSegoe%20UI%20Symbol%2Cmonospace%27%20font-size%3D%277%27%3E%3Ctext%20x%3D%270%27%20y%3D%277%27%3E%20-%2C%3B%25%28%28%3A%7C%28%3B%2C*%3B*%3A~%2F%21%5E..%3D%3F~%23~%3C%2Ftext%3E%3Ctext%20x%3D%270%27%20y%3D%2717%27%3E*%2F~%2F%2B%24%3F%5B%7C*%5D%5C%7B%3D*-%3A%3A%24%23.%2F%3F%40%7B%28%23%3C%2Ftext%3E%3Ctext%20x%3D%270%27%20y%3D%2727%27%3E%20%20%20%3F%2B%24_%7C*%28%2F_%5D~%23%2B-%3B*%5D%7C~%2F%28%5D_%5D%3C%2Ftext%3E%3Ctext%20x%3D%270%27%20y%3D%2737%27%3E%3A%3A%3A%2B%23%40%2F%25*%21%2B%2C%23-%40*%21%7C*%2B%3F%7C%5D%5E%3D%3A.%3C%2Ftext%3E%3Ctext%20x%3D%270%27%20y%3D%2747%27%3E%2B%21%3D%3D%2F%25%5C%3D%3B%5C%7B*%5C%3A%3D%5E%2B%7C%25%25%40%7D%7C%24%24%23*%3C%2Ftext%3E%3Ctext%20x%3D%270%27%20y%3D%2757%27%3E%20%20%20%29%3D%2F.%7B%25%7D%7B%7B%25%2C%25%2F%28%5C%3A%40%5D%5D%25%7C_%3F%2B%3C%2Ftext%3E%3Ctext%20x%3D%270%27%20y%3D%2767%27%3E%24%7D%5D%5D%5C%28%2F%2C_%40%2B*%5B%5C%5E%3A%25.%5D%23%2C%24.%7C%7C%5D%24%3C%2Ftext%3E%3Ctext%20x%3D%270%27%20y%3D%2777%27%3E%20%20%20..%29%5C-%2F%3D%3B%3F%2B%2B%5C%3F%7C%28%3A%3F%7B%3B%3A%40%40%7C-%3C%2Ftext%3E%3C%2Fg%3E%3C%2Fsvg%3E");
+  --av-tile-size: calc(120px * var(--av-scale)) calc(80px * var(--av-scale));
+}
+
+/* 关闭：整层不画，只留 html 的底色；流光时点阵把位置让给画布。 */
+html[data-av-bg="off"] body::before,
+html[data-av-bg="flow"] body::before {
+  content: none;
+}
+
+/* 旧版把“关闭”放在底纹里；升级后若属性还残着，同样不画。 */
+html[data-av-dots="off"] body::before {
+  content: none;
+}

@@ -1,0 +1,4 @@
+.research/
+.tmp-shots/
+node_modules/
+*.log

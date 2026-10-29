@@ -1,0 +1,313 @@
+<!doctype html>
+<html lang="zh-CN" data-av-theme="averita" data-av-deco="paper" data-av-star="a">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>设计台 · 用户消息与输入框</title>
+  <link rel="stylesheet" href="tokens.css" />
+  <link rel="stylesheet" href="preview.css" />
+  <link rel="stylesheet" href="../src/theme.css" />
+  <link rel="stylesheet" href="../src/components/dots/style.css" />
+  <link rel="stylesheet" href="../src/components/flow/style.css" />
+  <link rel="stylesheet" href="../src/components/motion/style.css" />
+  <link rel="stylesheet" href="../src/components/paper/style.css" />
+  <link rel="stylesheet" href="../src/components/star/style.css" />
+  <style>
+    /* 只在设计台里生效：把两个待设计的部件单独摆出来看比例。 */
+    body { margin: 0; }
+    .lab {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 30px;
+      max-width: 860px;
+      margin: 40px auto 60px;
+      padding: 0 24px;
+    }
+    .lab-label {
+      font-family: Consolas, "Cascadia Code", monospace;
+      font-size: 9px;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--dsw-alias-label-caption);
+      margin: 0 0 10px;
+    }
+    .lab-row { display: flex; flex-direction: column; gap: 14px; }
+    .lab-flexend { display: flex; justify-content: flex-end; }
+    .lab-composer { display: flex; flex-direction: column; align-items: center; gap: 6px; padding: 0; }
+    .lab-composer .composer-box { max-width: 100%; }
+    .lab-hintline {
+      font-family: Consolas, "Cascadia Code", monospace;
+      font-size: 8.5px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--dsw-alias-label-caption);
+    }
+    .lab-input-filled { padding: 4px 8px 0 14px; font-size: 14px; line-height: 24px; min-height: 52px; }
+    .lab-input-filled p { margin: 0; }
+  </style>
+</head>
+<body>
+  <main class="lab">
+    <section>
+      <p class="lab-label">user message · 短</p>
+      <div class="lab-flexend" data-chat-flow-kind="user">
+        <div class="bubble p_bubble">先只改用户消息和输入框，别动排版。</div>
+      </div>
+    </section>
+
+    <section>
+      <p class="lab-label">user message · 长</p>
+      <div class="lab-flexend" data-chat-flow-kind="user">
+        <div class="bubble p_bubble">
+          背景我不太喜欢，想做一种高性能、类似新版背景但颜色变化幅度极小的动态背景。其它你按感觉来，先做一个试试。
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <p class="lab-label">composer · 空态</p>
+      <div class="lab-composer" data-composer-seat>
+        <div class="composer-stack p_composerStack">
+          <div class="composer-box p_card">
+            <div class="p_scroll">
+              <div class="p_grow">
+                <div class="composer-input p_input" data-input-scroll></div>
+              </div>
+            </div>
+            <div class="p_placeholder" aria-hidden="true">输入消息，或 / 打开命令面板…</div>
+            <div class="composer-actions p_row">
+              <span class="p_standardControls">
+                <span class="p_add" aria-hidden="true">＋</span>
+                <span class="p_select">deepseek-flash</span>
+                <span class="p_tools" aria-hidden="true">⌘K</span>
+              </span>
+              <span class="send p_primary" role="button" aria-label="发送">↑</span>
+            </div>
+          </div>
+          <div class="composer-dock p_dock" aria-hidden="true">
+            <span data-composer-stat="activity" class="p_pill">◇ 空闲</span>
+            <span data-composer-stat="usage" class="p_pill">◷ 8.2K</span>
+          </div>
+        </div>
+        <div class="lab-hintline">ENTER 发送 · SHIFT+ENTER 换行</div>
+      </div>
+    </section>
+
+    <section>
+      <p class="lab-label">composer · 有内容（三行）</p>
+      <div class="lab-composer" data-composer-seat>
+        <div class="composer-stack p_composerStack">
+          <div class="composer-box p_card">
+            <div class="p_scroll">
+              <div class="p_grow">
+                <div class="composer-input lab-input-filled p_input" data-input-scroll>
+                  <p>把输入框做成信笺：顶部一条信头，</p>
+                  <p>左边三枚活页孔，右下折角。</p>
+                  <p>写满三行，看看横格线跟不跟得上。</p>
+                </div>
+              </div>
+            </div>
+            <div class="composer-actions p_row">
+              <span class="p_standardControls">
+                <span class="p_add" aria-hidden="true">＋</span>
+                <span class="p_select">deepseek-flash</span>
+                <span class="p_tools" aria-hidden="true">⌘K</span>
+              </span>
+              <span class="send p_primary" role="button" aria-label="发送">↑</span>
+            </div>
+          </div>
+        </div>
+        <div class="lab-hintline">ENTER 发送 · SHIFT+ENTER 换行</div>
+      </div>
+    </section>
+
+    <section>
+      <p class="lab-label">设置 → 主题（面板长这样，开关落在主题卡片下面）</p>
+      <div class="av-theme-panel">
+        <div class="av-theme-head">
+          <span class="av-theme-title">主题</span>
+          <span class="av-theme-sub">AveritA's DSH 主题集</span>
+        </div>
+        <div class="av-theme-grid">
+          <button type="button" class="av-theme-card av-theme-card--on">
+            <span class="av-theme-chip" style="background: linear-gradient(135deg, #e5eaf0 0%, #61567d 100%)"></span>
+            <span class="av-theme-label">昼雾 · 靛夜</span>
+            <span class="av-theme-state">使用中</span>
+          </button>
+          <button type="button" class="av-theme-card">
+            <span class="av-theme-chip" style="background: linear-gradient(135deg, #e7eae5 0%, #4b5b55 100%)"></span>
+            <span class="av-theme-label">冷晨</span>
+            <span class="av-theme-state">切换</span>
+          </button>
+          <button type="button" class="av-theme-card">
+            <span class="av-theme-chip" style="background: linear-gradient(135deg, #efe7e3 0%, #7c5f58 100%)"></span>
+            <span class="av-theme-label">暮玫瑰</span>
+            <span class="av-theme-state">切换</span>
+          </button>
+        </div>
+        <div class="av-deco-row">
+          <span class="av-theme-sub">装饰</span>
+          <button type="button" class="av-deco-chip av-deco-chip--on" aria-pressed="true">纸品</button>
+          <button type="button" class="av-deco-chip" aria-pressed="false">星芒</button>
+          <button type="button" class="av-deco-chip" aria-pressed="false">原生</button>
+          <span class="av-theme-state">消息与输入框用纸品装饰</span>
+        </div>
+        <div class="av-deco-row">
+          <span class="av-theme-sub">星形</span>
+          <button type="button" class="av-deco-chip av-deco-chip--on" aria-pressed="true">罗盘</button>
+          <button type="button" class="av-deco-chip" aria-pressed="false">针芒</button>
+          <span class="av-theme-state">四长四短，端正</span>
+        </div>
+        <div class="av-deco-row" data-dots-row>
+          <span class="av-theme-sub">底纹</span>
+          <button type="button" class="av-deco-chip av-deco-chip--on" data-dot-chip="dot" aria-pressed="true">圆点</button>
+          <button type="button" class="av-deco-chip" data-dot-chip="square" aria-pressed="false">方块</button>
+          <button type="button" class="av-deco-chip" data-dot-chip="char" aria-pressed="false">字符</button>
+          <button type="button" class="av-deco-chip" data-dot-chip="wall" aria-pressed="false">字符墙</button>
+          <button type="button" class="av-deco-chip" data-dot-chip="off" aria-pressed="false">关闭</button>
+          <span class="av-theme-state" data-dot-hint>10px 网格、2.8px 圆点</span>
+        </div>
+        <div class="av-deco-row" data-glyph-row>
+          <span class="av-theme-sub">字符</span>
+          <button type="button" class="av-deco-chip av-deco-chip--glyph av-deco-chip--on" data-glyph-chip="plus" aria-pressed="true" title="加号">+</button>
+          <button type="button" class="av-deco-chip av-deco-chip--glyph" data-glyph-chip="hash" aria-pressed="false" title="井号">#</button>
+          <button type="button" class="av-deco-chip av-deco-chip--glyph" data-glyph-chip="star" aria-pressed="false" title="星号">*</button>
+          <button type="button" class="av-deco-chip av-deco-chip--glyph" data-glyph-chip="cross" aria-pressed="false" title="叉号">×</button>
+          <span class="av-theme-state" data-glyph-hint>加号铺格</span>
+        </div>
+        <div class="av-deco-row av-deco-row--range" data-scale-row>
+          <span class="av-theme-sub">缩放</span>
+          <input type="range" class="av-range" data-scale-range min="0.5" max="4" step="0.1" value="1" aria-label="点阵缩放" title="0.5–4×，步进 0.1" />
+          <span class="av-theme-state av-theme-state--num" data-scale-hint>1× · 10px 格距</span>
+        </div>
+        <div class="av-deco-row av-deco-row--range" data-depth-row>
+          <span class="av-theme-sub">浓淡</span>
+          <input type="range" class="av-range" data-depth-range min="0.3" max="4" step="0.05" value="1" aria-label="点阵浓淡" title="30%–400%，步进 5%" />
+          <span class="av-theme-state av-theme-state--num" data-depth-hint>100% · 跟主题墨色一致</span>
+        </div>
+        <div class="av-deco-row" data-motion-row>
+          <span class="av-theme-sub">动效</span>
+          <button type="button" class="av-deco-chip av-deco-chip--on" data-motion-chip="both" aria-pressed="true">都开</button>
+          <button type="button" class="av-deco-chip" data-motion-chip="breathe" aria-pressed="false">呼吸</button>
+          <button type="button" class="av-deco-chip" data-motion-chip="drift" aria-pressed="false">漂移</button>
+          <button type="button" class="av-deco-chip" data-motion-chip="off" aria-pressed="false">都关</button>
+          <span class="av-theme-state" data-motion-hint>极慢漂移 + 透明度呼吸</span>
+        </div>
+        <div class="av-deco-row av-deco-row--range" data-breathe-row>
+          <span class="av-theme-sub">呼吸下限</span>
+          <input type="range" class="av-range" data-breathe-range min="0" max="1" step="0.05" value="0.65" aria-label="呼吸下限" title="0%–100%，步进 5%" />
+          <span class="av-theme-state av-theme-state--num" data-breathe-hint>65% · 淡入到 100%</span>
+        </div>
+        <div class="av-deco-row">
+          <span class="av-theme-sub">重置</span>
+          <button type="button" class="av-deco-chip">恢复默认</button>
+          <span class="av-theme-state">底纹 / 字形 / 缩放 / 浓淡 / 动效 回默认</span>
+        </div>
+      </div>
+    </section>
+  </main>
+  <script>
+    const params = new URLSearchParams(location.search);
+    document.documentElement.dataset.avTheme = params.get('theme') || 'averita';
+    if (params.has('dark')) document.body.setAttribute('data-ds-dark-theme', '');
+    const star = params.get('star');
+    if (star) document.documentElement.setAttribute('data-av-star', star);
+    const deco = params.get('deco');
+    if (deco) document.documentElement.setAttribute('data-av-deco', deco === 'off' ? 'plain' : deco);
+
+    /* 底纹 / 字符 / 缩放 / 浓淡 / 动效：面板 mock 跟着 URL 参数走，截图时才不会自相矛盾。 */
+    const DOTS = ['dot', 'square', 'char', 'wall', 'off'];
+    const GLYPHS = ['plus', 'hash', 'star', 'cross'];
+    const MOTIONS = ['both', 'breathe', 'drift', 'off'];
+    const DOT_HINT = {
+      dot: '10px 网格、2.8px 圆点',
+      square: '同一网格，换成方形颗粒',
+      char: '同一网格，字符铺格',
+      wall: '密排符号，像一页代码',
+      off: '不画底纹，只留底色',
+    };
+    const GLYPH_NAME = { plus: '加号', hash: '井号', star: '星号', cross: '叉号' };
+    const MOTION_HINT = {
+      both: '极慢漂移 + 透明度呼吸',
+      breathe: '只留透明度呼吸',
+      drift: '只留慢漂移',
+      off: '背景完全静止',
+    };
+    const DEFAULT_BREATHE = 0.65;
+    const breatheHint = (value) => {
+      const pct = Math.round(Number(value) * 100);
+      if (pct === 0) return '谷底完全淡出';
+      if (pct === 100) return '没有呼吸幅度';
+      return '淡入到 100%';
+    };
+    const clampNumber = (raw, min, max, step, fallback) => {
+      const n = Number.parseFloat(raw);
+      if (!Number.isFinite(n)) return fallback;
+      const stepped = Math.round(n / step) * step;
+      return Number(Math.min(max, Math.max(min, stepped)).toFixed(2));
+    };
+    const fillPercent = (value, min, max) => {
+      const pct = ((Number(value) - min) / (max - min)) * 100;
+      return `${Math.min(100, Math.max(0, pct)).toFixed(2)}%`;
+    };
+    const scaleText = (value) => `${Number(value).toFixed(1).replace(/\.0$/, '')}×`;
+    const depthHint = (value) => {
+      const pct = Math.round(Number(value) * 100);
+      if (pct === 100) return '跟主题墨色一致';
+      if (pct < 100) return `比主题淡 ${100 - pct}%`;
+      return `比主题浓 ${pct - 100}%`;
+    };
+    const dots = DOTS.includes(params.get('dots')) ? params.get('dots') : 'dot';
+    const glyph = GLYPHS.includes(params.get('glyph')) ? params.get('glyph') : 'plus';
+    const scale = clampNumber(params.get('scale'), 0.5, 4, 0.1, 1);
+    const depth = clampNumber(params.get('depth'), 0.3, 4, 0.05, 1);
+    const motion = MOTIONS.includes(params.get('motion')) ? params.get('motion') : 'both';
+    const breathe = clampNumber(params.get('breathe'), 0, 1, 0.05, DEFAULT_BREATHE);
+    const root = document.documentElement;
+    if (dots === 'dot') root.removeAttribute('data-av-dots');
+    else root.setAttribute('data-av-dots', dots);
+    root.setAttribute('data-av-glyph', glyph);
+    root.style.setProperty('--av-scale', String(scale));
+    root.style.setProperty('--av-depth', String(depth));
+    root.style.setProperty('--av-breathe-min', String(breathe));
+    if (motion === 'both') root.removeAttribute('data-av-motion');
+    else root.setAttribute('data-av-motion', motion);
+
+    const scaleRange = document.querySelector('[data-scale-range]');
+    const depthRange = document.querySelector('[data-depth-range]');
+    const breatheRange = document.querySelector('[data-breathe-range]');
+    scaleRange.value = String(scale);
+    depthRange.value = String(depth);
+    breatheRange.value = String(breathe);
+    scaleRange.style.setProperty('--av-fill', fillPercent(scale, 0.5, 4));
+    depthRange.style.setProperty('--av-fill', fillPercent(depth, 0.3, 4));
+    breatheRange.style.setProperty('--av-fill', fillPercent(breathe, 0, 1));
+    scaleRange.setAttribute('aria-valuetext', `${scaleText(scale)}，${Math.round(scale * 10)}px 格距`);
+    breatheRange.setAttribute('aria-valuetext', `${Math.round(breathe * 100)}%，${breatheHint(breathe)}`);
+
+    const mark = (selector, dataKey, value) => {
+      for (const chip of document.querySelectorAll(selector)) {
+        const on = chip.dataset[dataKey] === value;
+        chip.classList.toggle('av-deco-chip--on', on);
+        chip.setAttribute('aria-pressed', String(on));
+      }
+    };
+    mark('[data-dot-chip]', 'dotChip', dots);
+    mark('[data-glyph-chip]', 'glyphChip', glyph);
+    mark('[data-motion-chip]', 'motionChip', motion);
+    document.querySelector('[data-dot-hint]').textContent = DOT_HINT[dots];
+    document.querySelector('[data-glyph-hint]').textContent = GLYPH_NAME[glyph] + '铺格';
+    document.querySelector('[data-scale-hint]').textContent = `${scaleText(scale)} · ${Math.round(scale * 10)}px 格距`;
+    document.querySelector('[data-depth-hint]').textContent = `${Math.round(depth * 100)}% · ${depthHint(depth)}`;
+    document.querySelector('[data-motion-hint]').textContent = MOTION_HINT[motion];
+    document.querySelector('[data-breathe-hint]').textContent = `${Math.round(breathe * 100)}% · ${breatheHint(breathe)}`;
+    const off = dots === 'off';
+    const breathing = motion === 'both' || motion === 'breathe';
+    document.querySelector('[data-glyph-row]').hidden = dots !== 'char';
+    document.querySelector('[data-scale-row]').hidden = off;
+    document.querySelector('[data-depth-row]').hidden = off;
+    document.querySelector('[data-motion-row]').hidden = off;
+    document.querySelector('[data-breathe-row]').hidden = off || !breathing;
+  </script>
+</body>
+</html>

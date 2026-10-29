@@ -1,0 +1,317 @@
+/* ============================================================================
+   AveritA's DSH —— 主题核心样式（令牌 / 空间 / 外壳 / 品牌位 / 设置面板）
+   组件在 src/components/<id>/style.css，由 scripts/build.mjs 按 manifest 顺序
+   拼到本文件之后。改产物不要手改 client.js。
+   ========================================================================== */
+
+/* 兜底色：没拿到 data-av-theme 时按 averita 走。 */
+:root {
+  --av-space: #e5eaf0;
+  --av-dot: rgba(55, 63, 79, 0.055);
+  --av-mark: #61567d;
+  /* JS 直接覆写这三枚（滑杆无级），默认 1 / 1 / 0.65。 */
+  --av-scale: 1;
+  --av-depth: 1;
+  --av-breathe-min: 0.65;
+  --av-serif: "Noto Serif SC", "Source Han Serif SC", "Songti SC", "SimSun", serif;
+  /* 装饰线：全部从 --av-mark 派生，换主题自动跟；深色单独压一档。 */
+  --av-line: color-mix(in srgb, var(--av-mark) 36%, transparent);
+  --av-line-soft: color-mix(in srgb, var(--av-mark) 18%, transparent);
+  --av-wash: color-mix(in srgb, var(--av-mark) 7%, transparent);
+}
+
+html:has(body[data-ds-dark-theme]) {
+  --av-line: color-mix(in srgb, var(--av-mark) 26%, transparent);
+  --av-line-soft: color-mix(in srgb, var(--av-mark) 13%, transparent);
+  --av-wash: color-mix(in srgb, var(--av-mark) 8%, transparent);
+}
+
+/* ── 空间 ─────────────────────────────────────────────────────────────── */
+
+html {
+  background: var(--av-space);
+}
+
+/* 底色从 body 交给 html，点阵才透得出来。 */
+body {
+  background-color: transparent !important;
+}
+
+/* ── 让外壳透出背景 ─────────────────────────────────────────────────────
+   DSH 0.2.1-rc.3 的 AppFrame / centerCol / ConversationRoot 都用
+   --dsw-alias-bg-base 铺满整块区域，会盖住点阵。这里用 CSS Modules 的
+   稳定后缀 + :has 结构定位（不依赖哈希前缀），只把这些外壳的底色置空；
+   组件自己的 bg-base 填充（代码块、粘性表头等）不受影响。
+   升级 DSH 后若背景又变纯色，先回来检查这几个后缀名。 */
+[class*="_frame"]:has([class*="_centerCol"]),
+[class*="_centerCol"],
+[class*="_root"]:has([class*="_composerSeat"]) {
+  background-color: transparent !important;
+}
+
+
+/* 缩放 / 浓淡：滑杆直接写 html 上的 --av-scale / --av-depth，
+   取值 0.5–4× / 30%–400%，不再走离散属性。
+   点阵时缩放格距、浓淡乘墨色 alpha；流光时分别当场的缩放与浓度。 */
+
+/* ── 细节 ─────────────────────────────────────────────────────────────── */
+
+/* 标题走衬线，界面与正文的字交给 DSH 的字体设置。 */
+body :is(h1, h2, h3) {
+  letter-spacing: 0.01em;
+}
+
+/* 菜单：发丝边 + 更轻的模糊（窗口上的毛玻璃只此一处）。 */
+[data-menu-material] {
+  border: 0.5px solid var(--dsw-alias-border-l3);
+}
+
+/* 品牌位：照个人站 toolstar.ts 的正等轴投影画的三轴正交六芒星 + 衬线字标。
+   星由 JS 每帧重画：六支按深度取 fill-opacity，中心一枚小圆收平。 */
+.av-brand-mark {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  color: var(--av-mark);
+}
+
+.av-brand-mark svg {
+  display: block;
+  width: 32px;
+  height: 32px;
+  overflow: visible;
+}
+
+.av-star-hub {
+  fill: color-mix(in srgb, currentColor 32%, #ffffff);
+}
+
+.av-brand-name {
+  display: inline-block;
+  font-family: var(--av-serif);
+  font-size: 15px;
+  font-weight: 500;
+  line-height: 1;
+  letter-spacing: 0.045em;
+  white-space: nowrap;
+  color: var(--dsw-alias-label-primary);
+  transform: translateY(0.5px);
+}
+
+/* ── 设置 → 主题 ──────────────────────────────────────────────────────── */
+.av-theme-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 2px 0 6px;
+}
+
+.av-theme-head {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+}
+
+.av-theme-title {
+  font-family: var(--av-serif);
+  font-size: 15px;
+  color: var(--dsw-alias-label-primary);
+}
+
+.av-theme-sub {
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--dsw-alias-label-tertiary);
+}
+
+/* 设置分组：小标题 + 右侧发丝线，把面板切成品牌 / 背景 / 装饰几段。 */
+.av-theme-group {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 2px;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  color: var(--dsw-alias-label-secondary);
+}
+
+.av-theme-group::after {
+  content: "";
+  flex: 1;
+  height: 0.5px;
+  background: var(--dsw-alias-border-l1);
+}
+
+.av-theme-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.av-theme-card {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 9px 12px;
+  border: 0.5px solid var(--dsw-alias-border-l2);
+  border-radius: var(--dsw-radius-lg);
+  background: var(--dsw-alias-bg-layer-1);
+  color: var(--dsw-alias-label-primary);
+  cursor: pointer;
+  text-align: left;
+}
+
+.av-theme-card:hover {
+  background: var(--dsw-alias-interactive-bg-hover);
+}
+
+.av-theme-card--on {
+  border-color: var(--dsw-alias-brand-primary);
+}
+
+.av-theme-chip {
+  flex: none;
+  width: 30px;
+  height: 30px;
+  border: 0.5px solid var(--dsw-alias-border-l2);
+  border-radius: 8px;
+}
+
+.av-theme-label {
+  font-size: 13px;
+  font-weight: 500;
+}
+
+.av-theme-state {
+  font-size: 11px;
+  color: var(--dsw-alias-label-tertiary);
+}
+
+/* 滑杆右侧的读数：等宽数字，拖动时行不跳。 */
+.av-theme-state--num {
+  min-width: 148px;
+  font-variant-numeric: tabular-nums;
+}
+
+/* 滑杆行：标签定宽，缩放 / 浓淡 / 呼吸下限的轨道左边对齐。 */
+.av-deco-row--range .av-theme-sub {
+  flex: 0 0 56px;
+  white-space: nowrap;
+}
+
+/* 背景滑杆：轨道 3px，已选段用 --av-mark，滑块是主题色描边的圆点。
+   填充比例由 React 写进 --av-fill（0%–100%）。 */
+.av-range {
+  flex: none;
+  width: 200px;
+  height: 18px;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+  appearance: none;
+  -webkit-appearance: none;
+}
+
+.av-range::-webkit-slider-runnable-track {
+  height: 3px;
+  border-radius: 999px;
+  background: linear-gradient(
+    to right,
+    var(--av-mark) 0 var(--av-fill, 0%),
+    var(--dsw-alias-border-l2) var(--av-fill, 0%) 100%
+  );
+}
+
+.av-range::-webkit-slider-thumb {
+  width: 12px;
+  height: 12px;
+  margin-top: -4.5px;
+  border: 1px solid var(--av-mark);
+  border-radius: 50%;
+  background: var(--dsw-alias-bg-layer-1);
+  box-shadow: 0 1px 2px rgb(0 0 0 / 0.14);
+  appearance: none;
+  -webkit-appearance: none;
+  transition: transform 120ms ease;
+}
+
+.av-range:active::-webkit-slider-thumb {
+  transform: scale(1.12);
+}
+
+.av-range:focus-visible {
+  outline: 2px solid var(--dsw-alias-brand-primary);
+  outline-offset: 3px;
+  border-radius: 999px;
+}
+
+/* Firefox：轨道 / 已选段 / 滑块分开画。 */
+.av-range::-moz-range-track {
+  height: 3px;
+  border-radius: 999px;
+  background: var(--dsw-alias-border-l2);
+}
+
+.av-range::-moz-range-progress {
+  height: 3px;
+  border-radius: 999px;
+  background: var(--av-mark);
+}
+
+.av-range::-moz-range-thumb {
+  width: 11px;
+  height: 11px;
+  border: 1px solid var(--av-mark);
+  border-radius: 50%;
+  background: var(--dsw-alias-bg-layer-1);
+  box-shadow: 0 1px 2px rgb(0 0 0 / 0.14);
+}
+
+.av-range:active::-moz-range-thumb {
+  transform: scale(1.12);
+}
+
+/* 开关行：装饰 / 底纹 / 星形 / 动效共用 */
+.av-deco-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  padding-top: 2px;
+}
+
+.av-deco-chip {
+  padding: 4px 10px;
+  border: 0.5px solid var(--dsw-alias-border-l2);
+  border-radius: var(--dsw-radius-lg);
+  background: transparent;
+  color: var(--dsw-alias-label-secondary);
+  font-size: 12px;
+  cursor: pointer;
+}
+
+.av-deco-chip:hover {
+  background: var(--dsw-alias-interactive-bg-hover);
+}
+
+.av-deco-chip--on {
+  border-color: var(--dsw-alias-brand-primary);
+  background: var(--av-wash);
+  color: var(--dsw-alias-label-primary);
+}
+
+/* 字符开关：单字筹码，等宽 + 固定宽度，四枚排齐。 */
+.av-deco-chip--glyph {
+  min-width: 28px;
+  padding: 4px 0;
+  font-family: Consolas, "Cascadia Code", monospace;
+  font-size: 13px;
+  line-height: 1;
+  text-align: center;
+}

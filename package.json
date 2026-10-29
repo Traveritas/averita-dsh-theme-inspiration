@@ -1,0 +1,52 @@
+{
+  "name": "dsh-theme-averita",
+  "version": "0.4.1",
+  "private": true,
+  "type": "module",
+  "description": "AveritA's DSH：三套主题（昼雾 · 靛夜 / 冷晨 / 暮玫瑰），背景二选一：点阵（四形可切、缩放 / 浓淡 / 动效 / 呼吸可调）或流光（移植个人站的噪声场，四套色板、缩放 / 浓淡 / 速率可调），另有位移动效，设置里即时切换。",
+  "exports": {
+    ".": "./index.js",
+    "./client": "./client.js",
+    "./package.json": "./package.json",
+    "./locale/*.json": "./locale/*.json",
+    "./icon": "./icon.svg"
+  },
+  "files": [
+    "index.js",
+    "client.js",
+    "cordis.patch.yml",
+    "locale/*.json",
+    "icon.svg"
+  ],
+  "dsh": {
+    "bundle": {
+      "patch": "./cordis.patch.yml"
+    },
+    "client": {
+      "platform": "web",
+      "immediately": true,
+      "inject": [
+        "@deepseek-ai/dsh-client-ui-theme",
+        "@deepseek-ai/dsh-client-ui-sidebar",
+        "@deepseek-ai/dsh-client-ui-settings",
+        "@deepseek-ai/dsh-client-ui-settings-general"
+      ]
+    }
+  },
+  "scripts": {
+    "build": "node scripts/build.mjs",
+    "test": "node scripts/smoke.mjs"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Traveritas/averita-dsh-theme-inspiration.git"
+  },
+  "homepage": "https://github.com/Traveritas/averita-dsh-theme-inspiration",
+  "keywords": [
+    "dsh",
+    "dsh-plugin",
+    "theme",
+    "deepseek-harness"
+  ],
+  "license": "MIT"
+}
