@@ -19,8 +19,11 @@ window.__ModuleLoader__.load({
     const BG_KEY = PLUGIN_ID + ":bg";
     const FLOW_KEY = PLUGIN_ID + ":flow";
     const SPEED_KEY = PLUGIN_ID + ":speed";
+    const WORDMARK_KEY = PLUGIN_ID + ":wordmark";
     const DEFAULT_THEME = "averita";
-    const WORDMARK = "AveritA's DSH";
+    /** 品牌字标的默认值；空串是合法值，表示只显示星标。 */
+    const DEFAULT_WORDMARK = "AveritA's DSH";
+    const MAX_WORDMARK = 32;
     const DECO_MODES = [
       { id: "paper", label: "纸品" },
       { id: "star", label: "星芒" },
@@ -206,10 +209,12 @@ window.__ModuleLoader__.load({
     let breatheMode = DEFAULT_BREATHE;
     let bgMode = "dots";
     let flowPalette = "mist";
+    let wordmark = DEFAULT_WORDMARK;
     let flowRenderer = null;
     let flowCanvas = null;
     let flowUnavailable = false;
     let getActive = () => activeId;
+    let getWordmark = () => wordmark;
     let getDeco = () => decoMode;
     let getStar = () => starVariant;
     let getDots = () => dotsMode;
@@ -223,6 +228,7 @@ window.__ModuleLoader__.load({
     let getFlow = () => flowPalette;
     let getFlowAvailable = () => !flowUnavailable;
     let selectTheme = () => {};
+    let selectWordmark = () => {};
     let selectDeco = () => {};
     let selectStar = () => {};
     let selectDots = () => {};
@@ -448,6 +454,29 @@ window.__ModuleLoader__.load({
       }
     }
 
+    /** 品牌字标：只做单行化 + 截断，保留输入中的空格（渲染时再 trim 判断空值）。 */
+    function cleanWordmark(value) {
+      if (typeof value !== "string") return "";
+      return value.replace(/[\r\n\t]+/g, " ").slice(0, MAX_WORDMARK);
+    }
+
+    function storedWordmark() {
+      try {
+        const value = window.localStorage.getItem(WORDMARK_KEY);
+        return value === null ? DEFAULT_WORDMARK : cleanWordmark(value);
+      } catch {
+        return DEFAULT_WORDMARK;
+      }
+    }
+
+    function rememberWordmark(value) {
+      try {
+        window.localStorage.setItem(WORDMARK_KEY, value);
+      } catch {
+        /* 同上 */
+      }
+    }
+
     /** 主题样式表：跟着插件生命周期一起装卸。 */
     function installStyles(ctx) {
       if (typeof document === "undefined") return;
@@ -562,8 +591,18 @@ window.__ModuleLoader__.load({
       );
     }
 
+    /** 左上角字标：订阅设置里的改动；空值（含全空白）时整段不渲染。 */
     function BrandName() {
-      return h("span", { className: "av-brand-name" }, WORDMARK);
+      const [text, setText] = React.useState(() => wordmark);
+      React.useEffect(() => {
+        const sync = () => setText(wordmark);
+        sync();
+        listeners.add(sync);
+        return () => listeners.delete(sync);
+      }, []);
+      const label = String(text ?? "").trim();
+      if (label === "") return null;
+      return h("span", { className: "av-brand-name", title: label }, label);
     }
 
 __SETTING_GROUPS__
@@ -573,6 +612,7 @@ __COMPONENT_SETTINGS__
     function ThemeSection(props) {
       const read = () => ({
         theme: props.getActive(),
+        wordmark: props.getWordmark(),
         deco: props.getDeco(),
         star: props.getStar(),
         dots: props.getDots(),
@@ -605,6 +645,10 @@ __COMPONENT_SETTINGS__
         props,
         state,
         reduced,
+        brand: {
+          defaultWordmark: DEFAULT_WORDMARK,
+          maxWordmark: MAX_WORDMARK,
+        },
         helpers: {
           scaleFill,
           depthFill,
@@ -702,7 +746,7 @@ __COMPONENT_SETTINGS__
           "div",
           { className: "av-theme-head" },
           h("span", { className: "av-theme-title" }, "主题"),
-          h("span", { className: "av-theme-sub" }, WORDMARK + " 主题集"),
+          h("span", { className: "av-theme-sub" }, DEFAULT_WORDMARK + " 主题集"),
         ),
         h(
           "div",
@@ -791,6 +835,14 @@ __COMPONENT_SETTINGS__
         for (const fn of listeners) fn();
       };
       getActive = () => activeId;
+
+      /* 品牌字标：空串合法（只显示星标）；只落 React 状态与 localStorage，不挂 DOM 属性。 */
+      selectWordmark = (value) => {
+        wordmark = cleanWordmark(value);
+        rememberWordmark(wordmark);
+        for (const fn of listeners) fn();
+      };
+      getWordmark = () => wordmark;
 
       selectDeco = (id) => {
         decoMode = id === "star" || id === "plain" ? id : "paper";
@@ -917,6 +969,7 @@ __COMPONENT_SETTINGS__
         root.removeAttribute("data-av-scale");
         root.removeAttribute("data-av-depth");
         selectTheme(storedTheme());
+        selectWordmark(storedWordmark());
         selectDeco(storedDeco());
         selectStar(storedStar());
         selectFlow(storedFlow());
@@ -979,6 +1032,8 @@ __COMPONENT_SETTINGS__
             inject: () => ({
               select: (id) => selectTheme(id),
               getActive: () => getActive(),
+              selectWordmark: (value) => selectWordmark(value),
+              getWordmark: () => getWordmark(),
               selectDeco: (id) => selectDeco(id),
               getDeco: () => getDeco(),
               selectStar: (id) => selectStar(id),

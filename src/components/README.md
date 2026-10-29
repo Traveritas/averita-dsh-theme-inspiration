@@ -22,15 +22,15 @@ DSH 结构一变，钉在选择器上的组件会整段失效（回退原生外�
 `settings.js` 的约定：
 
 - 文件被 `scripts/build.mjs` 原样内联进 `client.js`，不经过任何打包器；不要写 `import` / `export`。
-- 只能引用参数 `api`：`{ h, props, state, reduced, helpers, modes, limits }`。
+- 只能引用参数 `api`：`{ h, props, state, reduced, helpers, modes, limits, brand }`。
   模式表、范围、格式化函数都从 `client.template.js` 传进来，值只有一份。
 - 导出一个函数，名字在 `manifest.js` 的 `settings.name` 里登记；返回 `[{ group, order, node }]`。
 - `group` 是面板分组，在 [`groups.js`](groups.js) 登记（当前：品牌 10、背景 20、装饰 30）；
-  空组不渲染，`brand` 等自定义字标落地后会自动出现。`order` 是**组内**顺序。
-- 组内现存顺序：背景组 背景 10、底纹 20、色板 30、速率 40、字符 50、缩放 60、浓淡 70、
+  空组不渲染。`order` 是**组内**顺序。
+- 组内现存顺序：品牌组 字标 10；背景组 背景 10、底纹 20、色板 30、速率 40、字符 50、缩放 60、浓淡 70、
   动效 80、呼吸 90；装饰组 装饰 10、星形 20。没有 `group` 的行（重置背景）排在面板最后。
 - 可见性、文案、控件都在文件里自己判断；模板不再为单个组件加 `if`。
-- `backdrop/` 与 `deco/` 只有设置行、没有 CSS，是点阵 / 流光、纸品 / 星芒共用的两组。
+- `backdrop/`、`deco/` 与 `brand/` 只有设置行、没有 CSS，分别是背景 / 装饰 / 字标的开关。
 
 ## 为什么不用 @layer
 

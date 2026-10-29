@@ -324,6 +324,9 @@ const props = section.options.inject();
 if (typeof props.select !== 'function' || typeof props.getActive !== 'function' || typeof props.subscribe !== 'function') {
   throw new Error('settings.section inject payload incomplete');
 }
+if (typeof props.selectWordmark !== 'function' || typeof props.getWordmark !== 'function') {
+  throw new Error('settings.section inject payload missing wordmark controls');
+}
 if (typeof props.selectDots !== 'function' || typeof props.getDots !== 'function') {
   throw new Error('settings.section inject payload missing dots controls');
 }
@@ -357,6 +360,29 @@ if (typeof props.getFlowAvailable !== 'function') {
 if (typeof props.resetBackground !== 'function') {
   throw new Error('settings.section inject payload missing resetBackground');
 }
+
+/** 3.5 品牌字标：默认、空值隐藏、持久化、单行化与上限。 */
+const brandNameReg = registrations.find((r) => r.options.name === 'sidebar.brand.name');
+const brandNameText = () => {
+  const el = brandNameReg.Component();
+  return el === null ? null : (el.children?.[0] ?? null);
+};
+if (props.getWordmark() !== "AveritA's DSH") throw new Error('default wordmark must be AveritA\'s DSH');
+if (brandNameText() !== "AveritA's DSH") throw new Error('default wordmark did not render');
+props.selectWordmark('AveritA 主题集');
+if (props.getWordmark() !== 'AveritA 主题集') throw new Error('selectWordmark did not stick');
+if (storage.get('dsh-theme-averita:wordmark') !== 'AveritA 主题集') throw new Error('wordmark was not persisted');
+if (brandNameText() !== 'AveritA 主题集') throw new Error('brand name did not follow wordmark');
+props.selectWordmark('   ');
+if (props.getWordmark() !== '   ') throw new Error('blank wordmark should be kept as-is');
+if (brandNameText() !== null) throw new Error('blank wordmark should hide the brand name');
+props.selectWordmark('A\nB');
+if (props.getWordmark() !== 'A B') throw new Error('newlines in wordmark should fold to spaces');
+props.selectWordmark('x'.repeat(40));
+if (props.getWordmark().length !== 32) throw new Error('wordmark must be capped at 32 chars');
+props.selectWordmark('');
+if (brandNameText() !== null) throw new Error('empty wordmark should hide the brand name');
+props.selectWordmark("AveritA's DSH");
 
 /** 4. 底纹：方块 / 字符 / 字符墙 / 关闭挂属性、圆点摘属性；选择进 localStorage。 */
 if (props.getDots() !== 'dot') throw new Error('default dots must be dot');
@@ -511,8 +537,8 @@ const groupLabels = () =>
 
 props.selectDots('dot');
 let labels = rowLabels();
-if (labels.join('/') !== '背景/底纹/缩放/浓淡/动效/呼吸下限/装饰/重置背景') throw new Error('panel rows (default) = ' + labels.join('/'));
-if (groupLabels().join('/') !== '背景/装饰') throw new Error('panel groups (default) = ' + groupLabels().join('/'));
+if (labels.join('/') !== '字标/背景/底纹/缩放/浓淡/动效/呼吸下限/装饰/重置背景') throw new Error('panel rows (default) = ' + labels.join('/'));
+if (groupLabels().join('/') !== '品牌/背景/装饰') throw new Error('panel groups (default) = ' + groupLabels().join('/'));
 
 const scaleInput = panelNodes().find((node) => node.type === 'input' && node.props?.min === 0.5);
 const depthInput = panelNodes().find((node) => node.type === 'input' && node.props?.min === 0.3);
@@ -520,6 +546,21 @@ const breatheInput = panelNodes().find((node) => node.type === 'input' && node.p
 if (!scaleInput || scaleInput.props.max !== 4 || scaleInput.props.step !== 0.1) throw new Error('scale slider missing or wrong range');
 if (!depthInput || depthInput.props.max !== 4 || depthInput.props.step !== 0.05) throw new Error('depth slider missing or wrong range');
 if (!breatheInput || breatheInput.props.step !== 0.05) throw new Error('breathe slider missing or wrong range');
+const wordmarkInput = panelNodes().find(
+  (node) => node.type === 'input' && node.props?.['aria-label'] === '左上角 logo 右侧的字标',
+);
+if (!wordmarkInput) throw new Error('wordmark input missing');
+if (wordmarkInput.props.value !== "AveritA's DSH") throw new Error('wordmark input value = ' + wordmarkInput.props.value);
+if (wordmarkInput.props.maxLength !== 32) throw new Error('wordmark input maxLength = ' + wordmarkInput.props.maxLength);
+props.selectWordmark('');
+const emptyWordmarkInput = panelNodes().find(
+  (node) => node.type === 'input' && node.props?.['aria-label'] === '左上角 logo 右侧的字标',
+);
+if (emptyWordmarkInput.props.value !== '') throw new Error('wordmark input did not clear');
+if (!panelNodes().some((node) => node.children?.[0] === '留空：只显示星标')) {
+  throw new Error('empty wordmark hint missing');
+}
+props.selectWordmark("AveritA's DSH");
 if (scaleInput.props.style?.['--av-fill'] !== '14.29%') throw new Error('scale fill at 1× = ' + scaleInput.props.style?.['--av-fill']);
 if (depthInput.props.style?.['--av-fill'] !== '18.92%') throw new Error('depth fill at 100% = ' + depthInput.props.style?.['--av-fill']);
 if (breatheInput.props.style?.['--av-fill'] !== '65.00%') throw new Error('breathe fill at 65% = ' + breatheInput.props.style?.['--av-fill']);
@@ -531,7 +572,7 @@ if (motionLabels.length !== 4) throw new Error('motion chips missing');
 
 props.selectMotion('drift');
 labels = rowLabels();
-if (labels.join('/') !== '背景/底纹/缩放/浓淡/动效/装饰/重置背景') throw new Error('panel rows (drift) = ' + labels.join('/'));
+if (labels.join('/') !== '字标/背景/底纹/缩放/浓淡/动效/装饰/重置背景') throw new Error('panel rows (drift) = ' + labels.join('/'));
 props.selectMotion('both');
 
 props.selectScale(2.6);
@@ -561,15 +602,15 @@ props.selectMotion('both');
 
 props.selectDots('char');
 labels = rowLabels();
-if (labels.join('/') !== '背景/底纹/字符/缩放/浓淡/动效/呼吸下限/装饰/重置背景') throw new Error('panel rows (char) = ' + labels.join('/'));
+if (labels.join('/') !== '字标/背景/底纹/字符/缩放/浓淡/动效/呼吸下限/装饰/重置背景') throw new Error('panel rows (char) = ' + labels.join('/'));
 
 props.selectBg('off');
 labels = rowLabels();
-if (labels.join('/') !== '背景/装饰/重置背景') throw new Error('panel rows (off) = ' + labels.join('/'));
+if (labels.join('/') !== '字标/背景/装饰/重置背景') throw new Error('panel rows (off) = ' + labels.join('/'));
 
 props.selectDeco('star');
 labels = rowLabels();
-if (labels.join('/') !== '背景/装饰/星形/重置背景') throw new Error('panel rows (star) = ' + labels.join('/'));
+if (labels.join('/') !== '字标/背景/装饰/星形/重置背景') throw new Error('panel rows (star) = ' + labels.join('/'));
 props.selectDeco('paper');
 props.selectBg('dots');
 props.selectDots('dot');
@@ -578,7 +619,7 @@ if (attrs.has('data-av-dots')) throw new Error('selectDots(dot) did not clear da
 /** 8. 流光面板：只剩 背景 / 色板 / 缩放 / 浓淡 / 重置，滑杆换成流光的说法。 */
 props.selectBg('flow');
 labels = rowLabels();
-if (labels.join('/') !== '背景/色板/速率/缩放/浓淡/装饰/重置背景') throw new Error('panel rows (flow) = ' + labels.join('/'));
+if (labels.join('/') !== '字标/背景/色板/速率/缩放/浓淡/装饰/重置背景') throw new Error('panel rows (flow) = ' + labels.join('/'));
 const flowChips = panelNodes()
   .filter((node) => node.type === 'button' && ['雾蓝', '暮紫', '青灰', '暖沙'].includes(node.children?.[0]))
   .map((node) => node.children[0]);

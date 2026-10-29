@@ -12,6 +12,11 @@
  */
 export default [
   {
+    id: 'brand',
+    label: '品牌字标',
+    settings: { file: 'brand/settings.js', name: 'brandSettings' },
+  },
+  {
     id: 'backdrop',
     label: '背景 / 缩放 / 浓淡',
     settings: { file: 'backdrop/settings.js', name: 'backdropSettings' },

@@ -12,7 +12,7 @@
 
 ---
 
-三套 DSH 主题的宿主插件。背景二选一：**点阵**（圆点 / 方块 / 字符 / 字符墙，缩放 / 浓淡 / 动效 / 呼吸下限可调）或**流光**（移植个人站的域扭曲 fbm 场，四套色板，缩放 / 浓淡可调）。另有星标、位移动效与纸品装饰（用户消息 / 输入框），**设置 → 主题**里即时切换，选择存在 localStorage。
+三套 DSH 主题的宿主插件。背景二选一：**点阵**（圆点 / 方块 / 字符 / 字符墙，缩放 / 浓淡 / 动效 / 呼吸下限可调）或**流光**（移植个人站的域扭曲 fbm 场，四套色板，缩放 / 浓淡可调）。另有星标、位移动效与纸品装饰（用户消息 / 输入框）；左上角 logo 右侧的字标可在设置里改，留空只留星标。**设置 → 主题**里即时切换，选择存在 localStorage。
 
 | 主题 | 方向 | 数据 |
 |---|---|---|
@@ -22,7 +22,7 @@
 
 - **令牌**：每套 205 个，浅/深成对 —— 128 个语义/语法令牌 + 77 个静态色板阶（`--dsw-static-*`，图标、状态点、diff、插画在用）；主题变量只有 `--av-space` / `--av-dot` / `--av-mark` 三枚。
 - **切换**：`overrideTokens` 换令牌图层 + `html[data-av-theme]` 换 CSS 变量，不重装、不重启。
-- **品牌位**：`sidebar.brand.mark` / `sidebar.brand.name` 两个 single slot，priority `-1`（官方在 0，数值低者渲染）——卸载即回退。星标是 32px 三轴正交六芒星，字标统一为衬线 `AveritA's DSH`。
+- **品牌位**：`sidebar.brand.mark` / `sidebar.brand.name` 两个 single slot，priority `-1`（官方在 0，数值低者渲染）——卸载即回退。星标是 32px 三轴正交六芒星；字标默认衬线 `AveritA's DSH`，可在**设置 → 主题 → 品牌**里自定义，留空只显示星标。
 - **背景与细节**：点阵是 `src/components/dots/style.css` 里的一层 fixed 伪元素，不跑逐帧；流光是一层 WebGL2 画布（`src/flow.js`，构建时内联），1/5 分辨率、30fps，切到流光才创建；两者互斥。品牌星是 6 支 SVG，约 30fps 重画。
 - **UI 动效**：`--ds-transition-*` 180/120ms + 柔出曲线；位移动效：会话切换上浮 6px、会话行 hover 横移 2px、按钮按下 0.5px、最后一条回复上浮 6px、侧栏折叠 300ms。
 - **安装形态**：纯客户端插件。Host 半 (`index.js`) 是空壳，浏览器半是 `client.js`（手写 lazy-CJS，无构建依赖）。
@@ -74,7 +74,7 @@ git clone --depth 1 https://github.com/Traveritas/averita-dsh-theme-inspiration 
 - `preview/panel-sliders.png`（旧版设置面板：三条无级滑杆 + 动效一排；现在多了「背景」一行与流光的色板）
 - `preview/extreme-3.4x-360.png`（放开后的极端值预览：3.4× / 360%）
 
-只看用户消息与输入框时开 `preview/lab.html`（同样吃 `?theme=`、`?dark=1`、`?deco=paper|star|off`、`?dots=square|char|wall|off`、`?glyph=`、`?scale=`、`?depth=`、`?motion=`、`?breathe=`），里面有短/长消息、空态、三行输入和主题面板四种状态（这份面板是装饰阶段的旧版，还没有「背景」行，底纹里的「关闭」仍按旧版走）；截图见 `preview/lab-light.png`、`preview/lab-dark.png`（纸品）、`preview/lab-star.png`、`preview/lab-star-b.png`、`preview/lab-star-dark.png`（星芒两形）、`preview/lab-off.png`（原生）；`preview/star.html` 是两种星形的并排对照页。
+只看用户消息与输入框时开 `preview/lab.html`（同样吃 `?theme=`、`?dark=1`、`?deco=paper|star|off`、`?dots=square|char|wall|off`、`?glyph=`、`?scale=`、`?depth=`、`?motion=`、`?breathe=`），里面有短/长消息、空态、三行输入和主题面板四种状态（这份面板是装饰阶段的旧版，还没有「品牌 / 背景」行，底纹里的「关闭」仍按旧版走）；截图见 `preview/lab-light.png`、`preview/lab-dark.png`（纸品）、`preview/lab-star.png`、`preview/lab-star-b.png`、`preview/lab-star-dark.png`（星芒两形）、`preview/lab-off.png`（原生）；`preview/star.html` 是两种星形的并排对照页。
 
 预览是按 DSH 三栏骨架搭的**近似壳**（字体、间距与真实 DSH 有差异），只用来判断配色、点阵与材质比例；最终以实机为准。壳里 composer 与用户消息的 DOM 按真实结构同构（`data-composer-seat`、`_card`、`_input`、`data-chat-flow-kind="user"`、`_bubble`），所以 `src/components/*/style.css` 的结构选择器在预览里也会如实命中（三个页面按 manifest 顺序引了这些文件）。
 
@@ -92,7 +92,7 @@ CSS 按组件拆在 `src/components/`，构建按 `manifest.js` 的顺序拼进 
 
 拿单个组件三步：复制它的 `style.css` → 在 `<html>` 挂对应属性 → 装了别的主题就把文件开头的兜底块删掉。没有设置面板也能用，属性手写即可；更多约定见 [`src/components/README.md`](src/components/README.md)。
 
-`backdrop/` 与 `deco/` 只有设置行、没有 CSS：前者管背景 / 缩放 / 浓淡，后者管装饰 / 星形，是表里几组视觉组件共用的开关。
+`backdrop/`、`deco/` 与 `brand/` 只有设置行、没有 CSS：前者管背景 / 缩放 / 浓淡，后者管装饰 / 星形与品牌字标，是表里几组视觉组件共用的开关。
 
 组件保持**未分层**：DSH 宿主 CSS 没有 `@layer`，分层里的普通声明会输给未分层声明（不管选择器多具体），主题要覆盖宿主就不能进层。
 
@@ -145,6 +145,14 @@ canvas.av-flow  1/5 视口分辨率（1080p 约 384×216），5px 一格像素�
 
 - 外壳透明度：DSH 0.2.1-rc.3 的 AppFrame / centerCol / ConversationRoot 各自用 `--dsw-alias-bg-base` 铺满，主题用 CSS Modules 稳定后缀 + `:has` 把三处底色置空，背景才透出来。
 
+## 品牌字标（设置 → 主题）
+
+「品牌」一组只有一行「字标」：输入框实时改 `sidebar.brand.name` 里的文字，默认衬线 `AveritA's DSH`，最多 32 字；换行 / 制表符会折成空格，选择存在 localStorage 的 `<plugin-id>:wordmark`。
+
+- 输入框留空（或只有空白）时整段文字不渲染，只留星标；旁边「恢复默认」把默认字标写回去。
+- 字标只走 React 状态，不挂 `data-av-*` 属性；侧栏 `sidebar.brand.name` slot 订阅状态重渲染，切换主题 / 深浅不受影响。
+- 自定义文字过长时侧栏按 `text-overflow: ellipsis` 省略，不会把 logo 挤走；完整文字在 `title` 里。
+
 ## 背景（设置 → 主题）
 
 「背景」三选一：**点阵 / 流光 / 关闭**；下面按选择只露相关的行。
@@ -168,7 +176,7 @@ canvas.av-flow  1/5 视口分辨率（1080p 约 384×216），5px 一格像素�
 - 关闭背景时下面几排自动收起。
 - 末尾「重置 → 恢复默认」把背景 / 底纹 / 色板 / 速率 / 字形 / 缩放 / 浓淡 / 动效 / 呼吸下限一键回默认，主题与装饰不动。
 
-选择存在 localStorage 的 `<plugin-id>:bg` / `:dots` / `:flow` / `:speed` / `:glyph` / `:scale` / `:depth` / `:motion` / `:breathe`（速率 / 缩放 / 浓淡 / 呼吸下限存乘数，1 = 1× / 1× / 100% / 100%），落成 `html[data-av-bg="flow"|"off"]`、`html[data-av-dots="square"|"char"|"wall"]`、`html[data-av-flow-palette="mist"|"dusk"|"jade"|"amber"]`、`html[data-av-glyph="plus"|"hash"|"star"|"cross"]`、`html[data-av-motion="breathe"|"drift"|"off"]`；缩放 / 浓淡 / 呼吸下限直接写成 `html` 行内的 `--av-scale` / `--av-depth` / `--av-breathe-min`，不再挂 data 属性；「都开」把 `data-av-motion` 摘掉，选「圆点」把 `data-av-dots` 摘掉，选「点阵」把 `data-av-bg` 摘掉。切换只改属性 / 变量；点阵不动 DOM，流光按需建 / 拆画布；字符缺字形时 CSS 退回加号，不会把整块涂实。
+选择存在 localStorage 的 `<plugin-id>:wordmark` / `:bg` / `:dots` / `:flow` / `:speed` / `:glyph` / `:scale` / `:depth` / `:motion` / `:breathe`（速率 / 缩放 / 浓淡 / 呼吸下限存乘数，1 = 1× / 1× / 100% / 100%），落成 `html[data-av-bg="flow"|"off"]`、`html[data-av-dots="square"|"char"|"wall"]`、`html[data-av-flow-palette="mist"|"dusk"|"jade"|"amber"]`、`html[data-av-glyph="plus"|"hash"|"star"|"cross"]`、`html[data-av-motion="breathe"|"drift"|"off"]`；缩放 / 浓淡 / 呼吸下限直接写成 `html` 行内的 `--av-scale` / `--av-depth` / `--av-breathe-min`，不再挂 data 属性；「都开」把 `data-av-motion` 摘掉，选「圆点」把 `data-av-dots` 摘掉，选「点阵」把 `data-av-bg` 摘掉。切换只改属性 / 变量；点阵不动 DOM，流光按需建 / 拆画布；字符缺字形时 CSS 退回加号，不会把整块涂实。
 
 ## 用户消息与输入框
 
@@ -199,7 +207,7 @@ canvas.av-flow  1/5 视口分辨率（1080p 约 384×216），5px 一格像素�
 
 ```powershell
 node scripts/build.mjs      # src/theme.css + src/components/* -> client.js（内联令牌 / 组件 CSS / 设置片段 / flow.js）+ preview/tokens.css
-node scripts/smoke.mjs      # 离线冒烟：令牌成对、组件 CSS 与设置片段齐全、样式装卸、3 个 slot 注册、可见性暂停、底纹 / 字形 / 缩放 / 浓淡 / 动效 / 呼吸下限往返
+node scripts/smoke.mjs      # 离线冒烟：令牌成对、组件 CSS 与设置片段齐全、样式装卸、3 个 slot 注册、可见性暂停、字标 / 底纹 / 字形 / 缩放 / 浓淡 / 动效 / 呼吸下限往返
 node scripts/gen-static.mjs  # 可选：重派生静态色板（覆盖 src/themes/static/*）
 node scripts/gen-themes.mjs  # 可选：重派生冷晨/暮玫瑰基础令牌（覆盖手改，静态色板保留）
 ```
@@ -212,6 +220,7 @@ node scripts/gen-themes.mjs  # 可选：重派生冷晨/暮玫瑰基础令牌（
 - **静态色板是派生值**：blue / deepseek 在冷晨、暮玫瑰里会跟强调色走（暮玫瑰的 info 蓝会变成玫瑰色）；若想保留信息蓝，把 `static-derive.mjs` 里 `blue` / `deepseek` 的映射拿掉重跑即可。静态色板的 light / dark 值对 red/green/amber 是分开排的（按对比度），所以状态色在两种模式下会有轻微差异。
 - **新回复动画靠结构选择器**：`[data-chat-turn]:not(:has(~ [data-chat-turn]))` 只认“最后一个 turn”，要求 turn 是同级兄弟；DSH 改结构时会静默失效。侧栏折叠的 300ms 过渡也依赖 frame 的 grid 过渡。
 - **纸品装饰也钉在结构上**：用户消息靠 `data-chat-flow-kind="user"` + `_bubble` 后缀，输入框靠 `data-composer-seat` + `_card`/`_primary` 后缀。DSH 改这两处，装饰会整段失效（功能不受影响，回退成原生外观）。
+- **字标只换文字**：品牌位只覆盖 logo 右侧文字，星标仍是主题自带的；字标上限 32 字，超长由侧栏省略，留空只留星标。
 - **组件只拆到 CSS + 设置行**：单独复制 `src/components/<id>/style.css` 能用，但没有设置面板（属性手写即可）；选择器、localStorage 与流光画布的生命周期仍在 `src/client.template.js`。
 - **颗粒遮罩依赖 `mask-composite`**：四种颗粒与渐隐两层遮罩相交需要 Chromium 120+ / Safari 15.4+；更老的内核会退化成两层叠加，颗粒照旧、中心渐隐失效，不影响可用性。字符 / 符号走 SVG `<text>`，字体栈是 Consolas / Segoe UI Symbol，换机器字形会有细微差别。
 - **浓淡依赖相对色语法**：`rgb(from var(--av-dot) …)` 需要 Chromium 119+ / Safari 16.4+；不支持的内核退回主题原色，浓淡滑杆静默失效，其余照旧。

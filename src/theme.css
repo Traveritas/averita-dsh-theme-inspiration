@@ -90,6 +90,9 @@ body :is(h1, h2, h3) {
 
 .av-brand-name {
   display: inline-block;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
   font-family: var(--av-serif);
   font-size: 15px;
   font-weight: 500;
@@ -314,4 +317,42 @@ body :is(h1, h2, h3) {
   font-size: 13px;
   line-height: 1;
   text-align: center;
+}
+
+/* 字标输入：单行文本框，标签与滑杆行同宽，过长时收窄。 */
+.av-deco-row--text .av-theme-sub {
+  flex: 0 0 56px;
+  white-space: nowrap;
+}
+
+.av-text-input {
+  flex: 1 1 180px;
+  min-width: 120px;
+  max-width: 280px;
+  padding: 5px 9px;
+  border: 0.5px solid var(--dsw-alias-border-l2);
+  border-radius: var(--dsw-radius-lg);
+  background: var(--dsw-alias-bg-layer-1);
+  color: var(--dsw-alias-label-primary);
+  font-family: var(--av-serif);
+  font-size: 13px;
+  line-height: 18px;
+  transition:
+    border-color var(--ds-transition-duration-fast) var(--ds-ease-in-out),
+    box-shadow var(--ds-transition-duration-fast) var(--ds-ease-in-out);
+}
+
+.av-text-input::placeholder {
+  color: var(--dsw-alias-label-tertiary);
+}
+
+.av-text-input:focus {
+  outline: none;
+  border-color: var(--dsw-alias-brand-primary);
+  box-shadow: 0 0 0 2px var(--av-wash);
+}
+
+.av-text-input:focus-visible {
+  outline: 2px solid var(--dsw-alias-brand-primary);
+  outline-offset: 2px;
 }
