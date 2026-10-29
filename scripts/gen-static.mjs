@@ -1,5 +1,5 @@
 /**
- * 生成三套主题的静态色板模块 src/themes/static/<id>.js。
+ * 生成四套主题的静态色板模块 src/themes/static/<id>.js。
  * 数据来自 scripts/static-base.json（DSH base.css 提取），派生规则见 static-derive.mjs。
  *
  *   node scripts/gen-static.mjs
@@ -10,8 +10,8 @@ import { pathToFileURL } from 'node:url';
 import { contrast, deriveStatic, parseColor } from './static-derive.mjs';
 
 const root = resolve(import.meta.dirname, '..');
-const themeFiles = ['src/themes/averita.js', 'src/themes/coldmorning.js', 'src/themes/duskrose.js'];
-const themeIds = ['averita', 'coldmorning', 'duskrose'];
+const themeFiles = ['src/themes/averita.js', 'src/themes/coldmorning.js', 'src/themes/duskrose.js', 'src/themes/duskpurple.js'];
+const themeIds = ['averita', 'coldmorning', 'duskrose', 'duskpurple'];
 
 const outDir = resolve(root, 'src/themes/static');
 mkdirSync(outDir, { recursive: true });

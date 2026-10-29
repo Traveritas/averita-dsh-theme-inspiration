@@ -32,7 +32,7 @@ function flowSettings(api) {
             mode.label,
           ),
         ),
-        h("span", { className: "av-theme-state" }, FLOW_HINT[flow] ?? FLOW_HINT.mist),
+        h("span", { className: "av-theme-state" }, FLOW_HINT[flow] ?? FLOW_HINT.theme),
       ),
     },
     {

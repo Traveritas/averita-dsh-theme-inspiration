@@ -6,13 +6,14 @@ WebGL2 画布：1/5 视口分辨率、5px 一格放大、锁 30fps；场来自�
 ## 挂什么
 
 - `data-av-bg="flow"`：启用（不挂就不建画布）
-- `data-av-flow-palette="mist" | "dusk" | "jade" | "amber"`：色板，默认雾蓝
+- `data-av-flow-palette="theme" | "mist" | "dusk" | "jade" | "amber"`：色板，默认跟随主题
 - `data-av-idle`：窗口失焦暂停
 
 ## 变量
 
 `--av-flow-0..3`（底 / 暗面 / 光带 / 亮芯）与 `--av-flow-glow`（亮芯强度），
-浅深各一套，都写在 `style.css` 里。JS 每帧读色，换色板不用重建上下文。
+浅深各一套。「theme」从 `--av-space` / `--av-mark` 用 `color-mix` 混出；四套固定色板写在
+`style.css` 里。JS 每帧读色（`color-mix` 经隐藏探针解析），换色板不用重建上下文。
 
 ## 存
 

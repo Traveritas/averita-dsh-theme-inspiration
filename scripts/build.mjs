@@ -13,7 +13,7 @@ const load = async (file) => (await import(pathToFileURL(resolve(root, file)).hr
 
 const pkg = JSON.parse(readFileSync(resolve(root, 'package.json'), 'utf8'));
 
-const themeFiles = ['src/themes/averita.js', 'src/themes/coldmorning.js', 'src/themes/duskrose.js'];
+const themeFiles = ['src/themes/averita.js', 'src/themes/coldmorning.js', 'src/themes/duskrose.js', 'src/themes/duskpurple.js'];
 const themes = [];
 for (const file of themeFiles) {
   const theme = await load(file);
@@ -42,7 +42,7 @@ if (new Set(themes.map((theme) => theme.id)).size !== themes.length) {
 }
 
 
-/** 三套主题的令牌名集合必须一致（否则切换时会有键残留/缺失）。 */
+/** 四套主题的令牌名集合必须一致（否则切换时会有键残留/缺失）。 */
 const referenceKeys = Object.keys(themes[0].tokens).sort().join('\n');
 for (const theme of themes.slice(1)) {
   const keys = Object.keys(theme.tokens).sort().join('\n');

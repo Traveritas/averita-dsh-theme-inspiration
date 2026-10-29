@@ -13,3 +13,4 @@
 星标在 `client.template.js` 的 `BrandMark`。单独复用组件时不需要这个目录。
 
 所属分组「品牌」（[`groups.js`](../groups.js) order 10），组内行号 10，见 [`settings.js`](settings.js)。
+同组的「首屏文案」行在 [`hero/`](../hero/README.md)（order 20），视觉 CSS 也在那边。

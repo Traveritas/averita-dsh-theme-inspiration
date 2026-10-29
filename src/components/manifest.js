@@ -17,6 +17,13 @@ export default [
     settings: { file: 'brand/settings.js', name: 'brandSettings' },
   },
   {
+    id: 'hero',
+    label: '新会话首屏',
+    css: 'hero/style.css',
+    settings: { file: 'hero/settings.js', name: 'heroSettings' },
+    probes: ['data-av-hero-text', 'data-av-hero-empty', 'content: var(--av-hero-text)', '_previewBadge'],
+  },
+  {
     id: 'backdrop',
     label: '背景 / 缩放 / 浓淡',
     settings: { file: 'backdrop/settings.js', name: 'backdropSettings' },
@@ -57,5 +64,12 @@ export default [
     label: '星芒装饰',
     css: 'star/style.css',
     probes: ['data-av-deco="star"', '--av-star-shape'],
+  },
+  {
+    id: 'composer',
+    label: '输入框底衬',
+    css: 'composer/style.css',
+    settings: { file: 'composer/settings.js', name: 'composerSettings' },
+    probes: ['data-av-fade="on"', 'background: none !important'],
   },
 ];

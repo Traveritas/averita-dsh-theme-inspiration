@@ -12,7 +12,7 @@ const root = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 const bundle = readFileSync(resolve(root, 'client.js'), 'utf8');
 const components = (await import(new URL('../src/components/manifest.js', import.meta.url).href)).default;
 
-const EXPECTED_THEMES = ['averita', 'coldmorning', 'duskrose'];
+const EXPECTED_THEMES = ['averita', 'coldmorning', 'duskrose', 'duskpurple'];
 const MIN_TOKEN_COUNT = 128;
 
 let factory;
@@ -144,6 +144,7 @@ const fakeWindow = {
   localStorage: {
     getItem: (key) => (storage.has(key) ? storage.get(key) : null),
     setItem: (key, value) => storage.set(key, String(value)),
+    removeItem: (key) => storage.delete(key),
   },
   matchMedia: () => ({ matches: false }),
   requestAnimationFrame: () => 0,
@@ -206,7 +207,7 @@ const ctx = {
 
 plugin.apply(ctx);
 
-/** 1. 主题：启动时套用默认主题；三套主题的令牌都成对。 */
+/** 1. 主题：启动时套用默认主题；四套主题的令牌都成对。 */
 if (overrideCalls.length < 1) throw new Error('overrideTokens was not called');
 const first = overrideCalls[0];
 if (first.source !== 'dsh-theme-averita') throw new Error('unexpected source');
@@ -223,8 +224,10 @@ for (const name of names) {
   }
 }
 if (attrs.get('data-av-theme') !== 'averita') throw new Error('default theme marker missing');
+if (attrs.has('data-av-hero-text')) throw new Error('default hero text should follow DSH');
+if (attrs.has('data-av-fade')) throw new Error('default composer fade should be off');
 
-/** 2. 样式：注入一个 style，含三套主题变量；卸载时干净移除。 */
+/** 2. 样式：注入一个 style，含四套主题变量；卸载时干净移除。 */
 if (head.length !== 1) throw new Error(`expected 1 style tag, got ${head.length}`);
 if (head[0].dataset.plugin !== 'dsh-theme-averita') throw new Error('style tag missing data-plugin');
 if (head[0].textContent.length < 3000) throw new Error('style tag content too short');
@@ -233,7 +236,9 @@ for (const id of EXPECTED_THEMES) {
 }
 for (const needle of [
   'data-av-bg="flow"',
+  'data-av-flow-palette="theme"',
   'data-av-flow-palette="dusk"',
+  'color-mix(in srgb, var(--av-space)',
   '--av-flow-3',
   '.av-flow',
   'image-rendering: pixelated',
@@ -247,6 +252,8 @@ for (const needle of [
   '--av-depth',
   'rgb(from var(--av-dot)',
   'mask-composite: intersect',
+  'data-av-fade="on"',
+  'background: none !important',
 ]) {
   if (!head[0].textContent.includes(needle)) throw new Error(`theme css missing: ${needle}`);
 }
@@ -293,20 +300,35 @@ fakeDocument.hidden = true;
 vis();
 if (!attrs.has('data-av-idle')) throw new Error('data-av-idle not set when hidden');
 
+const disposeSection = registrations.find((r) => r.options.name === 'settings.section');
+if (!disposeSection) throw new Error('missing settings.section registration before dispose');
+disposeSection.options.inject().selectHeroText('');
+if (!attrs.has('data-av-hero-text') || !attrs.has('data-av-hero-empty')) {
+  throw new Error('hero text attrs were not set before dispose');
+}
+disposeSection.options.inject().selectFade('on');
+if (attrs.get('data-av-fade') !== 'on') throw new Error('fade attr was not set before dispose');
+
 for (const d of disposers) d.dispose();
 if (head.length !== 0) throw new Error('style tag was not removed on dispose');
 if (attrs.has('data-av-theme')) throw new Error('data-av-theme was not removed on dispose');
+if (attrs.has('data-av-fade')) throw new Error('data-av-fade was not removed on dispose');
 if (attrs.has('data-av-dots')) throw new Error('data-av-dots was not removed on dispose');
 if (attrs.has('data-av-glyph')) throw new Error('data-av-glyph was not removed on dispose');
 if (attrs.has('data-av-motion')) throw new Error('data-av-motion was not removed on dispose');
 if (attrs.has('data-av-bg')) throw new Error('data-av-bg was not removed on dispose');
 if (attrs.has('data-av-flow-palette')) throw new Error('data-av-flow-palette was not removed on dispose');
+if (attrs.has('data-av-hero-text')) throw new Error('data-av-hero-text was not removed on dispose');
+if (attrs.has('data-av-hero-empty')) throw new Error('data-av-hero-empty was not removed on dispose');
 if (styles.has('--av-scale')) throw new Error('--av-scale was not removed on dispose');
 if (styles.has('--av-depth')) throw new Error('--av-depth was not removed on dispose');
 if (styles.has('--av-breathe-min')) throw new Error('--av-breathe-min was not removed on dispose');
+if (styles.has('--av-hero-text')) throw new Error('--av-hero-text was not removed on dispose');
 if (listeners.has('visibilitychange')) throw new Error('visibilitychange listener was not removed on dispose');
+/* 回放前面为卸载测试挂上的 on；后面的默认值 / 面板测试都按关（默认）走。 */
+disposeSection.options.inject().selectFade('off');
 
-/** 3. 品牌位与设置页：两个品牌 single slot + 一个 settings.section。 */
+/** 3. 品牌位、首屏星标与设置页：两个品牌 single slot + 一个首屏 slot + 一个 settings.section。 */
 for (const slot of ['sidebar.brand.mark', 'sidebar.brand.name']) {
   const reg = registrations.find((r) => r.options.name === slot);
   if (!reg) throw new Error(`missing registration for ${slot}`);
@@ -314,6 +336,15 @@ for (const slot of ['sidebar.brand.mark', 'sidebar.brand.name']) {
   if (typeof reg.Component !== 'function') throw new Error(`${slot} component must be a function`);
   const el = reg.Component();
   if (!el || typeof el !== 'object') throw new Error(`${slot} did not render`);
+}
+const heroMark = registrations.find((r) => r.options.name === 'conversation.hero.brand.mark');
+if (!heroMark) throw new Error('missing registration for conversation.hero.brand.mark');
+if (heroMark.options.priority !== -1) throw new Error('conversation.hero.brand.mark priority must be -1');
+if (typeof heroMark.Component !== 'function') throw new Error('hero mark component must be a function');
+const heroMarkEl = heroMark.Component();
+if (!heroMarkEl || typeof heroMarkEl !== 'object') throw new Error('hero mark did not render');
+if (!String(heroMarkEl.props?.className || '').includes('av-hero-mark')) {
+  throw new Error('hero mark is missing the av-hero-mark class');
 }
 const section = registrations.find((r) => r.options.name === 'settings.section');
 if (!section) throw new Error('missing settings.section registration');
@@ -326,6 +357,12 @@ if (typeof props.select !== 'function' || typeof props.getActive !== 'function' 
 }
 if (typeof props.selectWordmark !== 'function' || typeof props.getWordmark !== 'function') {
   throw new Error('settings.section inject payload missing wordmark controls');
+}
+if (typeof props.selectHeroText !== 'function' || typeof props.getHeroText !== 'function') {
+  throw new Error('settings.section inject payload missing hero text controls');
+}
+if (typeof props.selectFade !== 'function' || typeof props.getFade !== 'function') {
+  throw new Error('settings.section inject payload missing composer fade controls');
 }
 if (typeof props.selectDots !== 'function' || typeof props.getDots !== 'function') {
   throw new Error('settings.section inject payload missing dots controls');
@@ -360,6 +397,11 @@ if (typeof props.getFlowAvailable !== 'function') {
 if (typeof props.resetBackground !== 'function') {
   throw new Error('settings.section inject payload missing resetBackground');
 }
+props.select('duskpurple');
+if (props.getActive() !== 'duskpurple') throw new Error('select(duskpurple) did not stick');
+if (attrs.get('data-av-theme') !== 'duskpurple') throw new Error('select(duskpurple) did not set data-av-theme');
+props.select('averita');
+if (props.getActive() !== 'averita') throw new Error('did not return to averita');
 
 /** 3.5 品牌字标：默认、空值隐藏、持久化、单行化与上限。 */
 const brandNameReg = registrations.find((r) => r.options.name === 'sidebar.brand.name');
@@ -383,6 +425,66 @@ if (props.getWordmark().length !== 32) throw new Error('wordmark must be capped 
 props.selectWordmark('');
 if (brandNameText() !== null) throw new Error('empty wordmark should hide the brand name');
 props.selectWordmark("AveritA's DSH");
+
+/** 3.6 首屏文案：默认跟随、替换、空值隐藏、恢复默认、单行化、上限与 CSS 转义。 */
+props.selectHeroText(null);
+if (props.getHeroText() !== null) throw new Error('hero text should reset to null');
+if (attrs.has('data-av-hero-text') || attrs.has('data-av-hero-empty')) {
+  throw new Error('hero attrs should be cleared when following DSH');
+}
+if (styles.has('--av-hero-text')) throw new Error('--av-hero-text should be cleared when following DSH');
+if (storage.has('dsh-theme-averita:hero-text')) {
+  throw new Error('hero text storage should be cleared when following DSH');
+}
+props.selectHeroText('今晚写点什么');
+if (props.getHeroText() !== '今晚写点什么') throw new Error('selectHeroText did not stick');
+if (!attrs.has('data-av-hero-text')) throw new Error('selectHeroText did not set data-av-hero-text');
+if (attrs.has('data-av-hero-empty')) throw new Error('hero text should not be marked empty');
+if (styles.get('--av-hero-text') !== '"今晚写点什么"') {
+  throw new Error('hero text CSS var = ' + styles.get('--av-hero-text'));
+}
+if (storage.get('dsh-theme-averita:hero-text') !== '今晚写点什么') {
+  throw new Error('hero text was not persisted');
+}
+props.selectHeroText('');
+if (props.getHeroText() !== '') throw new Error('empty hero text should be kept');
+if (!attrs.has('data-av-hero-empty')) throw new Error('empty hero text should set data-av-hero-empty');
+if (styles.get('--av-hero-text') !== '""') {
+  throw new Error('empty hero text CSS var = ' + styles.get('--av-hero-text'));
+}
+props.selectHeroText('   ');
+if (!attrs.has('data-av-hero-empty')) throw new Error('blank hero text should hide the title');
+props.selectHeroText('A\nB');
+if (props.getHeroText() !== 'A B') throw new Error('newlines in hero text should fold to spaces');
+props.selectHeroText('x'.repeat(60));
+if (props.getHeroText().length !== 40) throw new Error('hero text must be capped at 40 chars');
+const quote = String.fromCharCode(34);
+const slash = String.fromCharCode(92);
+props.selectHeroText('a' + quote + 'b' + slash + 'c');
+if (styles.get('--av-hero-text') !== quote + 'a' + slash + quote + 'b' + slash + slash + 'c' + quote) {
+  throw new Error('hero text CSS escaping = ' + styles.get('--av-hero-text'));
+}
+props.selectHeroText(null);
+if (attrs.has('data-av-hero-text') || attrs.has('data-av-hero-empty')) {
+  throw new Error('hero attrs should be cleared on reset');
+}
+if (styles.has('--av-hero-text')) throw new Error('--av-hero-text should be cleared on reset');
+if (storage.has('dsh-theme-averita:hero-text')) {
+  throw new Error('hero text storage should be cleared on reset');
+}
+
+/** 3.7 输入框底衬：默认关（不挂属性）；开时挂 data-av-fade，关时摘掉；选择持久化。 */
+if (props.getFade() !== 'off') throw new Error('default composer fade must be off');
+if (attrs.has('data-av-fade')) throw new Error('off composer fade should not set data-av-fade');
+props.selectFade('on');
+if (props.getFade() !== 'on') throw new Error('selectFade(on) did not stick');
+if (attrs.get('data-av-fade') !== 'on') throw new Error('selectFade(on) did not set data-av-fade');
+if (storage.get('dsh-theme-averita:fade') !== 'on') throw new Error('composer fade choice was not persisted');
+props.selectFade('off');
+if (props.getFade() !== 'off') throw new Error('selectFade(off) did not stick');
+if (attrs.has('data-av-fade')) throw new Error('selectFade(off) did not clear data-av-fade');
+props.selectFade('nope');
+if (props.getFade() !== 'off') throw new Error('unknown composer fade must fall back to off');
 
 /** 4. 底纹：方块 / 字符 / 字符墙 / 关闭挂属性、圆点摘属性；选择进 localStorage。 */
 if (props.getDots() !== 'dot') throw new Error('default dots must be dot');
@@ -412,13 +514,13 @@ if (storage.get('dsh-theme-averita:bg') !== 'flow') throw new Error('flow choice
 if (!props.getFlowAvailable()) throw new Error('flow should be available with a fake GL context');
 if (bodyNodes.length !== 1 || bodyNodes[0].tagName !== 'CANVAS') throw new Error('flow canvas was not mounted');
 if (!(bodyNodes[0].width > 0) || !(bodyNodes[0].height > 0)) throw new Error('flow canvas was not sized');
-if (props.getFlow() !== 'mist') throw new Error('default flow palette must be mist');
+if (props.getFlow() !== 'theme') throw new Error('default flow palette must follow the theme');
 props.selectFlow('dusk');
 if (props.getFlow() !== 'dusk') throw new Error('selectFlow(dusk) did not stick');
 if (attrs.get('data-av-flow-palette') !== 'dusk') throw new Error('selectFlow(dusk) did not set the palette attr');
 if (storage.get('dsh-theme-averita:flow') !== 'dusk') throw new Error('flow palette was not persisted');
 props.selectFlow('nope');
-if (props.getFlow() !== 'mist') throw new Error('unknown flow palette must fall back to mist');
+if (props.getFlow() !== 'theme') throw new Error('unknown flow palette must fall back to theme');
 if (!near(props.getSpeed(), 1)) throw new Error('default flow speed must be 1');
 props.selectSpeed('1.6');
 if (!near(props.getSpeed(), 1.6)) throw new Error('selectSpeed(1.6) did not stick');
@@ -500,7 +602,7 @@ props.selectMotion('off');
 props.selectBreathe('0.2');
 props.resetBackground();
 if (props.getBg() !== 'dots' || attrs.has('data-av-bg')) throw new Error('resetBackground did not restore dots background');
-if (props.getFlow() !== 'mist' || attrs.get('data-av-flow-palette') !== 'mist') throw new Error('resetBackground did not restore flow palette');
+if (props.getFlow() !== 'theme' || attrs.get('data-av-flow-palette') !== 'theme') throw new Error('resetBackground did not restore flow palette');
 if (bodyNodes.length !== 0) throw new Error('resetBackground did not remove the flow canvas');
 if (props.getDots() !== 'dot' || props.getGlyph() !== 'plus') throw new Error('resetBackground did not restore dots/glyph');
 if (!near(props.getScale(), 1) || !near(props.getDepth(), 1)) throw new Error('resetBackground did not restore scale/depth');
@@ -537,8 +639,20 @@ const groupLabels = () =>
 
 props.selectDots('dot');
 let labels = rowLabels();
-if (labels.join('/') !== '字标/背景/底纹/缩放/浓淡/动效/呼吸下限/装饰/重置背景') throw new Error('panel rows (default) = ' + labels.join('/'));
-if (groupLabels().join('/') !== '品牌/背景/装饰') throw new Error('panel groups (default) = ' + groupLabels().join('/'));
+if (labels.join('/') !== '字标/首屏文案/背景/底纹/缩放/浓淡/动效/呼吸下限/装饰/底部遮罩/重置背景') throw new Error('panel rows (default) = ' + labels.join('/'));
+if (groupLabels().join('/') !== '品牌/背景/装饰/界面') throw new Error('panel groups (default) = ' + groupLabels().join('/'));
+
+const fadeChips = panelNodes().filter(
+  (node) => node.type === 'button' && ['开', '关'].includes(node.children?.[0]),
+);
+if (fadeChips.length !== 2) throw new Error('composer fade chips = ' + fadeChips.length);
+if (fadeChips.find((node) => node.children[0] === '关')?.props['aria-pressed'] !== true) {
+  throw new Error('composer fade chip should default to off');
+}
+props.selectFade('on');
+const fadeOnChip = panelNodes().find((node) => node.type === 'button' && node.children?.[0] === '开');
+if (fadeOnChip?.props['aria-pressed'] !== true) throw new Error('composer fade chip did not follow state');
+props.selectFade('off');
 
 const scaleInput = panelNodes().find((node) => node.type === 'input' && node.props?.min === 0.5);
 const depthInput = panelNodes().find((node) => node.type === 'input' && node.props?.min === 0.3);
@@ -561,6 +675,28 @@ if (!panelNodes().some((node) => node.children?.[0] === '留空：只显示星�
   throw new Error('empty wordmark hint missing');
 }
 props.selectWordmark("AveritA's DSH");
+const heroInput = panelNodes().find(
+  (node) => node.type === 'input' && node.props?.['aria-label'] === '新会话首屏文案',
+);
+if (!heroInput) throw new Error('hero text input missing');
+if (heroInput.props.value !== '') throw new Error('hero text input should start empty = follow DSH');
+if (heroInput.props.maxLength !== 40) throw new Error('hero text input maxLength = ' + heroInput.props.maxLength);
+if (!String(heroInput.props.placeholder).includes('探索未至之境')) {
+  throw new Error('hero text placeholder should show the native headline');
+}
+if (!panelNodes().some((node) => node.children?.[0] === '跟随 DSH 原文')) {
+  throw new Error('hero text follow-DSH hint missing');
+}
+props.selectHeroText('自定义标题');
+const customHeroInput = panelNodes().find(
+  (node) => node.type === 'input' && node.props?.['aria-label'] === '新会话首屏文案',
+);
+if (customHeroInput.props.value !== '自定义标题') throw new Error('hero text input did not follow state');
+props.selectHeroText('');
+if (!panelNodes().some((node) => node.children?.[0] === '已隐藏：只留星标')) {
+  throw new Error('hero text hidden hint missing');
+}
+props.selectHeroText(null);
 if (scaleInput.props.style?.['--av-fill'] !== '14.29%') throw new Error('scale fill at 1× = ' + scaleInput.props.style?.['--av-fill']);
 if (depthInput.props.style?.['--av-fill'] !== '18.92%') throw new Error('depth fill at 100% = ' + depthInput.props.style?.['--av-fill']);
 if (breatheInput.props.style?.['--av-fill'] !== '65.00%') throw new Error('breathe fill at 65% = ' + breatheInput.props.style?.['--av-fill']);
@@ -572,7 +708,7 @@ if (motionLabels.length !== 4) throw new Error('motion chips missing');
 
 props.selectMotion('drift');
 labels = rowLabels();
-if (labels.join('/') !== '字标/背景/底纹/缩放/浓淡/动效/装饰/重置背景') throw new Error('panel rows (drift) = ' + labels.join('/'));
+if (labels.join('/') !== '字标/首屏文案/背景/底纹/缩放/浓淡/动效/装饰/底部遮罩/重置背景') throw new Error('panel rows (drift) = ' + labels.join('/'));
 props.selectMotion('both');
 
 props.selectScale(2.6);
@@ -602,15 +738,15 @@ props.selectMotion('both');
 
 props.selectDots('char');
 labels = rowLabels();
-if (labels.join('/') !== '字标/背景/底纹/字符/缩放/浓淡/动效/呼吸下限/装饰/重置背景') throw new Error('panel rows (char) = ' + labels.join('/'));
+if (labels.join('/') !== '字标/首屏文案/背景/底纹/字符/缩放/浓淡/动效/呼吸下限/装饰/底部遮罩/重置背景') throw new Error('panel rows (char) = ' + labels.join('/'));
 
 props.selectBg('off');
 labels = rowLabels();
-if (labels.join('/') !== '字标/背景/装饰/重置背景') throw new Error('panel rows (off) = ' + labels.join('/'));
+if (labels.join('/') !== '字标/首屏文案/背景/装饰/底部遮罩/重置背景') throw new Error('panel rows (off) = ' + labels.join('/'));
 
 props.selectDeco('star');
 labels = rowLabels();
-if (labels.join('/') !== '字标/背景/装饰/星形/重置背景') throw new Error('panel rows (star) = ' + labels.join('/'));
+if (labels.join('/') !== '字标/首屏文案/背景/装饰/星形/底部遮罩/重置背景') throw new Error('panel rows (star) = ' + labels.join('/'));
 props.selectDeco('paper');
 props.selectBg('dots');
 props.selectDots('dot');
@@ -619,11 +755,11 @@ if (attrs.has('data-av-dots')) throw new Error('selectDots(dot) did not clear da
 /** 8. 流光面板：只剩 背景 / 色板 / 缩放 / 浓淡 / 重置，滑杆换成流光的说法。 */
 props.selectBg('flow');
 labels = rowLabels();
-if (labels.join('/') !== '字标/背景/色板/速率/缩放/浓淡/装饰/重置背景') throw new Error('panel rows (flow) = ' + labels.join('/'));
+if (labels.join('/') !== '字标/首屏文案/背景/色板/速率/缩放/浓淡/装饰/底部遮罩/重置背景') throw new Error('panel rows (flow) = ' + labels.join('/'));
 const flowChips = panelNodes()
-  .filter((node) => node.type === 'button' && ['雾蓝', '暮紫', '青灰', '暖沙'].includes(node.children?.[0]))
+  .filter((node) => node.type === 'button' && ['跟随主题', '雾蓝', '暮紫', '青灰', '暖沙'].includes(node.children?.[0]))
   .map((node) => node.children[0]);
-if (flowChips.join('/') !== '雾蓝/暮紫/青灰/暖沙') throw new Error('flow chips = ' + flowChips.join('/'));
+if (flowChips.join('/') !== '跟随主题/雾蓝/暮紫/青灰/暖沙') throw new Error('flow chips = ' + flowChips.join('/'));
 const flowScale = panelNodes().find((node) => node.type === 'input' && node.props?.min === 0.5);
 const flowDepth = panelNodes().find((node) => node.type === 'input' && node.props?.min === 0.3);
 const flowSpeed = panelNodes().find((node) => node.type === 'input' && node.props?.min === 0.2);

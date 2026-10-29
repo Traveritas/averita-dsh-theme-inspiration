@@ -5,7 +5,8 @@
      · 4 档调色 + Bayer 抖动量化；
      · 一格 5 个 CSS 像素，整块画布按像素放大（pixelated）。
    去掉的是站点自己的叙事：三条斜缝、夜色池、塌缩圈、风痕、天气、镜头。
-   颜色不写死在这里：读 html 上的 --av-flow-0..3 / --av-flow-glow，
+   颜色不写死在这里：读 html 上的 --av-flow-0..3 / --av-flow-glow。
+   默认「跟随主题」由 CSS 从 --av-space / --av-mark 混出，另四套固定色板，
    由 theme.css 按色板与浅深给值，所以换主题 / 深色 / 色板都不用重建画布。
 
    用法：
@@ -159,7 +160,7 @@ void main() {
     const cs = window.getComputedStyle(document.documentElement);
     const read = (name) => {
       const raw = cs.getPropertyValue(name).trim();
-      return parseFlowColor(raw);
+      return resolveFlowColor(raw);
     };
     for (let i = 0; i < 4; i++) {
       const c = read("--av-flow-" + i);
@@ -376,7 +377,40 @@ void main() {
   };
 }
 
-/** #rgb / #rrggbb / rgb() / rgba() → [r, g, b] 0–1；读不懂就返回 null。 */
+/**
+ * 读一个 --av-flow-* 值：静态色板直接解析；「跟随主题」拿到的是
+ * color-mix(...)，需要挂一个隐藏探针读计算后的 color 再解析。
+ */
+function resolveFlowColor(raw) {
+  if (!raw) return null;
+  const direct = parseFlowColor(raw);
+  if (direct) return direct;
+  if (
+    typeof document === "undefined" ||
+    !document.body ||
+    typeof window === "undefined" ||
+    typeof window.getComputedStyle !== "function"
+  ) {
+    return null;
+  }
+  const probe = document.createElement("span");
+  probe.style.position = "fixed";
+  probe.style.left = "-1000px";
+  probe.style.visibility = "hidden";
+  probe.style.color = raw;
+  /* 老内核不认 color-mix 时 style.color 会是空串；此时不要拿继承色当结果。 */
+  if (!probe.style.color) return null;
+  document.body.appendChild(probe);
+  let computed = "";
+  try {
+    computed = window.getComputedStyle(probe).color;
+  } finally {
+    probe.remove();
+  }
+  return parseFlowColor(computed);
+}
+
+/** #rgb / #rrggbb / rgb() / rgba() / color(srgb …) → [r, g, b] 0–1；读不懂就返回 null。 */
 function parseFlowColor(raw) {
   if (!raw) return null;
   const s = String(raw).trim();
@@ -393,6 +427,8 @@ function parseFlowColor(raw) {
   }
   m = /^rgba?\(\s*([\d.]+)[\s,]+([\d.]+)[\s,]+([\d.]+)/i.exec(s);
   if (m) return [Number(m[1]) / 255, Number(m[2]) / 255, Number(m[3]) / 255];
+  m = /^color\(\s*srgb\s+([\d.]+)\s+([\d.]+)\s+([\d.]+)/i.exec(s);
+  if (m) return [Number(m[1]), Number(m[2]), Number(m[3])];
   return null;
 }
 

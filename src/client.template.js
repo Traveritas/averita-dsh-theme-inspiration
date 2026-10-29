@@ -10,6 +10,7 @@ window.__ModuleLoader__.load({
     const STORAGE_KEY = PLUGIN_ID + ":theme";
     const DECO_KEY = PLUGIN_ID + ":deco";
     const STAR_KEY = PLUGIN_ID + ":star";
+    const FADE_KEY = PLUGIN_ID + ":fade";
     const DOTS_KEY = PLUGIN_ID + ":dots";
     const GLYPH_KEY = PLUGIN_ID + ":glyph";
     const SCALE_KEY = PLUGIN_ID + ":scale";
@@ -20,10 +21,14 @@ window.__ModuleLoader__.load({
     const FLOW_KEY = PLUGIN_ID + ":flow";
     const SPEED_KEY = PLUGIN_ID + ":speed";
     const WORDMARK_KEY = PLUGIN_ID + ":wordmark";
+    const HERO_TEXT_KEY = PLUGIN_ID + ":hero-text";
     const DEFAULT_THEME = "averita";
     /** 品牌字标的默认值；空串是合法值，表示只显示星标。 */
     const DEFAULT_WORDMARK = "AveritA's DSH";
     const MAX_WORDMARK = 32;
+    /** 首屏文案：null = 跟随 DSH 原文；空串 = 只留星标；其余 = 替换标题。 */
+    const NATIVE_HERO_TEXT = "探索未至之境";
+    const MAX_HERO_TEXT = 40;
     const DECO_MODES = [
       { id: "paper", label: "纸品" },
       { id: "star", label: "星芒" },
@@ -42,6 +47,15 @@ window.__ModuleLoader__.load({
     const STAR_HINT = {
       a: "四长四短，端正",
       b: "四根长针，更利",
+    };
+    /** 输入框底衬：默认关（背景透到输入框后），开 = 保留 DSH 的渐隐底衬。 */
+    const FADE_MODES = [
+      { id: "on", label: "开" },
+      { id: "off", label: "关" },
+    ];
+    const FADE_HINT = {
+      on: "保留 DSH 的渐隐底衬",
+      off: "去掉底衬，背景透到输入框后",
     };
     /** 背景：点阵 / 流光 / 关闭；默认点阵。流光与点阵互斥，关闭时两者都不画。 */
     const BG_MODES = [
@@ -67,14 +81,17 @@ window.__ModuleLoader__.load({
       char: "同一网格，字符铺格",
       wall: "密排符号，像一页代码",
     };
-    /** 流光的四套色板：颜色写在 theme.css 的 --av-flow-* 里，浅深各一套。 */
+    /** 流光色板：默认从主题取色，另留四套固定的手选色板。 */
+    const DEFAULT_FLOW = "theme";
     const FLOW_MODES = [
+      { id: "theme", label: "跟随主题" },
       { id: "mist", label: "雾蓝" },
       { id: "dusk", label: "暮紫" },
       { id: "jade", label: "青灰" },
       { id: "amber", label: "暖沙" },
     ];
     const FLOW_HINT = {
+      theme: "从当前主题的底色与强调色取色",
       mist: "冷灰蓝，最接近昼雾",
       dusk: "薄暮紫，给深色留一层光",
       jade: "青灰，像雨后的窗",
@@ -200,6 +217,7 @@ window.__ModuleLoader__.load({
     let activeId = DEFAULT_THEME;
     let decoMode = "paper";
     let starVariant = "a";
+    let fadeMode = "off";
     let dotsMode = "dot";
     let glyphMode = "plus";
     let scaleMode = 1;
@@ -208,15 +226,18 @@ window.__ModuleLoader__.load({
     let motionMode = "both";
     let breatheMode = DEFAULT_BREATHE;
     let bgMode = "dots";
-    let flowPalette = "mist";
+    let flowPalette = DEFAULT_FLOW;
     let wordmark = DEFAULT_WORDMARK;
+    let heroText = null;
     let flowRenderer = null;
     let flowCanvas = null;
     let flowUnavailable = false;
     let getActive = () => activeId;
     let getWordmark = () => wordmark;
+    let getHeroText = () => heroText;
     let getDeco = () => decoMode;
     let getStar = () => starVariant;
+    let getFade = () => fadeMode;
     let getDots = () => dotsMode;
     let getGlyph = () => glyphMode;
     let getScale = () => scaleMode;
@@ -229,8 +250,10 @@ window.__ModuleLoader__.load({
     let getFlowAvailable = () => !flowUnavailable;
     let selectTheme = () => {};
     let selectWordmark = () => {};
+    let selectHeroText = () => {};
     let selectDeco = () => {};
     let selectStar = () => {};
+    let selectFade = () => {};
     let selectDots = () => {};
     let selectGlyph = () => {};
     let selectScale = () => {};
@@ -288,6 +311,23 @@ window.__ModuleLoader__.load({
     function rememberStar(id) {
       try {
         window.localStorage.setItem(STAR_KEY, id);
+      } catch {
+        /* 同上 */
+      }
+    }
+
+    /** 输入框底衬：只有明确存了 "on" 才保留，其余一律按关处理（默认关）。 */
+    function storedFade() {
+      try {
+        return window.localStorage.getItem(FADE_KEY) === "on" ? "on" : "off";
+      } catch {
+        return "off";
+      }
+    }
+
+    function rememberFade(id) {
+      try {
+        window.localStorage.setItem(FADE_KEY, id);
       } catch {
         /* 同上 */
       }
@@ -419,13 +459,13 @@ window.__ModuleLoader__.load({
       }
     }
 
-    /** 流光色板：mist / dusk / jade / amber，默认 mist。 */
+    /** 流光色板：默认跟随主题，另有 mist / dusk / jade / amber。 */
     function storedFlow() {
       try {
         const id = window.localStorage.getItem(FLOW_KEY);
-        return FLOW_MODES.some((mode) => mode.id === id) ? id : "mist";
+        return FLOW_MODES.some((mode) => mode.id === id) ? id : DEFAULT_FLOW;
       } catch {
-        return "mist";
+        return DEFAULT_FLOW;
       }
     }
 
@@ -475,6 +515,38 @@ window.__ModuleLoader__.load({
       } catch {
         /* 同上 */
       }
+    }
+
+    /** 首屏文案：单行化 + 截断；null 表示跟随 DSH 原文，空串表示只留星标。 */
+    function cleanHeroText(value) {
+      if (typeof value !== "string") return "";
+      return value
+        .replace(/[\r\n\t]+/g, " ")
+        .replace(/[\u0000-\u001f\u007f\u2028\u2029]+/g, " ")
+        .slice(0, MAX_HERO_TEXT);
+    }
+
+    function storedHeroText() {
+      try {
+        const value = window.localStorage.getItem(HERO_TEXT_KEY);
+        return value === null ? null : cleanHeroText(value);
+      } catch {
+        return null;
+      }
+    }
+
+    function rememberHeroText(value) {
+      try {
+        if (value === null) window.localStorage.removeItem(HERO_TEXT_KEY);
+        else window.localStorage.setItem(HERO_TEXT_KEY, value);
+      } catch {
+        /* 同上 */
+      }
+    }
+
+    /** 任意文本 -> CSS 字符串字面量，供 content: var(--av-hero-text) 用。 */
+    function cssString(value) {
+      return '"' + value.replace(/\\/g, "\\\\").replace(/"/g, '\\"') + '"';
     }
 
     /** 主题样式表：跟着插件生命周期一起装卸。 */
@@ -591,6 +663,69 @@ window.__ModuleLoader__.load({
       );
     }
 
+    /**
+     * 首屏星标：跟左上角同一颗三轴星。
+     * 静态挂在首屏；鼠标移入 / 移出各绕 z 轴转 90°，累计不回位。
+     * 每帧重画整颗星，深度决定 fill-opacity，转到背面时明暗会跟着换。
+     */
+    function HeroMark() {
+      const group = React.useRef(null);
+      const yaw = React.useRef(45);
+      const target = React.useRef(45);
+      const frameId = React.useRef(0);
+      React.useEffect(() => {
+        const g = group.current;
+        if (g !== null) g.innerHTML = projectStar(yaw.current, 0);
+        return () => {
+          if (frameId.current !== 0) window.cancelAnimationFrame(frameId.current);
+          frameId.current = 0;
+        };
+      }, []);
+      const spin = () => {
+        if (typeof window === "undefined") return;
+        if (
+          typeof window.matchMedia === "function" &&
+          window.matchMedia("(prefers-reduced-motion: reduce)").matches
+        ) {
+          return;
+        }
+        const g = group.current;
+        if (g === null) return;
+        target.current += 90;
+        const from = yaw.current;
+        const to = target.current;
+        if (frameId.current !== 0) window.cancelAnimationFrame(frameId.current);
+        let start = 0;
+        const step = (now) => {
+          if (start === 0) start = now;
+          const t = Math.min(1, (now - start) / 520);
+          const eased = 1 - Math.pow(1 - t, 3);
+          yaw.current = from + (to - from) * eased;
+          g.innerHTML = projectStar(yaw.current, 0);
+          if (t < 1) frameId.current = window.requestAnimationFrame(step);
+          else {
+            yaw.current = to;
+            frameId.current = 0;
+          }
+        };
+        frameId.current = window.requestAnimationFrame(step);
+      };
+      return h(
+        "span",
+        {
+          className: "av-brand-mark av-hero-mark",
+          "aria-hidden": "true",
+          onMouseEnter: spin,
+          onMouseLeave: spin,
+        },
+        h(
+          "svg",
+          { viewBox: "-20 -20 40 40" },
+          h("g", { ref: group, dangerouslySetInnerHTML: { __html: projectStar(45, 0) } }),
+        ),
+      );
+    }
+
     /** 左上角字标：订阅设置里的改动；空值（含全空白）时整段不渲染。 */
     function BrandName() {
       const [text, setText] = React.useState(() => wordmark);
@@ -613,8 +748,10 @@ __COMPONENT_SETTINGS__
       const read = () => ({
         theme: props.getActive(),
         wordmark: props.getWordmark(),
+        heroText: props.getHeroText(),
         deco: props.getDeco(),
         star: props.getStar(),
+        fade: props.getFade(),
         dots: props.getDots(),
         glyph: props.getGlyph(),
         scale: props.getScale(),
@@ -648,6 +785,8 @@ __COMPONENT_SETTINGS__
         brand: {
           defaultWordmark: DEFAULT_WORDMARK,
           maxWordmark: MAX_WORDMARK,
+          nativeHeroText: NATIVE_HERO_TEXT,
+          maxHeroText: MAX_HERO_TEXT,
         },
         helpers: {
           scaleFill,
@@ -670,6 +809,8 @@ __COMPONENT_SETTINGS__
           DECO_HINT,
           STAR_MODES,
           STAR_HINT,
+          FADE_MODES,
+          FADE_HINT,
           DOT_MODES,
           DOT_HINT,
           FLOW_MODES,
@@ -822,15 +963,17 @@ __COMPONENT_SETTINGS__
         else root.setAttribute("data-av-bg", bgMode);
       };
 
+
+
       selectTheme = (id) => {
         const theme = THEME_BY_ID.get(id) ?? THEME_BY_ID.get(DEFAULT_THEME);
+        root.setAttribute("data-av-theme", theme.id);
+        activeId = theme.id;
         if (paletteDispose !== null) {
           paletteDispose();
           paletteDispose = null;
         }
         paletteDispose = ctx.theme.overrideTokens(PLUGIN_ID, theme.tokens);
-        root.setAttribute("data-av-theme", theme.id);
-        activeId = theme.id;
         rememberTheme(theme.id);
         for (const fn of listeners) fn();
       };
@@ -843,6 +986,24 @@ __COMPONENT_SETTINGS__
         for (const fn of listeners) fn();
       };
       getWordmark = () => wordmark;
+
+      /* 首屏文案：null 跟随 DSH 原文；空串只留星标；其余替换标题。 */
+      selectHeroText = (value) => {
+        heroText = value === null ? null : cleanHeroText(value);
+        if (heroText === null) {
+          root.removeAttribute("data-av-hero-text");
+          root.removeAttribute("data-av-hero-empty");
+          root.style.removeProperty("--av-hero-text");
+        } else {
+          root.setAttribute("data-av-hero-text", "");
+          root.style.setProperty("--av-hero-text", cssString(heroText));
+          if (heroText.trim() === "") root.setAttribute("data-av-hero-empty", "");
+          else root.removeAttribute("data-av-hero-empty");
+        }
+        rememberHeroText(heroText);
+        for (const fn of listeners) fn();
+      };
+      getHeroText = () => heroText;
 
       selectDeco = (id) => {
         decoMode = id === "star" || id === "plain" ? id : "paper";
@@ -860,6 +1021,16 @@ __COMPONENT_SETTINGS__
         for (const fn of listeners) fn();
       };
       getStar = () => starVariant;
+
+      // 输入框底衬：默认关（不挂属性）；开时挂 data-av-fade="on" 恢复宿主渐变。
+      selectFade = (id) => {
+        fadeMode = id === "on" ? "on" : "off";
+        if (fadeMode === "on") root.setAttribute("data-av-fade", "on");
+        else root.removeAttribute("data-av-fade");
+        rememberFade(fadeMode);
+        for (const fn of listeners) fn();
+      };
+      getFade = () => fadeMode;
 
       selectDots = (id) => {
         dotsMode = DOT_MODES.some((mode) => mode.id === id) ? id : "dot";
@@ -943,7 +1114,7 @@ __COMPONENT_SETTINGS__
 
       /* 色板：只改 CSS 属性，画布下一帧自己取色。 */
       selectFlow = (id) => {
-        flowPalette = FLOW_MODES.some((mode) => mode.id === id) ? id : "mist";
+        flowPalette = FLOW_MODES.some((mode) => mode.id === id) ? id : DEFAULT_FLOW;
         root.setAttribute("data-av-flow-palette", flowPalette);
         rememberFlow(flowPalette);
         flowRenderer?.refreshPalette();
@@ -955,7 +1126,7 @@ __COMPONENT_SETTINGS__
       const resetBackground = () => {
         selectBg("dots");
         selectDots("dot");
-        selectFlow("mist");
+        selectFlow(DEFAULT_FLOW);
         selectGlyph("plus");
         selectScale(1);
         selectDepth(1);
@@ -970,8 +1141,10 @@ __COMPONENT_SETTINGS__
         root.removeAttribute("data-av-depth");
         selectTheme(storedTheme());
         selectWordmark(storedWordmark());
+        selectHeroText(storedHeroText());
         selectDeco(storedDeco());
         selectStar(storedStar());
+        selectFade(storedFade());
         selectFlow(storedFlow());
         selectGlyph(storedGlyph());
         selectScale(storedScale());
@@ -989,16 +1162,20 @@ __COMPONENT_SETTINGS__
           root.removeAttribute("data-av-theme");
           root.removeAttribute("data-av-deco");
           root.removeAttribute("data-av-star");
+          root.removeAttribute("data-av-fade");
           root.removeAttribute("data-av-dots");
           root.removeAttribute("data-av-glyph");
           root.removeAttribute("data-av-motion");
           root.removeAttribute("data-av-bg");
           root.removeAttribute("data-av-flow-palette");
+          root.removeAttribute("data-av-hero-text");
+          root.removeAttribute("data-av-hero-empty");
           root.removeAttribute("data-av-scale");
           root.removeAttribute("data-av-depth");
           root.style.removeProperty("--av-scale");
           root.style.removeProperty("--av-depth");
           root.style.removeProperty("--av-breathe-min");
+          root.style.removeProperty("--av-hero-text");
         };
       }, "averita: palette");
 
@@ -1022,6 +1199,10 @@ __COMPONENT_SETTINGS__
       ctx.slots.inject("sidebar.brand.name", () =>
         ctx.slots.register({ name: "sidebar.brand.name", priority: -1 }, BrandName),
       );
+      // 首屏原本是 DSH 的动画鱼 fallback；用同一颗星替换，卸载即回退。
+      ctx.slots.inject("conversation.hero.brand.mark", () =>
+        ctx.slots.register({ name: "conversation.hero.brand.mark", priority: -1 }, HeroMark),
+      );
       ctx.slots.inject("settings.section", () =>
         ctx.slots.register(
           {
@@ -1034,10 +1215,14 @@ __COMPONENT_SETTINGS__
               getActive: () => getActive(),
               selectWordmark: (value) => selectWordmark(value),
               getWordmark: () => getWordmark(),
+              selectHeroText: (value) => selectHeroText(value),
+              getHeroText: () => getHeroText(),
               selectDeco: (id) => selectDeco(id),
               getDeco: () => getDeco(),
               selectStar: (id) => selectStar(id),
               getStar: () => getStar(),
+              selectFade: (id) => selectFade(id),
+              getFade: () => getFade(),
               selectDots: (id) => selectDots(id),
               getDots: () => getDots(),
               selectGlyph: (id) => selectGlyph(id),

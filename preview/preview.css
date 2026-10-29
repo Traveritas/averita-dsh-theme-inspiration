@@ -336,6 +336,16 @@ kbd {
 }
 
 /* ── 输入区（结构与真实 DSH 的 composer 同构：seat > stack > card > input/row） ── */
+/* 宿主在有内容时给 composerSeat 铺的渐隐底衬；这里照样画一层，
+   让「设置 → 界面 → 底部遮罩」的开关在预览里也有可看的对象。 */
+[data-composer-seat] {
+  background: linear-gradient(
+    180deg,
+    color-mix(in srgb, var(--dsw-alias-bg-base) 0%, transparent) 0px,
+    var(--dsw-alias-bg-base) 36px
+  );
+}
+
 .composer {
   display: flex;
   flex-direction: column;

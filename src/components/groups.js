@@ -9,4 +9,5 @@ export default [
   { id: 'brand', label: '品牌', order: 10 },
   { id: 'background', label: '背景', order: 20 },
   { id: 'deco', label: '装饰', order: 30 },
+  { id: 'interface', label: '界面', order: 40 },
 ];

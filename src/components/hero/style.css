@@ -1,0 +1,45 @@
+/* ============================================================================
+   新会话首屏：星标 + 可替换标题 + 隐藏「预览版」徽章
+   ----------------------------------------------------------------------------
+   宿主结构（ui-conversation 0.2.1-rc.3）：
+     ._headline > ._fishHitbox + ._titleGroup > span(标题) + ._previewBadge
+   CSS Modules 前缀会变，这里只认稳定后缀；结构变了就整段失效，回退原生外观。
+   ========================================================================== */
+
+/* 「预览版」先去掉；以后要恢复就删这一条。 */
+[class*="_headline"]:has([class*="_fishHitbox"]) [class*="_previewBadge"] {
+  display: none;
+}
+
+/* 首屏星标：和侧栏同一个 .av-brand-mark，只改尺寸；颜色仍走 --av-mark。 */
+.av-brand-mark.av-hero-mark,
+.av-brand-mark.av-hero-mark svg {
+  width: 34px;
+  height: 34px;
+}
+
+/* 自定义标题：隐藏宿主原文字，用 html 上的 CSS 字符串替换。
+   不碰 React；hover 重渲染不会把文字冲掉。 */
+html[data-av-hero-text] [class*="_headline"]:has([class*="_fishHitbox"]) {
+  flex-wrap: nowrap;
+}
+
+html[data-av-hero-text] [class*="_headline"]:has([class*="_fishHitbox"]) [class*="_titleGroup"] {
+  max-width: 100%;
+}
+
+html[data-av-hero-text] [class*="_headline"]:has([class*="_fishHitbox"]) [class*="_titleGroup"] > span:first-child {
+  display: none;
+}
+
+html[data-av-hero-text] [class*="_headline"]:has([class*="_fishHitbox"]) [class*="_titleGroup"]::before {
+  content: var(--av-hero-text);
+  max-width: 100%;
+  overflow-wrap: anywhere;
+  text-align: center;
+}
+
+/* 文案为空：只留星标。 */
+html[data-av-hero-empty] [class*="_headline"]:has([class*="_fishHitbox"]) [class*="_titleGroup"] {
+  display: none;
+}

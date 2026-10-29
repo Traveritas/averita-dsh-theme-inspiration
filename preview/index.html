@@ -11,11 +11,13 @@
   <link rel="stylesheet" href="tokens.css" />
   <link rel="stylesheet" href="preview.css" />
   <link rel="stylesheet" href="../src/theme.css" />
+  <link rel="stylesheet" href="../src/components/hero/style.css" />
   <link rel="stylesheet" href="../src/components/dots/style.css" />
   <link rel="stylesheet" href="../src/components/flow/style.css" />
   <link rel="stylesheet" href="../src/components/motion/style.css" />
   <link rel="stylesheet" href="../src/components/paper/style.css" />
   <link rel="stylesheet" href="../src/components/star/style.css" />
+  <link rel="stylesheet" href="../src/components/composer/style.css" />
 </head>
 <body>
   <div class="app">
@@ -68,12 +70,12 @@
           <div class="content">
             <h2>昼雾与靛夜</h2>
             <p>
-              三套主题：昼雾 · 靛夜 / 冷晨 / 暮玫瑰。浅色与深色各一套令牌，背景二选一：点阵或流光。所有颜色都落到
+              四套主题：昼雾 · 靛夜 / 冷晨 / 暮玫瑰 / 暮紫。浅色与深色各一套令牌，背景二选一：点阵或流光。所有颜色都落到
               <code>--dsw-alias-*</code> 上。
             </p>
             <ul>
               <li>点阵：10px 网格、1.5px 点；漂移 60s 一程、呼吸 30s 一程，可关；</li>
-              <li>流光：1/5 分辨率噪声场，5px 一格、30fps，四套色板；</li>
+              <li>流光：1/5 分辨率噪声场，5px 一格、30fps，默认跟随主题，另有四套固定色板；</li>
               <li>两者共用缩放 / 浓淡两条滑杆；流光另有速率，减少动效时全停。</li>
             </ul>
             <pre class="code"><span class="code-head">theme.css</span><code><span class="tok-kw">body</span>::before {
@@ -142,12 +144,18 @@
       <button type="button" data-theme-pick="averita">昼雾</button>
       <button type="button" data-theme-pick="coldmorning">冷晨</button>
       <button type="button" data-theme-pick="duskrose">暮玫瑰</button>
+      <button type="button" data-theme-pick="duskpurple">暮紫</button>
     </div>
     <div class="theme-picker" role="group" aria-label="背景">
       <span>背景</span>
       <button type="button" data-bg-pick="dots">点阵</button>
       <button type="button" data-bg-pick="flow">流光</button>
       <button type="button" data-bg-pick="off">关闭</button>
+    </div>
+    <div class="theme-picker" role="group" aria-label="输入框底衬">
+      <span>底衬</span>
+      <button type="button" data-fade-pick="on">开</button>
+      <button type="button" data-fade-pick="off">关</button>
     </div>
     <div class="theme-picker" data-dots-picker role="group" aria-label="底纹">
       <span>底纹</span>
@@ -158,6 +166,7 @@
     </div>
     <div class="theme-picker" data-flow-picker hidden role="group" aria-label="色板">
       <span>色板</span>
+      <button type="button" data-flow-pick="theme">跟随主题</button>
       <button type="button" data-flow-pick="mist">雾蓝</button>
       <button type="button" data-flow-pick="dusk">暮紫</button>
       <button type="button" data-flow-pick="jade">青灰</button>

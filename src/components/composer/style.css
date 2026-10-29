@@ -1,0 +1,11 @@
+/* ── 输入框底衬 ─────────────────────────────────────────────────────────
+   宿主在会话有内容时给 composerSeat 铺一层底衬：
+   linear-gradient(180deg, transparent 0px, var(--dsw-alias-bg-base) 36px)，
+   往下是纯色，把点阵 / 流光挡在输入框周围。
+
+   这里默认摘掉这层背景（不挂属性 = 关，背景透到输入框后）；设置里选「开」
+   时挂 html[data-av-fade="on"]，宿主原来的渐隐底衬照常显示。
+   只摘 seat 自己的背景，不动宿主的定位 / 层叠，也不动输入卡自己的底色。 */
+html:not([data-av-fade="on"]) [data-composer-seat] {
+  background: none !important;
+}

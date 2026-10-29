@@ -2519,12 +2519,851 @@ window.__ModuleLoader__.load({
         "mark": "#d3a6ad"
       }
     }
+  },
+  {
+    "id": "duskpurple",
+    "label": "暮紫",
+    "tokens": {
+      "--dsw-alias-bg-base": {
+        "light": "#e2ddec",
+        "dark": "#110e1a"
+      },
+      "--dsw-alias-bg-layer-1": {
+        "light": "rgba(252, 252, 252, 0.86)",
+        "dark": "rgba(34, 31, 39, 0.72)"
+      },
+      "--dsw-alias-bg-layer-2": {
+        "light": "rgba(249, 249, 250, 0.9)",
+        "dark": "rgba(28, 25, 32, 0.82)"
+      },
+      "--dsw-alias-bg-layer-3": {
+        "light": "rgba(253, 253, 254, 0.94)",
+        "dark": "rgba(40, 36, 46, 0.78)"
+      },
+      "--dsw-alias-bg-overlay": {
+        "light": "rgba(250, 249, 251, 0.94)",
+        "dark": "rgba(26, 24, 30, 0.92)"
+      },
+      "--dsw-alias-bg-module-platform": {
+        "light": "rgba(244, 243, 245, 0.9)",
+        "dark": "rgba(32, 29, 37, 0.9)"
+      },
+      "--dsw-alias-bg-document-preview": {
+        "light": "#f3f2f4",
+        "dark": "#1a181d"
+      },
+      "--dsw-alias-bg-document-selection": {
+        "light": "rgba(102, 89, 122, 0.24)",
+        "dark": "rgba(168, 156, 186, 0.26)"
+      },
+      "--dsw-alias-bg-skeleton": {
+        "light": "rgba(65, 60, 74, 0.06)",
+        "dark": "rgba(255, 255, 255, 0.06)"
+      },
+      "--dsw-alias-bg-multi-select": {
+        "light": "rgba(65, 60, 74, 0.05)",
+        "dark": "rgba(255, 255, 255, 0.04)"
+      },
+      "--dsw-alias-bg-mask-1": {
+        "light": "rgba(16, 14, 18, 0.28)",
+        "dark": "rgba(6, 5, 7, 0.4)"
+      },
+      "--dsw-alias-bg-mask-2": {
+        "light": "rgba(16, 14, 18, 0.14)",
+        "dark": "rgba(6, 5, 7, 0.2)"
+      },
+      "--dsw-alias-bg-mask-3": {
+        "light": "rgba(16, 14, 18, 0.5)",
+        "dark": "rgba(6, 5, 7, 0.56)"
+      },
+      "--dsw-alias-bg-mask-drop": {
+        "light": "rgba(255, 255, 255, 0.70)",
+        "dark": "rgba(16, 14, 18, 0.7)"
+      },
+      "--dsw-alias-bg-mask-photo": {
+        "light": "rgba(0, 0, 0, 0.88)",
+        "dark": "rgba(0, 0, 0, 0.88)"
+      },
+      "--dsw-alias-label-primary": {
+        "light": "#302a36",
+        "dark": "#f1e9f7"
+      },
+      "--dsw-alias-label-primary-dimmed": {
+        "light": "#434049",
+        "dark": "#d3d0d7"
+      },
+      "--dsw-alias-label-primary-inverted": {
+        "light": "#fafafa",
+        "dark": "#131214"
+      },
+      "--dsw-alias-label-primary-foreground": {
+        "light": "#ffffff",
+        "dark": "#131214"
+      },
+      "--dsw-alias-label-primary-bluish": {
+        "light": "#29272c",
+        "dark": "#ebeaed"
+      },
+      "--dsw-alias-label-secondary": {
+        "light": "#5e5466",
+        "dark": "#cbbcd8"
+      },
+      "--dsw-alias-label-tertiary": {
+        "light": "#6a6073",
+        "dark": "#a897b7"
+      },
+      "--dsw-alias-label-caption": {
+        "light": "#878192",
+        "dark": "#7b7586"
+      },
+      "--dsw-alias-label-dimmed": {
+        "light": "#d5d3d9",
+        "dark": "#49454f"
+      },
+      "--dsw-alias-label-document-preview": {
+        "light": "#434049",
+        "dark": "#d3d0d7"
+      },
+      "--dsw-alias-label-shimmer": {
+        "light": "rgba(41, 39, 44, 0.18)",
+        "dark": "rgba(235, 234, 237, 0.24)"
+      },
+      "--dsw-alias-border-l1": {
+        "light": "rgba(65, 60, 74, 0.14)",
+        "dark": "rgba(195, 191, 203, 0.12)"
+      },
+      "--dsw-alias-border-l2": {
+        "light": "rgba(65, 60, 74, 0.22)",
+        "dark": "rgba(195, 191, 203, 0.18)"
+      },
+      "--dsw-alias-border-l3": {
+        "light": "rgba(65, 60, 74, 0.28)",
+        "dark": "rgba(195, 191, 203, 0.24)"
+      },
+      "--dsw-alias-border-l4": {
+        "light": "rgba(65, 60, 74, 0.34)",
+        "dark": "rgba(195, 191, 203, 0.3)"
+      },
+      "--dsw-alias-border-l2-darkmode-thin": {
+        "light": "rgba(65, 60, 74, 0.22)",
+        "dark": "rgba(195, 191, 203, 0.14)"
+      },
+      "--dsw-alias-border-inverted": {
+        "light": "rgba(255, 255, 255, 0.40)",
+        "dark": "rgba(0, 0, 0, 0)"
+      },
+      "--dsw-alias-border-inverted2": {
+        "light": "rgba(255, 255, 255, 0.55)",
+        "dark": "rgba(0, 0, 0, 0)"
+      },
+      "--dsw-alias-interactive-bg-hover": {
+        "light": "rgba(65, 60, 74, 0.055)",
+        "dark": "rgba(214, 211, 219, 0.06)"
+      },
+      "--dsw-alias-interactive-bg-active": {
+        "light": "rgba(65, 60, 74, 0.095)",
+        "dark": "rgba(214, 211, 219, 0.1)"
+      },
+      "--dsw-alias-interactive-bg-hover-solid": {
+        "light": "rgba(244, 243, 245, 0.9)",
+        "dark": "rgba(34, 31, 39, 0.9)"
+      },
+      "--dsw-alias-interactive-bg-hover-accent": {
+        "light": "rgba(102, 94, 117, 0.1)",
+        "dark": "rgba(190, 184, 199, 0.12)"
+      },
+      "--dsw-alias-interactive-bg-hover-danger": {
+        "light": "rgba(102, 93, 117, 0.06)",
+        "dark": "rgba(167, 161, 179, 0.1)"
+      },
+      "--dsw-alias-brand-primary": {
+        "light": "#644a7a",
+        "dark": "#d4c0ef"
+      },
+      "--dsw-alias-brand-primary-invert": {
+        "light": "#faf8fc",
+        "dark": "#1c1627"
+      },
+      "--dsw-alias-brand-text": {
+        "light": "#564c64",
+        "dark": "#ebe8ef"
+      },
+      "--dsw-alias-brand-primary-new-colorprimary-new-color": {
+        "light": "#66597a",
+        "dark": "#bcb0cf"
+      },
+      "--dsw-alias-button-primary-fill": {
+        "light": "#564c64",
+        "dark": "#ccc3da"
+      },
+      "--dsw-alias-button-primary-hover": {
+        "light": "#665a78",
+        "dark": "#dad4e5"
+      },
+      "--dsw-alias-button-primary-dimmed": {
+        "light": "rgba(86, 76, 100, 0.16)",
+        "dark": "rgba(204, 195, 218, 0.16)"
+      },
+      "--dsw-alias-button-contrast-fill": {
+        "light": "#28252e",
+        "dark": "#ebe9ee"
+      },
+      "--dsw-alias-button-elevated-fill": {
+        "light": "#fcfcfd",
+        "dark": "rgba(40, 36, 46, 0.9)"
+      },
+      "--dsw-alias-button-floating-fill": {
+        "light": "rgba(253, 253, 254, 0.9)",
+        "dark": "rgba(30, 28, 34, 0.9)"
+      },
+      "--dsw-alias-button-floating-hover": {
+        "light": "rgba(248, 247, 249, 0.95)",
+        "dark": "rgba(43, 39, 49, 0.95)"
+      },
+      "--dsw-alias-button-ghost-active-fill": {
+        "light": "rgba(65, 60, 74, 0.06)",
+        "dark": "rgba(214, 211, 219, 0.06)"
+      },
+      "--dsw-alias-button-ghost-active-hover": {
+        "light": "rgba(65, 60, 74, 0.09)",
+        "dark": "rgba(214, 211, 219, 0.09)"
+      },
+      "--dsw-alias-button-ghost-active-border": {
+        "light": "rgba(65, 60, 74, 0.3)",
+        "dark": "rgba(195, 191, 203, 0.26)"
+      },
+      "--dsw-alias-button-info-fill": {
+        "light": "#66597a",
+        "dark": "#bcb0cf"
+      },
+      "--dsw-alias-button-info-hover": {
+        "light": "#77688e",
+        "dark": "#cec3de"
+      },
+      "--dsw-alias-state-business-primary": {
+        "light": "#6f5685",
+        "dark": "#ccb4f0"
+      },
+      "--dsw-alias-state-business-tertiary": {
+        "light": "rgba(102, 89, 122, 0.1)",
+        "dark": "rgba(188, 176, 207, 0.14)"
+      },
+      "--dsw-alias-state-done-primary": {
+        "light": "#7b6694",
+        "dark": "#c5b7d9"
+      },
+      "--dsw-alias-state-error-primary": {
+        "light": "#924f40",
+        "dark": "#cc9388"
+      },
+      "--dsw-alias-state-error-secondary": {
+        "light": "#a76455",
+        "dark": "#d7a79a"
+      },
+      "--dsw-alias-state-idle-primary": {
+        "light": "#bac1cb",
+        "dark": "#4e5564"
+      },
+      "--dsw-alias-state-success-primary": {
+        "light": "#4e6a57",
+        "dark": "#8db098"
+      },
+      "--dsw-alias-state-success-secondary": {
+        "light": "#64836f",
+        "dark": "#78a58d"
+      },
+      "--dsw-alias-state-success-tertiary": {
+        "light": "rgba(78, 106, 87, 0.12)",
+        "dark": "rgba(141, 176, 152, 0.14)"
+      },
+      "--dsw-alias-state-warn-primary": {
+        "light": "#816035",
+        "dark": "#caad7d"
+      },
+      "--dsw-alias-state-warn-secondary": {
+        "light": "#987340",
+        "dark": "#d2b98e"
+      },
+      "--dsw-alias-state-warn-tertiary": {
+        "light": "rgba(129, 96, 53, 0.12)",
+        "dark": "rgba(202, 173, 125, 0.14)"
+      },
+      "--dsw-alias-state-warn-label": {
+        "light": "#816035",
+        "dark": "#caad7d"
+      },
+      "--dsw-alias-link": {
+        "light": "#6f5685",
+        "dark": "#ccb4f0"
+      },
+      "--dsw-alias-menu-icon": {
+        "light": "#554b63",
+        "dark": "#afa5be"
+      },
+      "--dsw-focus-ring-width": {
+        "light": "2px",
+        "dark": "2px"
+      },
+      "--dsw-alias-markdown-code-block": {
+        "light": "rgba(239, 238, 241, 0.92)",
+        "dark": "rgba(18, 16, 21, 0.72)"
+      },
+      "--dsw-alias-markdown-code-block-banner": {
+        "light": "rgba(235, 234, 238, 0.94)",
+        "dark": "rgba(22, 20, 26, 0.86)"
+      },
+      "--dsw-alias-markdown-code-segment-selected": {
+        "light": "#ffffff",
+        "dark": "#2c2833"
+      },
+      "--dsw-alias-markdown-code-segment-unselected": {
+        "light": "rgba(242, 241, 243, 0.9)",
+        "dark": "rgba(22, 20, 26, 0.7)"
+      },
+      "--dsw-alias-markdown-inline-code": {
+        "light": "rgba(235, 234, 238, 0.9)",
+        "dark": "rgba(255, 255, 255, 0.06)"
+      },
+      "--dsw-alias-markdown-placeholder": {
+        "light": "rgba(242, 241, 243, 0.8)",
+        "dark": "rgba(255, 255, 255, 0.05)"
+      },
+      "--dsw-alias-markdown-tag": {
+        "light": "rgba(242, 241, 243, 0.9)",
+        "dark": "rgba(255, 255, 255, 0.06)"
+      },
+      "--dsw-alias-markdown-citation": {
+        "light": "rgba(102, 89, 122, 0.1)",
+        "dark": "rgba(188, 176, 207, 0.12)"
+      },
+      "--dsw-alias-turn-trigger-bg": {
+        "light": "rgba(239, 238, 241, 0.92)",
+        "dark": "rgba(18, 16, 21, 0.72)"
+      },
+      "--dsw-alias-turn-trigger-bg-hover": {
+        "light": "rgba(65, 60, 74, 0.055)",
+        "dark": "rgba(214, 211, 219, 0.06)"
+      },
+      "--dsw-specific-menu": {
+        "light": "rgba(250, 250, 251, 0.88)",
+        "dark": "rgba(20, 19, 23, 0.9)"
+      },
+      "--dsw-alias-menu-group-header-fill": {
+        "light": "rgba(250, 250, 251, 0.96)",
+        "dark": "rgba(20, 19, 23, 0.97)"
+      },
+      "--dsw-alias-tooltip-bg": {
+        "light": "rgba(40, 37, 46, 0.94)",
+        "dark": "rgba(36, 33, 41, 0.96)"
+      },
+      "--dsw-alias-toast-bg": {
+        "light": "rgba(40, 37, 46, 0.94)",
+        "dark": "rgba(36, 33, 41, 0.96)"
+      },
+      "--dsw-alias-toast-label": {
+        "light": "#faf9fb",
+        "dark": "#ebe9ee"
+      },
+      "--dsw-alias-switch-thumb": {
+        "light": "#ffffff",
+        "dark": "#beb8c7"
+      },
+      "--dsw-menu-backdrop-filter": {
+        "light": "blur(14px) saturate(120%)",
+        "dark": "blur(14px) saturate(120%)"
+      },
+      "--dsw-mask-blur": {
+        "light": "none",
+        "dark": "none"
+      },
+      "--dsw-specific-sidebar-fill": {
+        "light": "rgba(247, 247, 248, 0.72)",
+        "dark": "rgba(16, 14, 18, 0.66)"
+      },
+      "--dsw-specific-sidebar-nav-item-active": {
+        "light": "rgba(86, 79, 97, 0.07)",
+        "dark": "rgba(169, 162, 180, 0.1)"
+      },
+      "--dsw-specific-sidebar-nav-item-active-accent": {
+        "light": "rgba(102, 94, 117, 0.1)",
+        "dark": "rgba(190, 184, 199, 0.12)"
+      },
+      "--dsw-specific-input-major": {
+        "light": "rgba(253, 253, 254, 0.86)",
+        "dark": "rgba(24, 22, 28, 0.84)"
+      },
+      "--dsw-specific-bubble": {
+        "light": "rgba(238, 228, 244, 0.88)",
+        "dark": "rgba(43, 35, 55, 0.62)"
+      },
+      "--dsw-specific-bubble-highlight": {
+        "light": "rgba(235, 231, 241, 0.92)",
+        "dark": "rgba(58, 49, 71, 0.72)"
+      },
+      "--dsw-specific-selector": {
+        "light": "rgba(244, 243, 245, 0.86)",
+        "dark": "rgba(34, 31, 39, 0.86)"
+      },
+      "--dsw-specific-tip": {
+        "light": "rgba(245, 244, 246, 0.9)",
+        "dark": "rgba(32, 29, 37, 0.9)"
+      },
+      "--dsw-specific-login-input": {
+        "light": "#f3f2f4",
+        "dark": "#1a181d"
+      },
+      "--dsw-alias-scrollbar-bg-l1": {
+        "light": "rgba(65, 60, 74, 0.2)",
+        "dark": "rgba(195, 191, 203, 0.18)"
+      },
+      "--dsw-alias-scrollbar-bg-l2": {
+        "light": "rgba(65, 60, 74, 0.24)",
+        "dark": "rgba(195, 191, 203, 0.22)"
+      },
+      "--dsw-alias-scrollbar-hover-l1": {
+        "light": "rgba(65, 60, 74, 0.34)",
+        "dark": "rgba(195, 191, 203, 0.32)"
+      },
+      "--dsw-alias-scrollbar-hover-l2": {
+        "light": "rgba(65, 60, 74, 0.38)",
+        "dark": "rgba(195, 191, 203, 0.36)"
+      },
+      "--ds-ease-in-out": {
+        "light": "cubic-bezier(0.22, 0.61, 0.36, 1)",
+        "dark": "cubic-bezier(0.22, 0.61, 0.36, 1)"
+      },
+      "--ds-transition-duration": {
+        "light": "180ms",
+        "dark": "180ms"
+      },
+      "--ds-transition-duration-fast": {
+        "light": "120ms",
+        "dark": "120ms"
+      },
+      "--ds-transition-duration-slow": {
+        "light": "300ms",
+        "dark": "300ms"
+      },
+      "--dsw-radius-xs": {
+        "light": "2px",
+        "dark": "2px"
+      },
+      "--dsw-radius-sm": {
+        "light": "3px",
+        "dark": "3px"
+      },
+      "--dsw-radius-md": {
+        "light": "4px",
+        "dark": "4px"
+      },
+      "--dsw-radius-lg": {
+        "light": "6px",
+        "dark": "6px"
+      },
+      "--dsw-radius-xl": {
+        "light": "8px",
+        "dark": "8px"
+      },
+      "--dsw-radius-panel": {
+        "light": "10px",
+        "dark": "10px"
+      },
+      "--dsw-shadow-lv1": {
+        "light": "0 1px 2px rgba(36, 40, 47, 0.05)",
+        "dark": "0 1px 2px rgba(0, 0, 0, 0.24)"
+      },
+      "--dsw-shadow-lv1-blur": {
+        "light": "0 2px 8px rgba(36, 40, 47, 0.04)",
+        "dark": "0 2px 8px rgba(0, 0, 0, 0.18)"
+      },
+      "--dsw-shadow-lv2": {
+        "light": "0 6px 20px rgba(36, 40, 47, 0.07), 0 1px 2px rgba(36, 40, 47, 0.05)",
+        "dark": "0 6px 22px rgba(0, 0, 0, 0.34), 0 1px 2px rgba(0, 0, 0, 0.24)"
+      },
+      "--dsw-shadow-lv3": {
+        "light": "0 20px 56px rgba(36, 40, 47, 0.12), 0 2px 8px rgba(36, 40, 47, 0.06)",
+        "dark": "0 22px 60px rgba(0, 0, 0, 0.46), 0 2px 8px rgba(0, 0, 0, 0.30)"
+      },
+      "--dsw-elevation-stroke-color": {
+        "light": "rgba(65, 60, 74, 0.18)",
+        "dark": "rgba(195, 191, 203, 0.18)"
+      },
+      "--dsw-font-markdown-h1-font-family": {
+        "light": "\"Noto Serif SC\", \"Source Han Serif SC\", \"Songti SC\", \"SimSun\", serif",
+        "dark": "\"Noto Serif SC\", \"Source Han Serif SC\", \"Songti SC\", \"SimSun\", serif"
+      },
+      "--dsw-font-markdown-h2-font-family": {
+        "light": "\"Noto Serif SC\", \"Source Han Serif SC\", \"Songti SC\", \"SimSun\", serif",
+        "dark": "\"Noto Serif SC\", \"Source Han Serif SC\", \"Songti SC\", \"SimSun\", serif"
+      },
+      "--dsw-font-markdown-h3-font-family": {
+        "light": "\"Noto Serif SC\", \"Source Han Serif SC\", \"Songti SC\", \"SimSun\", serif",
+        "dark": "\"Noto Serif SC\", \"Source Han Serif SC\", \"Songti SC\", \"SimSun\", serif"
+      },
+      "--shiki-token-constant": {
+        "light": "#998462",
+        "dark": "#d1bc97"
+      },
+      "--shiki-token-string": {
+        "light": "#44686f",
+        "dark": "#94b8bf"
+      },
+      "--shiki-token-comment": {
+        "light": "#878093",
+        "dark": "#7b7388"
+      },
+      "--shiki-token-keyword": {
+        "light": "#715c91",
+        "dark": "#bcadd2"
+      },
+      "--shiki-token-parameter": {
+        "light": "#806639",
+        "dark": "#d1bc97"
+      },
+      "--shiki-token-function": {
+        "light": "#786397",
+        "dark": "#cdc0e0"
+      },
+      "--shiki-token-string-expression": {
+        "light": "#44686f",
+        "dark": "#94b8bf"
+      },
+      "--shiki-token-punctuation": {
+        "light": "#55505e",
+        "dark": "#a8a3b1"
+      },
+      "--shiki-token-link": {
+        "light": "#65547f",
+        "dark": "#bcadd2"
+      },
+      "--dsw-static-amber-100": {
+        "light": "#fdf5e8",
+        "dark": "#fdf5e8"
+      },
+      "--dsw-static-amber-400": {
+        "light": "#83570c",
+        "dark": "#edaa3b"
+      },
+      "--dsw-static-amber-500": {
+        "light": "#6b470a",
+        "dark": "#efb553"
+      },
+      "--dsw-static-amber-600": {
+        "light": "#4c2f10",
+        "dark": "#e3af78"
+      },
+      "--dsw-static-amber-900": {
+        "light": "#2e2618",
+        "dark": "#2e2618"
+      },
+      "--dsw-static-blue-100": {
+        "light": "#eae2f7",
+        "dark": "#eae2f7"
+      },
+      "--dsw-static-blue-300": {
+        "light": "#c2aae6",
+        "dark": "#c2aae6"
+      },
+      "--dsw-static-blue-400": {
+        "light": "#a480da",
+        "dark": "#a480da"
+      },
+      "--dsw-static-blue-450": {
+        "light": "#9870d5",
+        "dark": "#9870d5"
+      },
+      "--dsw-static-blue-500": {
+        "light": "#8d60d1",
+        "dark": "#8d60d1"
+      },
+      "--dsw-static-blue-50": {
+        "light": "#f6f3fb",
+        "dark": "#f6f3fb"
+      },
+      "--dsw-static-blue-50p": {
+        "light": "#f3effa",
+        "dark": "#f3effa"
+      },
+      "--dsw-static-blue-600": {
+        "light": "#7b47c9",
+        "dark": "#7b47c9"
+      },
+      "--dsw-static-blue-75": {
+        "light": "#f1ebf9",
+        "dark": "#f1ebf9"
+      },
+      "--dsw-static-blue-800": {
+        "light": "#5b2e9f",
+        "dark": "#5b2e9f"
+      },
+      "--dsw-static-blue-900": {
+        "light": "#3a1d65",
+        "dark": "#3a1d65"
+      },
+      "--dsw-static-blue-950": {
+        "light": "#301b50",
+        "dark": "#301b50"
+      },
+      "--dsw-static-deepseek-100": {
+        "light": "#efe9f8",
+        "dark": "#efe9f8"
+      },
+      "--dsw-static-deepseek-200": {
+        "light": "#e7ddf5",
+        "dark": "#e7ddf5"
+      },
+      "--dsw-static-deepseek-300": {
+        "light": "#d6c6ef",
+        "dark": "#d6c6ef"
+      },
+      "--dsw-static-deepseek-400": {
+        "light": "#b598e1",
+        "dark": "#b598e1"
+      },
+      "--dsw-static-deepseek-450": {
+        "light": "#a17bd9",
+        "dark": "#a17bd9"
+      },
+      "--dsw-static-deepseek-500": {
+        "light": "#8858cf",
+        "dark": "#8858cf"
+      },
+      "--dsw-static-deepseek-50": {
+        "light": "#f4f0fb",
+        "dark": "#f4f0fb"
+      },
+      "--dsw-static-deepseek-600": {
+        "light": "#744fab",
+        "dark": "#744fab"
+      },
+      "--dsw-static-deepseek-700-delete": {
+        "light": "#573688",
+        "dark": "#573688"
+      },
+      "--dsw-static-deepseek-800": {
+        "light": "#443758",
+        "dark": "#443758"
+      },
+      "--dsw-static-deepseek-900": {
+        "light": "#332a40",
+        "dark": "#332a40"
+      },
+      "--dsw-static-green-100": {
+        "light": "#e7f9ed",
+        "dark": "#e7f9ed"
+      },
+      "--dsw-static-green-400": {
+        "light": "#226e3e",
+        "dark": "#55ca80"
+      },
+      "--dsw-static-green-500": {
+        "light": "#166131",
+        "dark": "#5edb8c"
+      },
+      "--dsw-static-green-500-a08": {
+        "light": "#16613114",
+        "dark": "#5edb8c14"
+      },
+      "--dsw-static-green-500-a12": {
+        "light": "#1661311f",
+        "dark": "#5edb8c1f"
+      },
+      "--dsw-static-green-900": {
+        "light": "#213e2c",
+        "dark": "#213e2c"
+      },
+      "--dsw-static-neutral-00": {
+        "light": "#ffffff",
+        "dark": "#ffffff"
+      },
+      "--dsw-static-neutral-1000": {
+        "light": "#000000",
+        "dark": "#0b0b0b"
+      },
+      "--dsw-static-neutral-100": {
+        "light": "#f5f5f5",
+        "dark": "#f5f5f5"
+      },
+      "--dsw-static-neutral-150": {
+        "light": "#ededed",
+        "dark": "#ededed"
+      },
+      "--dsw-static-neutral-200": {
+        "light": "#e5e4e6",
+        "dark": "#e5e4e6"
+      },
+      "--dsw-static-neutral-250": {
+        "light": "#dcdbdd",
+        "dark": "#dcdbdd"
+      },
+      "--dsw-static-neutral-300": {
+        "light": "#d4d3d5",
+        "dark": "#d4d3d5"
+      },
+      "--dsw-static-neutral-400": {
+        "light": "#a4a2a6",
+        "dark": "#a4a2a6"
+      },
+      "--dsw-static-neutral-500": {
+        "light": "#828185",
+        "dark": "#828185"
+      },
+      "--dsw-static-neutral-50": {
+        "light": "#fafafa",
+        "dark": "#fafafa"
+      },
+      "--dsw-static-neutral-550": {
+        "light": "#67666a",
+        "dark": "#67666a"
+      },
+      "--dsw-static-neutral-600": {
+        "light": "#555457",
+        "dark": "#555457"
+      },
+      "--dsw-static-neutral-700": {
+        "light": "#3c3b3e",
+        "dark": "#474649"
+      },
+      "--dsw-static-neutral-800": {
+        "light": "#29282a",
+        "dark": "#343335"
+      },
+      "--dsw-static-neutral-850": {
+        "light": "#222123",
+        "dark": "#2d2c2e"
+      },
+      "--dsw-static-neutral-900": {
+        "light": "#0f0f0f",
+        "dark": "#1a1a1b"
+      },
+      "--dsw-static-neutral-bluish-00": {
+        "light": "#ffffff",
+        "dark": "#ffffff"
+      },
+      "--dsw-static-neutral-bluish-1000": {
+        "light": "#111014",
+        "dark": "#1c1a20"
+      },
+      "--dsw-static-neutral-bluish-100": {
+        "light": "#eeedf0",
+        "dark": "#eeedf0"
+      },
+      "--dsw-static-neutral-bluish-150": {
+        "light": "#edecef",
+        "dark": "#edecef"
+      },
+      "--dsw-static-neutral-bluish-200": {
+        "light": "#e7e5ea",
+        "dark": "#e7e5ea"
+      },
+      "--dsw-static-neutral-bluish-300": {
+        "light": "#d2d0d5",
+        "dark": "#d2d0d5"
+      },
+      "--dsw-static-neutral-bluish-400": {
+        "light": "#b1afb6",
+        "dark": "#b1afb6"
+      },
+      "--dsw-static-neutral-bluish-500": {
+        "light": "#9d99a4",
+        "dark": "#9d99a4"
+      },
+      "--dsw-static-neutral-bluish-50": {
+        "light": "#faf9fb",
+        "dark": "#faf9fb"
+      },
+      "--dsw-static-neutral-bluish-600": {
+        "light": "#85838a",
+        "dark": "#85838a"
+      },
+      "--dsw-static-neutral-bluish-60": {
+        "light": "#f6f5f7",
+        "dark": "#faf9fb"
+      },
+      "--dsw-static-neutral-bluish-700": {
+        "light": "#656369",
+        "dark": "#706d75"
+      },
+      "--dsw-static-neutral-bluish-750": {
+        "light": "#464449",
+        "dark": "#514f55"
+      },
+      "--dsw-static-neutral-bluish-75": {
+        "light": "#f3f2f4",
+        "dark": "#f3f2f4"
+      },
+      "--dsw-static-neutral-bluish-800": {
+        "light": "#363538",
+        "dark": "#414043"
+      },
+      "--dsw-static-neutral-bluish-850": {
+        "light": "#2d2c2e",
+        "dark": "#383739"
+      },
+      "--dsw-static-neutral-bluish-875": {
+        "light": "#232324",
+        "dark": "#2e2e30"
+      },
+      "--dsw-static-neutral-bluish-900": {
+        "light": "#1b1b1c",
+        "dark": "#272627"
+      },
+      "--dsw-static-neutral-bluish-950": {
+        "light": "#161517",
+        "dark": "#212022"
+      },
+      "--dsw-static-red-100": {
+        "light": "#fde3e3",
+        "dark": "#fde3e3"
+      },
+      "--dsw-static-red-400": {
+        "light": "#be1919",
+        "dark": "#ea6262"
+      },
+      "--dsw-static-red-400-a12": {
+        "light": "#be19191f",
+        "dark": "#ea62621f"
+      },
+      "--dsw-static-red-500": {
+        "light": "#a61717",
+        "dark": "#ed7979"
+      },
+      "--dsw-static-red-50": {
+        "light": "#fdf3f3",
+        "dark": "#fdf3f3"
+      },
+      "--dsw-static-red-600": {
+        "light": "#911313",
+        "dark": "#f08f8f"
+      },
+      "--dsw-static-red-600-a08": {
+        "light": "#91131314",
+        "dark": "#f08f8f14"
+      },
+      "--dsw-static-red-900": {
+        "light": "#531010",
+        "dark": "#531010"
+      }
+    },
+    "vars": {
+      "light": {
+        "space": "#e2ddec",
+        "dot": "rgba(60, 50, 72, 0.055)",
+        "mark": "#6f5685"
+      },
+      "dark": {
+        "space": "#110e1a",
+        "dot": "rgba(230, 214, 242, 0.10)",
+        "mark": "#ccb4f0"
+      }
+    }
   }
 ];
-    const CSS = "/* ============================================================================\n   AveritA's DSH —— 主题核心样式（令牌 / 空间 / 外壳 / 品牌位 / 设置面板）\n   组件在 src/components/<id>/style.css，由 scripts/build.mjs 按 manifest 顺序\n   拼到本文件之后。改产物不要手改 client.js。\n   ========================================================================== */\n\n/* 兜底色：没拿到 data-av-theme 时按 averita 走。 */\n:root {\n  --av-space: #e5eaf0;\n  --av-dot: rgba(55, 63, 79, 0.055);\n  --av-mark: #61567d;\n  /* JS 直接覆写这三枚（滑杆无级），默认 1 / 1 / 0.65。 */\n  --av-scale: 1;\n  --av-depth: 1;\n  --av-breathe-min: 0.65;\n  --av-serif: \"Noto Serif SC\", \"Source Han Serif SC\", \"Songti SC\", \"SimSun\", serif;\n  /* 装饰线：全部从 --av-mark 派生，换主题自动跟；深色单独压一档。 */\n  --av-line: color-mix(in srgb, var(--av-mark) 36%, transparent);\n  --av-line-soft: color-mix(in srgb, var(--av-mark) 18%, transparent);\n  --av-wash: color-mix(in srgb, var(--av-mark) 7%, transparent);\n}\n\nhtml:has(body[data-ds-dark-theme]) {\n  --av-line: color-mix(in srgb, var(--av-mark) 26%, transparent);\n  --av-line-soft: color-mix(in srgb, var(--av-mark) 13%, transparent);\n  --av-wash: color-mix(in srgb, var(--av-mark) 8%, transparent);\n}\n\n/* ── 空间 ─────────────────────────────────────────────────────────────── */\n\nhtml {\n  background: var(--av-space);\n}\n\n/* 底色从 body 交给 html，点阵才透得出来。 */\nbody {\n  background-color: transparent !important;\n}\n\n/* ── 让外壳透出背景 ─────────────────────────────────────────────────────\n   DSH 0.2.1-rc.3 的 AppFrame / centerCol / ConversationRoot 都用\n   --dsw-alias-bg-base 铺满整块区域，会盖住点阵。这里用 CSS Modules 的\n   稳定后缀 + :has 结构定位（不依赖哈希前缀），只把这些外壳的底色置空；\n   组件自己的 bg-base 填充（代码块、粘性表头等）不受影响。\n   升级 DSH 后若背景又变纯色，先回来检查这几个后缀名。 */\n[class*=\"_frame\"]:has([class*=\"_centerCol\"]),\n[class*=\"_centerCol\"],\n[class*=\"_root\"]:has([class*=\"_composerSeat\"]) {\n  background-color: transparent !important;\n}\n\n\n/* 缩放 / 浓淡：滑杆直接写 html 上的 --av-scale / --av-depth，\n   取值 0.5–4× / 30%–400%，不再走离散属性。\n   点阵时缩放格距、浓淡乘墨色 alpha；流光时分别当场的缩放与浓度。 */\n\n/* ── 细节 ─────────────────────────────────────────────────────────────── */\n\n/* 标题走衬线，界面与正文的字交给 DSH 的字体设置。 */\nbody :is(h1, h2, h3) {\n  letter-spacing: 0.01em;\n}\n\n/* 菜单：发丝边 + 更轻的模糊（窗口上的毛玻璃只此一处）。 */\n[data-menu-material] {\n  border: 0.5px solid var(--dsw-alias-border-l3);\n}\n\n/* 品牌位：照个人站 toolstar.ts 的正等轴投影画的三轴正交六芒星 + 衬线字标。\n   星由 JS 每帧重画：六支按深度取 fill-opacity，中心一枚小圆收平。 */\n.av-brand-mark {\n  display: inline-flex;\n  align-items: center;\n  justify-content: center;\n  width: 32px;\n  height: 32px;\n  color: var(--av-mark);\n}\n\n.av-brand-mark svg {\n  display: block;\n  width: 32px;\n  height: 32px;\n  overflow: visible;\n}\n\n.av-star-hub {\n  fill: color-mix(in srgb, currentColor 32%, #ffffff);\n}\n\n.av-brand-name {\n  display: inline-block;\n  min-width: 0;\n  overflow: hidden;\n  text-overflow: ellipsis;\n  font-family: var(--av-serif);\n  font-size: 15px;\n  font-weight: 500;\n  line-height: 1;\n  letter-spacing: 0.045em;\n  white-space: nowrap;\n  color: var(--dsw-alias-label-primary);\n  transform: translateY(0.5px);\n}\n\n/* ── 设置 → 主题 ──────────────────────────────────────────────────────── */\n.av-theme-panel {\n  display: flex;\n  flex-direction: column;\n  gap: 12px;\n  padding: 2px 0 6px;\n}\n\n.av-theme-head {\n  display: flex;\n  align-items: baseline;\n  gap: 10px;\n}\n\n.av-theme-title {\n  font-family: var(--av-serif);\n  font-size: 15px;\n  color: var(--dsw-alias-label-primary);\n}\n\n.av-theme-sub {\n  font-size: 11px;\n  letter-spacing: 0.08em;\n  text-transform: uppercase;\n  color: var(--dsw-alias-label-tertiary);\n}\n\n/* 设置分组：小标题 + 右侧发丝线，把面板切成品牌 / 背景 / 装饰几段。 */\n.av-theme-group {\n  display: flex;\n  align-items: center;\n  gap: 10px;\n  margin-top: 2px;\n  font-size: 11px;\n  font-weight: 500;\n  letter-spacing: 0.08em;\n  color: var(--dsw-alias-label-secondary);\n}\n\n.av-theme-group::after {\n  content: \"\";\n  flex: 1;\n  height: 0.5px;\n  background: var(--dsw-alias-border-l1);\n}\n\n.av-theme-grid {\n  display: flex;\n  flex-wrap: wrap;\n  gap: 10px;\n}\n\n.av-theme-card {\n  display: flex;\n  align-items: center;\n  gap: 10px;\n  padding: 9px 12px;\n  border: 0.5px solid var(--dsw-alias-border-l2);\n  border-radius: var(--dsw-radius-lg);\n  background: var(--dsw-alias-bg-layer-1);\n  color: var(--dsw-alias-label-primary);\n  cursor: pointer;\n  text-align: left;\n}\n\n.av-theme-card:hover {\n  background: var(--dsw-alias-interactive-bg-hover);\n}\n\n.av-theme-card--on {\n  border-color: var(--dsw-alias-brand-primary);\n}\n\n.av-theme-chip {\n  flex: none;\n  width: 30px;\n  height: 30px;\n  border: 0.5px solid var(--dsw-alias-border-l2);\n  border-radius: 8px;\n}\n\n.av-theme-label {\n  font-size: 13px;\n  font-weight: 500;\n}\n\n.av-theme-state {\n  font-size: 11px;\n  color: var(--dsw-alias-label-tertiary);\n}\n\n/* 滑杆右侧的读数：等宽数字，拖动时行不跳。 */\n.av-theme-state--num {\n  min-width: 148px;\n  font-variant-numeric: tabular-nums;\n}\n\n/* 滑杆行：标签定宽，缩放 / 浓淡 / 呼吸下限的轨道左边对齐。 */\n.av-deco-row--range .av-theme-sub {\n  flex: 0 0 56px;\n  white-space: nowrap;\n}\n\n/* 背景滑杆：轨道 3px，已选段用 --av-mark，滑块是主题色描边的圆点。\n   填充比例由 React 写进 --av-fill（0%–100%）。 */\n.av-range {\n  flex: none;\n  width: 200px;\n  height: 18px;\n  margin: 0;\n  padding: 0;\n  border: 0;\n  background: transparent;\n  cursor: pointer;\n  appearance: none;\n  -webkit-appearance: none;\n}\n\n.av-range::-webkit-slider-runnable-track {\n  height: 3px;\n  border-radius: 999px;\n  background: linear-gradient(\n    to right,\n    var(--av-mark) 0 var(--av-fill, 0%),\n    var(--dsw-alias-border-l2) var(--av-fill, 0%) 100%\n  );\n}\n\n.av-range::-webkit-slider-thumb {\n  width: 12px;\n  height: 12px;\n  margin-top: -4.5px;\n  border: 1px solid var(--av-mark);\n  border-radius: 50%;\n  background: var(--dsw-alias-bg-layer-1);\n  box-shadow: 0 1px 2px rgb(0 0 0 / 0.14);\n  appearance: none;\n  -webkit-appearance: none;\n  transition: transform 120ms ease;\n}\n\n.av-range:active::-webkit-slider-thumb {\n  transform: scale(1.12);\n}\n\n.av-range:focus-visible {\n  outline: 2px solid var(--dsw-alias-brand-primary);\n  outline-offset: 3px;\n  border-radius: 999px;\n}\n\n/* Firefox：轨道 / 已选段 / 滑块分开画。 */\n.av-range::-moz-range-track {\n  height: 3px;\n  border-radius: 999px;\n  background: var(--dsw-alias-border-l2);\n}\n\n.av-range::-moz-range-progress {\n  height: 3px;\n  border-radius: 999px;\n  background: var(--av-mark);\n}\n\n.av-range::-moz-range-thumb {\n  width: 11px;\n  height: 11px;\n  border: 1px solid var(--av-mark);\n  border-radius: 50%;\n  background: var(--dsw-alias-bg-layer-1);\n  box-shadow: 0 1px 2px rgb(0 0 0 / 0.14);\n}\n\n.av-range:active::-moz-range-thumb {\n  transform: scale(1.12);\n}\n\n/* 开关行：装饰 / 底纹 / 星形 / 动效共用 */\n.av-deco-row {\n  display: flex;\n  flex-wrap: wrap;\n  align-items: center;\n  gap: 8px;\n  padding-top: 2px;\n}\n\n.av-deco-chip {\n  padding: 4px 10px;\n  border: 0.5px solid var(--dsw-alias-border-l2);\n  border-radius: var(--dsw-radius-lg);\n  background: transparent;\n  color: var(--dsw-alias-label-secondary);\n  font-size: 12px;\n  cursor: pointer;\n}\n\n.av-deco-chip:hover {\n  background: var(--dsw-alias-interactive-bg-hover);\n}\n\n.av-deco-chip--on {\n  border-color: var(--dsw-alias-brand-primary);\n  background: var(--av-wash);\n  color: var(--dsw-alias-label-primary);\n}\n\n/* 字符开关：单字筹码，等宽 + 固定宽度，四枚排齐。 */\n.av-deco-chip--glyph {\n  min-width: 28px;\n  padding: 4px 0;\n  font-family: Consolas, \"Cascadia Code\", monospace;\n  font-size: 13px;\n  line-height: 1;\n  text-align: center;\n}\n\n/* 字标输入：单行文本框，标签与滑杆行同宽，过长时收窄。 */\n.av-deco-row--text .av-theme-sub {\n  flex: 0 0 56px;\n  white-space: nowrap;\n}\n\n.av-text-input {\n  flex: 1 1 180px;\n  min-width: 120px;\n  max-width: 280px;\n  padding: 5px 9px;\n  border: 0.5px solid var(--dsw-alias-border-l2);\n  border-radius: var(--dsw-radius-lg);\n  background: var(--dsw-alias-bg-layer-1);\n  color: var(--dsw-alias-label-primary);\n  font-family: var(--av-serif);\n  font-size: 13px;\n  line-height: 18px;\n  transition:\n    border-color var(--ds-transition-duration-fast) var(--ds-ease-in-out),\n    box-shadow var(--ds-transition-duration-fast) var(--ds-ease-in-out);\n}\n\n.av-text-input::placeholder {\n  color: var(--dsw-alias-label-tertiary);\n}\n\n.av-text-input:focus {\n  outline: none;\n  border-color: var(--dsw-alias-brand-primary);\n  box-shadow: 0 0 0 2px var(--av-wash);\n}\n\n.av-text-input:focus-visible {\n  outline: 2px solid var(--dsw-alias-brand-primary);\n  outline-offset: 2px;\n}\n\n\n/* ═══ component: dots · 点阵底纹 ═══ */\n/* ============================================================================\n   组件 · 点阵底纹\n   ----------------------------------------------------------------------------\n   挂 html[data-av-dots=\"square\" | \"char\" | \"wall\"] 换颗粒；不挂属性 = 圆点。\n   字符再挂 html[data-av-glyph=\"plus\" | \"hash\" | \"star\" | \"cross\"]；\n   动效挂 html[data-av-motion=\"breathe\" | \"drift\" | \"off\"]；\n   html[data-av-bg=\"flow\" | \"off\"] 时整层不画。\n\n   变量：--av-dot（墨色）· --av-scale（格距倍数）·\n         --av-depth（浓淡乘数）· --av-breathe-min（呼吸低谷）\n   存储：不存；由插件把选择写成属性 / html 行内变量。\n   宿主选择器：只用 body::before，不插 DOM。\n\n   单独复用：复制本文件即可，下面兜底只在没装主题时生效。\n   要让整块底色透出来，还需要给 html 铺 --av-space，并把 AppFrame /\n   centerCol / ConversationRoot 的底色置空（见 theme.css「让外壳透出背景」）。\n   ========================================================================== */\n\n/* 兜底：没有 data-av-theme 时用昼雾 · 靛夜的值。 */\nhtml:not([data-av-theme]) {\n  --av-space: #e5eaf0;\n  --av-dot: rgba(55, 63, 79, 0.055);\n  --av-scale: 1;\n  --av-depth: 1;\n  --av-breathe-min: 0.65;\n}\n\nhtml:not([data-av-theme]):has(body[data-ds-dark-theme]) {\n  --av-space: #0e131e;\n  --av-dot: rgba(217, 230, 243, 0.085);\n}\n\n/* ── 底纹：一层 fixed 伪元素，四种颗粒共用 ──────────────────────────────\n   圆点 / 方块 / 字符 / 字符墙都画成 SVG 遮罩（前三种 10px 一格，字符墙\n   120×80 一块），再和中心渐隐遮罩相交；颜色由填充色给，所以换主题 / 深浅\n   自动跟。缩放 = 缩放遮罩 tile，浓淡 = 乘在墨色 alpha 上。\n   开关在「设置 → 主题 → 背景」，落成 html[data-av-dots] / [data-av-glyph] /\n   [data-av-motion]，缩放 / 浓淡直接写 html 行内变量。 */\n\nbody::before {\n  /* 中心压淡的渐隐，四种颗粒共用。 */\n  --av-vig: radial-gradient(ellipse 82% 74% at 52% 42%, rgba(0, 0, 0, 0.5) 0%, #000 78%);\n  /* 默认颗粒：圆点（r 1.5px ≈ 原来的 1.4px 点 + 一点渐隐边）。 */\n  --av-tile: url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='10'%3E%3Ccircle cx='5' cy='5' r='1.5' fill='%23000'/%3E%3C/svg%3E\");\n  --av-tile-size: calc(10px * var(--av-scale));\n  content: \"\";\n  position: fixed;\n  /* 留出漂移余量：最大 64px / 36px 乘缩放，四边各留 80px 乘缩放。 */\n  inset: calc(-80px * var(--av-scale));\n  z-index: -1;\n  pointer-events: none;\n  /* 墨色按浓淡乘 alpha；不支持相对色语法的内核退回主题原色。 */\n  background-color: var(--av-dot);\n  background-color: rgb(from var(--av-dot) r g b / calc(alpha * var(--av-depth)));\n  -webkit-mask-image: var(--av-tile), var(--av-vig);\n  mask-image: var(--av-tile), var(--av-vig);\n  -webkit-mask-size: var(--av-tile-size), 100% 100%;\n  mask-size: var(--av-tile-size), 100% 100%;\n  -webkit-mask-repeat: repeat, no-repeat;\n  mask-repeat: repeat, no-repeat;\n  -webkit-mask-composite: source-in, source-over;\n  mask-composite: intersect, add;\n  animation:\n    avDotDrift 60s linear infinite alternate,\n    avDotBreathe 30s ease-in-out infinite alternate;\n  will-change: transform, opacity;\n  transform: translateZ(0);\n}\n\n/* 漂移幅度跟着缩放走，不然放大后看着漂得更慢。 */\n@keyframes avDotDrift {\n  from { transform: translate3d(calc(-64px * var(--av-scale)), calc(-36px * var(--av-scale)), 0); }\n  to   { transform: translate3d(calc(64px * var(--av-scale)), calc(36px * var(--av-scale)), 0); }\n}\n\n@keyframes avDotBreathe {\n  from { opacity: var(--av-breathe-min, 0.65); }\n  to   { opacity: 1; }\n}\n\n/* 动效档：默认（both / 不挂属性）漂移 + 呼吸；也可只留一种或全停。\n   这里只重写 animation，不动别的样式。 */\nhtml[data-av-motion=\"breathe\"] body::before {\n  animation: avDotBreathe 30s ease-in-out infinite alternate;\n}\n\nhtml[data-av-motion=\"drift\"] body::before {\n  animation: avDotDrift 60s linear infinite alternate;\n}\n\nhtml[data-av-motion=\"off\"] body::before {\n  animation: none;\n  will-change: auto;\n  transform: none;\n}\n\n/* 窗口不在前台时暂停；减少动效时直接停住。 */\nhtml[data-av-idle] body::before {\n  animation-play-state: paused;\n}\n\n@media (prefers-reduced-motion: reduce) {\n  body::before {\n    animation: none !important;\n  }\n}\n\n/* ── 颗粒：方块 / 字符 / 字符墙（圆点就是上面的默认值） ────────────────── */\n\n/* 方块：2.8px，与圆点同一个包围盒。 */\nhtml[data-av-dots=\"square\"] body::before {\n  --av-tile: url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='10'%3E%3Crect x='3.6' y='3.6' width='2.8' height='2.8' fill='%23000'/%3E%3C/svg%3E\");\n}\n\n/* 字符：10px 格子里一个等宽字符；字号按墨量调过，和圆点 / 方块同一档。 */\nhtml[data-av-dots=\"char\"] body::before {\n  --av-tile: url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='10'%3E%3Ctext x='5' y='7.2' font-family='Consolas,Segoe UI Symbol,monospace' font-size='8' text-anchor='middle' fill='%23000'%3E%2B%3C/text%3E%3C/svg%3E\");\n}\n\nhtml[data-av-dots=\"char\"][data-av-glyph=\"hash\"] body::before {\n  --av-tile: url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='10'%3E%3Ctext x='5' y='7.2' font-family='Consolas,Segoe UI Symbol,monospace' font-size='6.5' text-anchor='middle' fill='%23000'%3E%23%3C/text%3E%3C/svg%3E\");\n}\n\nhtml[data-av-dots=\"char\"][data-av-glyph=\"star\"] body::before {\n  --av-tile: url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='10'%3E%3Ctext x='5' y='7.2' font-family='Consolas,Segoe UI Symbol,monospace' font-size='8' text-anchor='middle' fill='%23000'%3E%2A%3C/text%3E%3C/svg%3E\");\n}\n\nhtml[data-av-dots=\"char\"][data-av-glyph=\"cross\"] body::before {\n  --av-tile: url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='10'%3E%3Ctext x='5' y='7.2' font-family='Consolas,Segoe UI Symbol,monospace' font-size='8' text-anchor='middle' fill='%23000'%3E%C3%97%3C/text%3E%3C/svg%3E\");\n}\n\n/* 字符墙：120×80 一块、8 行密排符号；fill-opacity 压过半，整体比圆点还淡一点。 */\nhtml[data-av-dots=\"wall\"] body::before {\n  --av-tile: url(\"data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20width%3D%27120%27%20height%3D%2780%27%3E%3Cg%20fill%3D%27%2523000%27%20fill-opacity%3D%270.55%27%20font-family%3D%27Consolas%2CSegoe%20UI%20Symbol%2Cmonospace%27%20font-size%3D%277%27%3E%3Ctext%20x%3D%270%27%20y%3D%277%27%3E%20-%2C%3B%25%28%28%3A%7C%28%3B%2C*%3B*%3A~%2F%21%5E..%3D%3F~%23~%3C%2Ftext%3E%3Ctext%20x%3D%270%27%20y%3D%2717%27%3E*%2F~%2F%2B%24%3F%5B%7C*%5D%5C%7B%3D*-%3A%3A%24%23.%2F%3F%40%7B%28%23%3C%2Ftext%3E%3Ctext%20x%3D%270%27%20y%3D%2727%27%3E%20%20%20%3F%2B%24_%7C*%28%2F_%5D~%23%2B-%3B*%5D%7C~%2F%28%5D_%5D%3C%2Ftext%3E%3Ctext%20x%3D%270%27%20y%3D%2737%27%3E%3A%3A%3A%2B%23%40%2F%25*%21%2B%2C%23-%40*%21%7C*%2B%3F%7C%5D%5E%3D%3A.%3C%2Ftext%3E%3Ctext%20x%3D%270%27%20y%3D%2747%27%3E%2B%21%3D%3D%2F%25%5C%3D%3B%5C%7B*%5C%3A%3D%5E%2B%7C%25%25%40%7D%7C%24%24%23*%3C%2Ftext%3E%3Ctext%20x%3D%270%27%20y%3D%2757%27%3E%20%20%20%29%3D%2F.%7B%25%7D%7B%7B%25%2C%25%2F%28%5C%3A%40%5D%5D%25%7C_%3F%2B%3C%2Ftext%3E%3Ctext%20x%3D%270%27%20y%3D%2767%27%3E%24%7D%5D%5D%5C%28%2F%2C_%40%2B*%5B%5C%5E%3A%25.%5D%23%2C%24.%7C%7C%5D%24%3C%2Ftext%3E%3Ctext%20x%3D%270%27%20y%3D%2777%27%3E%20%20%20..%29%5C-%2F%3D%3B%3F%2B%2B%5C%3F%7C%28%3A%3F%7B%3B%3A%40%40%7C-%3C%2Ftext%3E%3C%2Fg%3E%3C%2Fsvg%3E\");\n  --av-tile-size: calc(120px * var(--av-scale)) calc(80px * var(--av-scale));\n}\n\n/* 关闭：整层不画，只留 html 的底色；流光时点阵把位置让给画布。 */\nhtml[data-av-bg=\"off\"] body::before,\nhtml[data-av-bg=\"flow\"] body::before {\n  content: none;\n}\n\n/* 旧版把“关闭”放在底纹里；升级后若属性还残着，同样不画。 */\nhtml[data-av-dots=\"off\"] body::before {\n  content: none;\n}\n\n/* ═══ component: flow · 流光背景 ═══ */\n/* ============================================================================\n   组件 · 流光背景\n   ----------------------------------------------------------------------------\n   WebGL2 画布（src/flow.js），1/5 分辨率、5px 一格、锁 30fps。\n   挂 html[data-av-bg=\"flow\"] 才建画布；色板挂 html[data-av-flow-palette]。\n   变量：--av-flow-0..3（底 / 暗面 / 光带 / 亮芯）· --av-flow-glow（亮芯强度）\n   存储：不存；插件写 html[data-av-flow-palette]。\n   宿主选择器：canvas.av-flow 插在 body 第一个子节点，不碰宿主结构。\n\n   单独复用：复制本文件 + src/flow.js，建画布后 add('av-flow--on')。\n   ========================================================================== */\n\n/* ── 流光：低分辨率噪声场（src/flow.js）────────────────────────────────\n   画布只有视口的 1/5，像素放大回屏幕；颜色来自下面四套色板，\n   JS 只读 --av-flow-0..3 / --av-flow-glow，所以换主题 / 深色 / 色板\n   都不用重建画布。点阵与流光二选一，落成 html[data-av-bg]。 */\n.av-flow {\n  position: fixed;\n  inset: 0;\n  z-index: -1;\n  width: 100%;\n  height: 100%;\n  pointer-events: none;\n  image-rendering: pixelated;\n  opacity: 0;\n  transition: opacity 420ms ease;\n}\n\n.av-flow--on {\n  opacity: 1;\n}\n\n/* 四套色板：0 底 · 1 暗面 · 2 光带 · 3 亮芯。\n   glow 是亮芯强度：浅色收着当纸上的反光，深色放开当光。 */\nhtml,\nhtml[data-av-flow-palette=\"mist\"] {\n  --av-flow-0: #d9e2ee;\n  --av-flow-1: #c8d6e7;\n  --av-flow-2: #edf3fa;\n  --av-flow-3: #fdfeff;\n  --av-flow-glow: 0.26;\n}\n\nhtml[data-av-flow-palette=\"dusk\"] {\n  --av-flow-0: #e2ddec;\n  --av-flow-1: #d2c9e2;\n  --av-flow-2: #f1edfa;\n  --av-flow-3: #fffdff;\n  --av-flow-glow: 0.26;\n}\n\nhtml[data-av-flow-palette=\"jade\"] {\n  --av-flow-0: #d9e5e1;\n  --av-flow-1: #c4d8d1;\n  --av-flow-2: #edf6f2;\n  --av-flow-3: #ffffff;\n  --av-flow-glow: 0.24;\n}\n\nhtml[data-av-flow-palette=\"amber\"] {\n  --av-flow-0: #e9e1d3;\n  --av-flow-1: #ddcdb6;\n  --av-flow-2: #f8f2e7;\n  --av-flow-3: #fffdf8;\n  --av-flow-glow: 0.26;\n}\n\nhtml[data-av-flow-palette=\"mist\"]:has(body[data-ds-dark-theme]) {\n  --av-flow-0: #0b111b;\n  --av-flow-1: #1a2740;\n  --av-flow-2: #40557e;\n  --av-flow-3: #b9cfec;\n  --av-flow-glow: 0.5;\n}\n\nhtml[data-av-flow-palette=\"dusk\"]:has(body[data-ds-dark-theme]) {\n  --av-flow-0: #110e1a;\n  --av-flow-1: #241b38;\n  --av-flow-2: #4a3a6e;\n  --av-flow-3: #ccb4f0;\n  --av-flow-glow: 0.5;\n}\n\nhtml[data-av-flow-palette=\"jade\"]:has(body[data-ds-dark-theme]) {\n  --av-flow-0: #091215;\n  --av-flow-1: #172a2e;\n  --av-flow-2: #2f5158;\n  --av-flow-3: #a8d8d0;\n  --av-flow-glow: 0.48;\n}\n\nhtml[data-av-flow-palette=\"amber\"]:has(body[data-ds-dark-theme]) {\n  --av-flow-0: #13100c;\n  --av-flow-1: #2a2118;\n  --av-flow-2: #513f2c;\n  --av-flow-3: #e6c093;\n  --av-flow-glow: 0.5;\n}\n\n/* ═══ component: motion · 位移动效 ═══ */\n/* ============================================================================\n   组件 · 位移动效\n   ----------------------------------------------------------------------------\n   纯 CSS，没有 JS、没有存储、没有 data-av-* 开关：\n     1. 会话切换上浮 6px；2. 会话行 hover 横移 2px；3. 按钮按下 0.5px；\n     4. 侧栏折叠 300ms；5. 最后一条回复上浮 6px；\n     6. 控件颜色 / 边框 / 阴影过渡（:where 零特异性，不压组件自己的过渡）。\n   依赖宿主令牌：--ds-transition-duration / -fast / -slow · --ds-ease-in-out\n   （主题在 tokens.js 里把宿主默认值换成 180ms / 120ms 与柔出曲线）。\n\n   单独复用：整份复制即可；不想要某条就删对应选择器。\n   ========================================================================== */\n\n/* ── 位移动效 ──────────────────────────────────────────────────────────\n   只动 transform，且都短：\n     1. 会话切换：会话区上浮 6px；\n     2. 会话行：hover 横移 2px；\n     3. 按钮按下：下压 0.5px；\n     后面还有：侧栏折叠的 grid 过渡、最后一条回复的上浮（见下）。\n   菜单不做位移——DSH 的菜单带锚定定位，动它容易跳。 */\n[data-conversation-session] {\n  animation: avSessionIn 160ms var(--ds-ease-in-out);\n}\n\n@keyframes avSessionIn {\n  from { opacity: 0.7; transform: translateY(6px); }\n  to   { opacity: 1; transform: translateY(0); }\n}\n\n[data-row-key] {\n  transition: transform var(--ds-transition-duration-fast) var(--ds-ease-in-out);\n}\n\n[data-row-key]:hover {\n  transform: translateX(2px);\n}\n\n:where(button):active:not(:disabled) {\n  transform: translateY(0.5px);\n}\n/* ── 折叠：frame 的 grid 过渡常开 ─────────────────────────────────────\n   DSH 只在部分切换路径上给 [data-animating] 过渡，折叠时可能直接跳。\n   这里给 frame 常开 300ms 曲线，拖动改宽时再关掉。 */\n[class*=\"_frame\"] {\n  transition: grid-template-columns var(--ds-transition-duration-slow) var(--ds-ease-in-out);\n}\n\n[class*=\"_frame\"][data-dragging] {\n  transition: none;\n}\n\n/* ── 新回复：只给最后一个 turn 挂进入动画 ─────────────────────────────\n   用“后面没有同级 turn”来认定最后一个；历史分页插在上方，不会触发。\n   依赖 turn 是同级兄弟；DSH 结构若变，这条会静默失效（不影响其它）。 */\n[data-chat-turn]:not(:has(~ [data-chat-turn])) {\n  animation: avTurnIn 180ms var(--ds-ease-in-out);\n}\n\n@keyframes avTurnIn {\n  from { opacity: 0.55; transform: translateY(6px); }\n  to   { opacity: 1; transform: translateY(0); }\n}\n\n@media (prefers-reduced-motion: reduce) {\n  [class*=\"_frame\"] {\n    transition: none;\n  }\n\n  [data-chat-turn]:not(:has(~ [data-chat-turn])) {\n    animation: none;\n  }\n}\n\n\n@media (prefers-reduced-motion: reduce) {\n  [data-conversation-session],\n  [data-row-key],\n  :where(button):active:not(:disabled) {\n    animation: none !important;\n    transition: none !important;\n    transform: none !important;\n  }\n}\n\n\n/* ── UI 动效：过渡令牌 + 轻量 hover 过渡 ───────────────────────────────\n   1. tokens.js 里的 --ds-transition-* 把宿主的 0.2s/0.1s 改成 180/120ms，\n      曲线换成个人站那种柔出；\n   2. :where() 补颜色/边框/阴影过渡，零 specificity——组件自己声明的\n      过渡仍然优先，不覆盖宿主行为；\n   3. 菜单不做动效：它的显隐由宿主控制，叠加 opacity 会在收尾时跳。 */\n:where(button, [role=\"button\"], a, summary, input, textarea) {\n  transition:\n    background-color var(--ds-transition-duration-fast) var(--ds-ease-in-out),\n    border-color var(--ds-transition-duration-fast) var(--ds-ease-in-out),\n    color var(--ds-transition-duration-fast) var(--ds-ease-in-out),\n    box-shadow var(--ds-transition-duration) var(--ds-ease-in-out),\n    opacity var(--ds-transition-duration) var(--ds-ease-in-out);\n}\n@media (prefers-reduced-motion: reduce) {\n  :where(button, [role=\"button\"], a, summary, input, textarea) {\n    transition: none !important;\n  }}\n\n/* ═══ component: paper · 纸品装饰 ═══ */\n/* ============================================================================\n   组件 · 纸品装饰（用户消息 / 输入框 / 发送键）\n   ----------------------------------------------------------------------------\n   挂 html[data-av-deco=\"paper\"] 生效；摘掉属性即回原生外观。\n   命中的宿主选择器（DSH 0.2.1-rc.3）：\n     用户消息  [data-chat-flow-kind=\"user\"] [class*=\"_bubble\"]\n     输入框    [data-composer-seat] [class*=\"_card\"] / _input / _row / _placeholder\n     发送键    [data-composer-seat] [class*=\"_primary\"]\n   变量：--av-mark（主墨色）及其派生 --av-line / --av-line-soft / --av-wash、\n         --av-serif（占位语衬线）\n   存储：不存；插件写 html[data-av-deco]。\n   风险：装饰钉在 CSS Modules 的稳定后缀上，DSH 改结构会整段失效（回退原生，不影响功能）。\n\n   单独复用：复制本文件，挂 data-av-deco=\"paper\"；不想要开关就把选择器里的\n   html[data-av-deco=\"paper\"] 换成 html。下面的兜底只在没装主题时生效。\n   ========================================================================== */\n\n/* 兜底：没有 data-av-theme 时用昼雾 · 靛夜的值。 */\nhtml[data-av-deco=\"paper\"]:not([data-av-theme]) {\n  --av-mark: #61567d;\n  --av-line: color-mix(in srgb, var(--av-mark) 36%, transparent);\n  --av-line-soft: color-mix(in srgb, var(--av-mark) 18%, transparent);\n  --av-wash: color-mix(in srgb, var(--av-mark) 7%, transparent);\n  --av-serif: \"Noto Serif SC\", \"Source Han Serif SC\", \"Songti SC\", \"SimSun\", serif;\n}\n\nhtml[data-av-deco=\"paper\"]:not([data-av-theme]):has(body[data-ds-dark-theme]) {\n  --av-mark: #baadd2;\n  --av-line: color-mix(in srgb, var(--av-mark) 26%, transparent);\n  --av-line-soft: color-mix(in srgb, var(--av-mark) 13%, transparent);\n  --av-wash: color-mix(in srgb, var(--av-mark) 8%, transparent);\n}\n\n/* ══════════════════════════════════════════════════════════════════════\n   重装饰：用户消息与输入框\n   ──────────────────────────────────────────────────────────────────────\n   只在 html[data-av-deco=\"paper\"] 时生效。开关在「设置 → 主题」，值存 localStorage；\n   关掉即回到 DSH 原生外观（本段不碰任何功能，只加装饰）。\n   命中点（DSH 0.2.1-rc.3 的真实结构）：\n     用户消息  [data-chat-flow-kind=\"user\"] [class*=\"_bubble\"]\n     输入框    [data-composer-seat] [class*=\"_card\"]\n     发送键    [data-composer-seat] [class*=\"_primary\"]\n   颜色全部走令牌 + color-mix；装饰线由 --av-mark 派生，换主题自动跟。\n   ══════════════════════════════════════════════════════════════════════ */\n\n/* ── 用户消息：贴上去的纸条 ───────────────────────────────────────────── */\nhtml[data-av-deco=\"paper\"] [data-chat-flow-kind=\"user\"] [class*=\"_bubble\"] {\n  position: relative;\n  border: 1px solid var(--av-line);\n  border-radius: 2px 10px 2px 0;\n  padding: 12px 20px 15px 24px;\n  background-color: var(--dsw-specific-bubble);\n  /* 右下折角 + 折痕：折面压在右下角，折痕从底边斜向右缘（镜像 225deg → 135deg） */\n  background-image:\n    linear-gradient(\n      135deg,\n      transparent 0 47%,\n      color-mix(in srgb, var(--av-mark) 14%, var(--dsw-specific-bubble)) 47% 100%\n    ),\n    linear-gradient(\n      135deg,\n      transparent 0 43%,\n      var(--av-line-soft) 43% 45%,\n      transparent 45% 100%\n    );\n  background-repeat: no-repeat, no-repeat;\n  background-size: 18px 18px;\n  background-position: right bottom;\n  /* 底缘齿孔：像撕下来的票根 */\n  mask-image: radial-gradient(circle 2.6px at 3px 100%, transparent 97%, #000 100%);\n  mask-size: 10px 100%;\n  mask-repeat: repeat-x;\n  mask-position: left bottom;\n  filter: drop-shadow(2.5px 2.5px 0 var(--av-line-soft));\n  transform: rotate(-0.3deg);\n  transition:\n    transform var(--ds-transition-duration) var(--ds-ease-in-out),\n    filter var(--ds-transition-duration) var(--ds-ease-in-out);\n}\n\n/* 左缘书签带 */\nhtml[data-av-deco=\"paper\"] [data-chat-flow-kind=\"user\"] [class*=\"_bubble\"]::before {\n  content: \"\";\n  position: absolute;\n  left: 0;\n  top: 10px;\n  bottom: 12px;\n  width: 4px;\n  border-radius: 0 2px 2px 0;\n  background: linear-gradient(\n    180deg,\n    var(--av-mark) 0%,\n    color-mix(in srgb, var(--av-mark) 34%, transparent) 100%\n  );\n}\n\n/* 右上角星章 */\nhtml[data-av-deco=\"paper\"] [data-chat-flow-kind=\"user\"] [class*=\"_bubble\"]::after {\n  content: \"\";\n  position: absolute;\n  top: 6px;\n  right: 6px;\n  width: 13px;\n  height: 13px;\n  background: var(--av-mark);\n  opacity: 0.7;\n  clip-path: polygon(\n    50% 0%, 61% 39%, 100% 50%, 61% 61%,\n    50% 100%, 39% 61%, 0% 50%, 39% 39%\n  );\n}\n\n@media (hover: hover) {\n  html[data-av-deco=\"paper\"] [data-chat-flow-kind=\"user\"] [class*=\"_bubble\"]:hover {\n    transform: rotate(0deg);\n    filter: drop-shadow(1.5px 1.5px 0 var(--av-line));\n  }\n}\n\n/* ── 输入框：待写的活页卡 ─────────────────────────────────────────────── */\nhtml[data-av-deco=\"paper\"] [data-composer-seat] [class*=\"_card\"] {\n  position: relative;\n  border: 1px solid var(--av-line);\n  border-radius: 3px 13px 3px 0;\n  padding-top: 15px;\n  background-color: var(--dsw-specific-input-major);\n  /* 票根裁切线 */\n  outline: 1px dotted var(--av-line);\n  outline-offset: 4px;\n  box-shadow: 0 0 0 3px var(--av-wash);\n  transition:\n    box-shadow var(--ds-transition-duration) var(--ds-ease-in-out),\n    border-color var(--ds-transition-duration) var(--ds-ease-in-out),\n    outline-color var(--ds-transition-duration) var(--ds-ease-in-out);\n}\n\n/* 信头窄带：不带字，只留装订边和一条底线 */\nhtml[data-av-deco=\"paper\"] [data-composer-seat] [class*=\"_card\"]::before {\n  content: \"\";\n  position: absolute;\n  top: 0;\n  left: 0;\n  right: 0;\n  height: 15px;\n  border-bottom: 0.5px solid var(--av-line-soft);\n  border-radius: 3px 13px 0 0;\n  background: var(--av-wash);\n  pointer-events: none;\n}\n\n/* 信头左端三枚装订孔 */\nhtml[data-av-deco=\"paper\"] [data-composer-seat] [class*=\"_card\"]::after {\n  content: \"\";\n  position: absolute;\n  left: 11px;\n  top: 6px;\n  width: 3px;\n  height: 3px;\n  border-radius: 50%;\n  background: color-mix(in srgb, var(--av-mark) 34%, transparent);\n  box-shadow:\n    7px 0 0 color-mix(in srgb, var(--av-mark) 34%, transparent),\n    14px 0 0 color-mix(in srgb, var(--av-mark) 34%, transparent);\n  pointer-events: none;\n}\n\nhtml[data-av-deco=\"paper\"] [data-composer-seat] [class*=\"_card\"]:focus-within {\n  border-color: var(--dsw-alias-brand-primary);\n  outline-color: var(--av-line);\n  box-shadow: 0 0 0 3px var(--av-line-soft);\n}\n\n/* 占位语：衬线斜体，和正文字体分开 */\nhtml[data-av-deco=\"paper\"] [data-composer-seat] [class*=\"_placeholder\"] {\n  font-family: var(--av-serif);\n  font-style: italic;\n  letter-spacing: 0.03em;\n}\n\n/* 输入区横格：极淡的信纸线，跟着行高走 */\nhtml[data-av-deco=\"paper\"] [data-composer-seat] [class*=\"_input\"] {\n  background-image: repeating-linear-gradient(\n    180deg,\n    transparent 0 23px,\n    color-mix(in srgb, var(--av-mark) 9%, transparent) 23px 24px\n  );\n  background-position: 0 5px;\n}\n\n/* 控制行与输入区之间：一条发丝线，像信纸的横格 */\nhtml[data-av-deco=\"paper\"] [data-composer-seat] [class*=\"_row\"] {\n  border-top: 0.5px solid color-mix(in srgb, var(--av-mark) 24%, transparent);\n}\n\n/* 发送键：缺一角的圆章 */\nhtml[data-av-deco=\"paper\"] [data-composer-seat] [class*=\"_primary\"] {\n  border-radius: 50% 50% 50% 5px;\n  box-shadow:\n    inset 0 0 0 1px color-mix(in srgb, var(--dsw-alias-label-primary-inverted) 24%, transparent),\n    inset 0 -7px 12px -7px color-mix(in srgb, var(--dsw-alias-label-primary) 32%, transparent);\n  transition:\n    transform var(--ds-transition-duration) var(--ds-ease-in-out),\n    border-radius var(--ds-transition-duration) var(--ds-ease-in-out);\n}\n\nhtml[data-av-deco=\"paper\"] [data-composer-seat] [class*=\"_primary\"]:hover:not(:disabled) {\n  transform: translateY(-2px) rotate(-6deg);\n  border-radius: 50% 50% 8px 50%;\n}\n\n/* 深色下这些装饰要退半步：底色已经暗，线一浓就吵。 */\nhtml[data-av-deco=\"paper\"]:has(body[data-ds-dark-theme]) [data-chat-flow-kind=\"user\"] [class*=\"_bubble\"]::after {\n  opacity: 0.55;\n}\n\nhtml[data-av-deco=\"paper\"]:has(body[data-ds-dark-theme]) [data-composer-seat] [class*=\"_input\"] {\n  background-image: repeating-linear-gradient(\n    180deg,\n    transparent 0 23px,\n    color-mix(in srgb, var(--av-mark) 7%, transparent) 23px 24px\n  );\n}\n\n@media (prefers-reduced-motion: reduce) {\n  html[data-av-deco=\"paper\"] [data-chat-flow-kind=\"user\"] [class*=\"_bubble\"],\n  html[data-av-deco=\"paper\"] [data-composer-seat] [class*=\"_card\"],\n  html[data-av-deco=\"paper\"] [data-composer-seat] [class*=\"_primary\"] {\n    transform: none;\n    transition: none;\n  }\n\n  html[data-av-deco=\"paper\"] [data-composer-seat] [class*=\"_primary\"]:hover:not(:disabled) {\n    transform: translateY(-2px);\n  }\n}\n\n/* ═══ component: star · 星芒装饰 ═══ */\n/* ============================================================================\n   组件 · 星芒装饰（用户消息 / 输入框 / 发送键）\n   ----------------------------------------------------------------------------\n   挂 html[data-av-deco=\"star\"] 生效，与纸品互斥。\n   星形再挂 html[data-av-star=\"a\" | \"b\"]：a 罗盘刻星、b 针芒。\n   命中的宿主选择器与纸品相同，两套装饰共用一批选择器，靠 data-av-deco 分流。\n   变量：--av-mark（星与光线）· --av-star-shape / -size / -offset / -bubble\n   存储：不存；插件写 html[data-av-deco] / data-av-star。\n   风险：同纸品，钉在宿主结构与 CSS Modules 后缀上。\n\n   单独复用：复制本文件，挂 data-av-deco=\"star\"；不挂 data-av-star 时按 a 画。\n   下面的兜底只在没装主题时生效。\n   ========================================================================== */\n\n/* 兜底：没有 data-av-theme 时用昼雾 · 靛夜的值。 */\nhtml[data-av-deco=\"star\"]:not([data-av-theme]) {\n  --av-mark: #61567d;\n}\n\nhtml[data-av-deco=\"star\"]:not([data-av-theme]):has(body[data-ds-dark-theme]) {\n  --av-mark: #baadd2;\n}\n\n/* ══════════════════════════════════════════════════════════════════════\n   星芒装饰：以四角星芒与放射线为中心的对话框\n   ──────────────────────────────────────────────────────────────────────\n   与纸品（paper）互斥，同由「设置 → 主题 → 装饰」切换。\n   语言：一枚焦点星芒 + 极淡放射线 + 柔光；形状收圆，靠光和发散射程，不靠纸。\n   命中点与纸品相同，两套装饰共用同一批选择器，靠 html[data-av-deco] 分流。\n   ══════════════════════════════════════════════════════════════════════ */\n\n/* ── 星形变体：两组造型，挂在 [data-av-star] 上（容器级也能覆盖）────────\n   a = 罗盘刻星：四长四短，端正\n   b = 针芒：只留四根长针，更薄更利\n   星只做剪影：不转、不加内部渐变、不加光晕，靠形状说话。 */\n[data-av-star=\"a\"],\nhtml[data-av-deco=\"star\"]:not([data-av-star]) {\n  --av-star-shape: polygon(\n    50% 0%, 55% 39%, 78% 24%, 61% 45%,\n    100% 50%, 61% 55%, 78% 76%, 55% 61%,\n    50% 100%, 45% 61%, 22% 76%, 39% 55%,\n    0% 50%, 39% 45%, 22% 24%, 45% 39%\n  );\n  --av-star-size: 32px;\n  --av-star-offset: -15px;\n  --av-star-bubble: 16px;\n}\n\n[data-av-star=\"b\"] {\n  --av-star-shape: polygon(\n    50% 0%, 51.9% 45.4%, 64.8% 35.2%, 54.6% 47.9%,\n    100% 50%, 54.6% 52.1%, 64.8% 64.8%, 51.9% 54.6%,\n    50% 100%, 48.1% 54.6%, 35.2% 64.8%, 45.4% 52.1%,\n    0% 50%, 45.4% 47.9%, 35.2% 35.2%, 48.1% 45.4%\n  );\n  --av-star-size: 40px;\n  --av-star-offset: -19px;\n  --av-star-bubble: 20px;\n}\n\n/* ── 输入框：星芒卡 ───────────────────────────────────────────────────── */\nhtml[data-av-deco=\"star\"] [data-composer-seat] [class*=\"_card\"] {\n  position: relative;\n  border: 1px solid color-mix(in srgb, var(--av-mark) 36%, transparent);\n  border-radius: 16px;\n  background-color: var(--dsw-specific-input-major);\n  box-shadow: 0 0 0 4px color-mix(in srgb, var(--av-mark) 5%, transparent);\n  transition:\n    box-shadow var(--ds-transition-duration) var(--ds-ease-in-out),\n    border-color var(--ds-transition-duration) var(--ds-ease-in-out);\n}\n\n/* 放射线：以右上角星为圆心，向左下渐隐；每 12° 一束，只当氛围 */\nhtml[data-av-deco=\"star\"] [data-composer-seat] [class*=\"_card\"]::before {\n  content: \"\";\n  position: absolute;\n  inset: 0;\n  border-radius: inherit;\n  background-image: repeating-conic-gradient(\n    from 8deg at 100% 0%,\n    transparent 0deg 12deg,\n    color-mix(in srgb, var(--av-mark) 18%, transparent) 12deg 13.2deg\n  );\n  -webkit-mask-image: radial-gradient(circle 620px at 100% 0%, #000 0%, transparent 92%);\n  mask-image: radial-gradient(circle 620px at 100% 0%, #000 0%, transparent 92%);\n  opacity: 0.55;\n  filter: blur(0.5px);\n  pointer-events: none;\n}\n\n/* 焦点星：纯色剪影，聚焦时放大一成 */\nhtml[data-av-deco=\"star\"] [data-composer-seat] [class*=\"_card\"]::after {\n  content: \"\";\n  position: absolute;\n  right: var(--av-star-offset);\n  top: var(--av-star-offset);\n  width: var(--av-star-size);\n  height: var(--av-star-size);\n  background: var(--av-mark);\n  clip-path: var(--av-star-shape);\n  transform: scale(1);\n  transform-origin: 50% 50%;\n  transition: transform var(--ds-transition-duration) var(--ds-ease-in-out);\n  pointer-events: none;\n}\n\nhtml[data-av-deco=\"star\"] [data-composer-seat] [class*=\"_card\"]:focus-within::after {\n  transform: scale(1.12);\n}\n\nhtml[data-av-deco=\"star\"] [data-composer-seat] [class*=\"_card\"]:focus-within {\n  border-color: color-mix(in srgb, var(--av-mark) 70%, transparent);\n  box-shadow: 0 0 0 4px color-mix(in srgb, var(--av-mark) 9%, transparent);\n}\n\n/* 发送键：一圈硬边，hover 撑开 */\nhtml[data-av-deco=\"star\"] [data-composer-seat] [class*=\"_primary\"] {\n  box-shadow: 0 0 0 1px color-mix(in srgb, var(--av-mark) 45%, transparent);\n  transition: box-shadow var(--ds-transition-duration) var(--ds-ease-in-out);\n}\n\nhtml[data-av-deco=\"star\"] [data-composer-seat] [class*=\"_primary\"]:hover:not(:disabled) {\n  box-shadow: 0 0 0 2px color-mix(in srgb, var(--av-mark) 70%, transparent);\n}\n\n/* ── 用户消息：一颗星 + 一条底光 ─────────────────────────────────────── */\nhtml[data-av-deco=\"star\"] [data-chat-flow-kind=\"user\"] [class*=\"_bubble\"] {\n  position: relative;\n  border: 1px solid color-mix(in srgb, var(--av-mark) 30%, transparent);\n  border-radius: 14px 14px 4px 14px;\n  padding: 12px 24px 14px 20px;\n  background-color: var(--dsw-specific-bubble);\n  box-shadow: 0 0 0 3px color-mix(in srgb, var(--av-mark) 4%, transparent);\n  transition: box-shadow var(--ds-transition-duration) var(--ds-ease-in-out);\n}\n\nhtml[data-av-deco=\"star\"] [data-chat-flow-kind=\"user\"] [class*=\"_bubble\"]::before {\n  content: \"\";\n  position: absolute;\n  right: 7px;\n  top: 7px;\n  width: var(--av-star-bubble);\n  height: var(--av-star-bubble);\n  background: var(--av-mark);\n  clip-path: var(--av-star-shape);\n  pointer-events: none;\n}\n\nhtml[data-av-deco=\"star\"] [data-chat-flow-kind=\"user\"] [class*=\"_bubble\"]::after {\n  content: \"\";\n  position: absolute;\n  left: 16px;\n  right: 16px;\n  bottom: 0;\n  height: 1px;\n  border-radius: 1px;\n  background: linear-gradient(\n    90deg,\n    transparent 0%,\n    color-mix(in srgb, var(--av-mark) 55%, transparent) 100%\n  );\n}\n\n@media (hover: hover) {\n  html[data-av-deco=\"star\"] [data-chat-flow-kind=\"user\"] [class*=\"_bubble\"]:hover {\n    box-shadow: 0 0 0 3px color-mix(in srgb, var(--av-mark) 8%, transparent);\n  }\n}\n\n/* 深色：射线换成亮紫，当光束用（浅色只留一层质感） */\nhtml[data-av-deco=\"star\"]:has(body[data-ds-dark-theme]) [data-composer-seat] [class*=\"_card\"]::before {\n  background-image: repeating-conic-gradient(\n    from 8deg at 100% 0%,\n    transparent 0deg 12deg,\n    color-mix(in srgb, var(--av-mark) 75%, transparent) 12deg 13.2deg\n  );\n  opacity: 0.85;\n}\n\n@media (prefers-reduced-motion: reduce) {\n  html[data-av-deco=\"star\"] [data-composer-seat] [class*=\"_card\"]::after,\n  html[data-av-deco=\"star\"] [data-composer-seat] [class*=\"_card\"],\n  html[data-av-deco=\"star\"] [data-composer-seat] [class*=\"_primary\"] {\n    transition: none;\n  }\n\n  html[data-av-deco=\"star\"] [data-composer-seat] [class*=\"_card\"]:focus-within::after {\n    transform: none;\n  }\n}\n\n\n/* ── 主题变量（由 scripts/build.mjs 生成，勿手改） ───────────────────── */\nhtml[data-av-theme=\"averita\"] {\n  --av-space: #e5eaf0;\n  --av-dot: rgba(55, 63, 79, 0.055);\n  --av-mark: #61567d;\n}\n\nhtml[data-av-theme=\"averita\"]:has(body[data-ds-dark-theme]) {\n  --av-space: #0e131e;\n  --av-dot: rgba(217, 230, 243, 0.085);\n  --av-mark: #baadd2;\n}\n\nhtml[data-av-theme=\"coldmorning\"] {\n  --av-space: #e4e9e9;\n  --av-dot: rgba(51, 59, 62, 0.055);\n  --av-mark: #5d6d80;\n}\n\nhtml[data-av-theme=\"coldmorning\"]:has(body[data-ds-dark-theme]) {\n  --av-space: #101820;\n  --av-dot: rgba(214, 230, 235, 0.10);\n  --av-mark: #a9c6d4;\n}\n\nhtml[data-av-theme=\"duskrose\"] {\n  --av-space: #ecdfdb;\n  --av-dot: rgba(60, 50, 54, 0.055);\n  --av-mark: #7a4f5c;\n}\n\nhtml[data-av-theme=\"duskrose\"]:has(body[data-ds-dark-theme]) {\n  --av-space: #1b1418;\n  --av-dot: rgba(242, 214, 214, 0.10);\n  --av-mark: #d3a6ad;\n}\n";
+    const CSS = "/* ============================================================================\n   AveritA's DSH —— 主题核心样式（令牌 / 空间 / 外壳 / 品牌位 / 设置面板）\n   组件在 src/components/<id>/style.css，由 scripts/build.mjs 按 manifest 顺序\n   拼到本文件之后。改产物不要手改 client.js。\n   ========================================================================== */\n\n/* 兜底色：没拿到 data-av-theme 时按 averita 走。 */\n:root {\n  --av-space: #e5eaf0;\n  --av-dot: rgba(55, 63, 79, 0.055);\n  --av-mark: #61567d;\n  /* JS 直接覆写这三枚（滑杆无级），默认 1 / 1 / 0.65。 */\n  --av-scale: 1;\n  --av-depth: 1;\n  --av-breathe-min: 0.65;\n  --av-serif: \"Noto Serif SC\", \"Source Han Serif SC\", \"Songti SC\", \"SimSun\", serif;\n  /* 装饰线：全部从 --av-mark 派生，换主题自动跟；深色单独压一档。 */\n  --av-line: color-mix(in srgb, var(--av-mark) 36%, transparent);\n  --av-line-soft: color-mix(in srgb, var(--av-mark) 18%, transparent);\n  --av-wash: color-mix(in srgb, var(--av-mark) 7%, transparent);\n}\n\nhtml:has(body[data-ds-dark-theme]) {\n  --av-line: color-mix(in srgb, var(--av-mark) 26%, transparent);\n  --av-line-soft: color-mix(in srgb, var(--av-mark) 13%, transparent);\n  --av-wash: color-mix(in srgb, var(--av-mark) 8%, transparent);\n}\n\n/* ── 空间 ─────────────────────────────────────────────────────────────── */\n\nhtml {\n  background: var(--av-space);\n}\n\n/* 底色从 body 交给 html，点阵才透得出来。 */\nbody {\n  background-color: transparent !important;\n}\n\n/* ── 让外壳透出背景 ─────────────────────────────────────────────────────\n   DSH 0.2.1-rc.3 的 AppFrame / centerCol / ConversationRoot 都用\n   --dsw-alias-bg-base 铺满整块区域，会盖住点阵。这里用 CSS Modules 的\n   稳定后缀 + :has 结构定位（不依赖哈希前缀），只把这些外壳的底色置空；\n   组件自己的 bg-base 填充（代码块、粘性表头等）不受影响。\n   升级 DSH 后若背景又变纯色，先回来检查这几个后缀名。 */\n[class*=\"_frame\"]:has([class*=\"_centerCol\"]),\n[class*=\"_centerCol\"],\n[class*=\"_root\"]:has([class*=\"_composerSeat\"]) {\n  background-color: transparent !important;\n}\n\n\n/* 缩放 / 浓淡：滑杆直接写 html 上的 --av-scale / --av-depth，\n   取值 0.5–4× / 30%–400%，不再走离散属性。\n   点阵时缩放格距、浓淡乘墨色 alpha；流光时分别当场的缩放与浓度。 */\n\n/* ── 细节 ─────────────────────────────────────────────────────────────── */\n\n/* 标题走衬线，界面与正文的字交给 DSH 的字体设置。 */\nbody :is(h1, h2, h3) {\n  letter-spacing: 0.01em;\n}\n\n/* 菜单：发丝边 + 更轻的模糊（窗口上的毛玻璃只此一处）。 */\n[data-menu-material] {\n  border: 0.5px solid var(--dsw-alias-border-l3);\n}\n\n/* 品牌位：照个人站 toolstar.ts 的正等轴投影画的三轴正交六芒星 + 衬线字标。\n   星由 JS 每帧重画：六支按深度取 fill-opacity，中心一枚小圆收平。 */\n.av-brand-mark {\n  display: inline-flex;\n  align-items: center;\n  justify-content: center;\n  width: 32px;\n  height: 32px;\n  color: var(--av-mark);\n}\n\n.av-brand-mark svg {\n  display: block;\n  width: 32px;\n  height: 32px;\n  overflow: visible;\n}\n\n.av-star-hub {\n  fill: color-mix(in srgb, currentColor 32%, #ffffff);\n}\n\n.av-brand-name {\n  display: inline-block;\n  min-width: 0;\n  overflow: hidden;\n  text-overflow: ellipsis;\n  font-family: var(--av-serif);\n  font-size: 15px;\n  font-weight: 500;\n  line-height: 1;\n  letter-spacing: 0.045em;\n  white-space: nowrap;\n  color: var(--dsw-alias-label-primary);\n  transform: translateY(0.5px);\n}\n\n/* ── 设置 → 主题 ──────────────────────────────────────────────────────── */\n.av-theme-panel {\n  display: flex;\n  flex-direction: column;\n  gap: 12px;\n  padding: 2px 0 6px;\n}\n\n.av-theme-head {\n  display: flex;\n  align-items: baseline;\n  gap: 10px;\n}\n\n.av-theme-title {\n  font-family: var(--av-serif);\n  font-size: 15px;\n  color: var(--dsw-alias-label-primary);\n}\n\n.av-theme-sub {\n  font-size: 11px;\n  letter-spacing: 0.08em;\n  text-transform: uppercase;\n  color: var(--dsw-alias-label-tertiary);\n}\n\n/* 设置分组：小标题 + 右侧发丝线，把面板切成品牌 / 背景 / 装饰几段。 */\n.av-theme-group {\n  display: flex;\n  align-items: center;\n  gap: 10px;\n  margin-top: 2px;\n  font-size: 11px;\n  font-weight: 500;\n  letter-spacing: 0.08em;\n  color: var(--dsw-alias-label-secondary);\n}\n\n.av-theme-group::after {\n  content: \"\";\n  flex: 1;\n  height: 0.5px;\n  background: var(--dsw-alias-border-l1);\n}\n\n.av-theme-grid {\n  display: flex;\n  flex-wrap: wrap;\n  gap: 10px;\n}\n\n.av-theme-card {\n  display: flex;\n  align-items: center;\n  gap: 10px;\n  padding: 9px 12px;\n  border: 0.5px solid var(--dsw-alias-border-l2);\n  border-radius: var(--dsw-radius-lg);\n  background: var(--dsw-alias-bg-layer-1);\n  color: var(--dsw-alias-label-primary);\n  cursor: pointer;\n  text-align: left;\n}\n\n.av-theme-card:hover {\n  background: var(--dsw-alias-interactive-bg-hover);\n}\n\n.av-theme-card--on {\n  border-color: var(--dsw-alias-brand-primary);\n}\n\n.av-theme-chip {\n  flex: none;\n  width: 30px;\n  height: 30px;\n  border: 0.5px solid var(--dsw-alias-border-l2);\n  border-radius: 8px;\n}\n\n.av-theme-label {\n  font-size: 13px;\n  font-weight: 500;\n}\n\n.av-theme-state {\n  font-size: 11px;\n  color: var(--dsw-alias-label-tertiary);\n}\n\n/* 滑杆右侧的读数：等宽数字，拖动时行不跳。 */\n.av-theme-state--num {\n  min-width: 148px;\n  font-variant-numeric: tabular-nums;\n}\n\n/* 滑杆行：标签定宽，缩放 / 浓淡 / 呼吸下限的轨道左边对齐。 */\n.av-deco-row--range .av-theme-sub {\n  flex: 0 0 56px;\n  white-space: nowrap;\n}\n\n/* 背景滑杆：轨道 3px，已选段用 --av-mark，滑块是主题色描边的圆点。\n   填充比例由 React 写进 --av-fill（0%–100%）。 */\n.av-range {\n  flex: none;\n  width: 200px;\n  height: 18px;\n  margin: 0;\n  padding: 0;\n  border: 0;\n  background: transparent;\n  cursor: pointer;\n  appearance: none;\n  -webkit-appearance: none;\n}\n\n.av-range::-webkit-slider-runnable-track {\n  height: 3px;\n  border-radius: 999px;\n  background: linear-gradient(\n    to right,\n    var(--av-mark) 0 var(--av-fill, 0%),\n    var(--dsw-alias-border-l2) var(--av-fill, 0%) 100%\n  );\n}\n\n.av-range::-webkit-slider-thumb {\n  width: 12px;\n  height: 12px;\n  margin-top: -4.5px;\n  border: 1px solid var(--av-mark);\n  border-radius: 50%;\n  background: var(--dsw-alias-bg-layer-1);\n  box-shadow: 0 1px 2px rgb(0 0 0 / 0.14);\n  appearance: none;\n  -webkit-appearance: none;\n  transition: transform 120ms ease;\n}\n\n.av-range:active::-webkit-slider-thumb {\n  transform: scale(1.12);\n}\n\n.av-range:focus-visible {\n  outline: 2px solid var(--dsw-alias-brand-primary);\n  outline-offset: 3px;\n  border-radius: 999px;\n}\n\n/* Firefox：轨道 / 已选段 / 滑块分开画。 */\n.av-range::-moz-range-track {\n  height: 3px;\n  border-radius: 999px;\n  background: var(--dsw-alias-border-l2);\n}\n\n.av-range::-moz-range-progress {\n  height: 3px;\n  border-radius: 999px;\n  background: var(--av-mark);\n}\n\n.av-range::-moz-range-thumb {\n  width: 11px;\n  height: 11px;\n  border: 1px solid var(--av-mark);\n  border-radius: 50%;\n  background: var(--dsw-alias-bg-layer-1);\n  box-shadow: 0 1px 2px rgb(0 0 0 / 0.14);\n}\n\n.av-range:active::-moz-range-thumb {\n  transform: scale(1.12);\n}\n\n/* 开关行：装饰 / 底纹 / 星形 / 动效共用 */\n.av-deco-row {\n  display: flex;\n  flex-wrap: wrap;\n  align-items: center;\n  gap: 8px;\n  padding-top: 2px;\n}\n\n.av-deco-chip {\n  padding: 4px 10px;\n  border: 0.5px solid var(--dsw-alias-border-l2);\n  border-radius: var(--dsw-radius-lg);\n  background: transparent;\n  color: var(--dsw-alias-label-secondary);\n  font-size: 12px;\n  cursor: pointer;\n}\n\n.av-deco-chip:hover {\n  background: var(--dsw-alias-interactive-bg-hover);\n}\n\n.av-deco-chip--on {\n  border-color: var(--dsw-alias-brand-primary);\n  background: var(--av-wash);\n  color: var(--dsw-alias-label-primary);\n}\n\n/* 字符开关：单字筹码，等宽 + 固定宽度，四枚排齐。 */\n.av-deco-chip--glyph {\n  min-width: 28px;\n  padding: 4px 0;\n  font-family: Consolas, \"Cascadia Code\", monospace;\n  font-size: 13px;\n  line-height: 1;\n  text-align: center;\n}\n\n/* 字标输入：单行文本框，标签与滑杆行同宽，过长时收窄。 */\n.av-deco-row--text .av-theme-sub {\n  flex: 0 0 56px;\n  white-space: nowrap;\n}\n\n.av-text-input {\n  flex: 1 1 180px;\n  min-width: 120px;\n  max-width: 280px;\n  padding: 5px 9px;\n  border: 0.5px solid var(--dsw-alias-border-l2);\n  border-radius: var(--dsw-radius-lg);\n  background: var(--dsw-alias-bg-layer-1);\n  color: var(--dsw-alias-label-primary);\n  font-family: var(--av-serif);\n  font-size: 13px;\n  line-height: 18px;\n  transition:\n    border-color var(--ds-transition-duration-fast) var(--ds-ease-in-out),\n    box-shadow var(--ds-transition-duration-fast) var(--ds-ease-in-out);\n}\n\n.av-text-input::placeholder {\n  color: var(--dsw-alias-label-tertiary);\n}\n\n.av-text-input:focus {\n  outline: none;\n  border-color: var(--dsw-alias-brand-primary);\n  box-shadow: 0 0 0 2px var(--av-wash);\n}\n\n.av-text-input:focus-visible {\n  outline: 2px solid var(--dsw-alias-brand-primary);\n  outline-offset: 2px;\n}\n\n\n/* ═══ component: hero · 新会话首屏 ═══ */\n/* ============================================================================\n   新会话首屏：星标 + 可替换标题 + 隐藏「预览版」徽章\n   ----------------------------------------------------------------------------\n   宿主结构（ui-conversation 0.2.1-rc.3）：\n     ._headline > ._fishHitbox + ._titleGroup > span(标题) + ._previewBadge\n   CSS Modules 前缀会变，这里只认稳定后缀；结构变了就整段失效，回退原生外观。\n   ========================================================================== */\n\n/* 「预览版」先去掉；以后要恢复就删这一条。 */\n[class*=\"_headline\"]:has([class*=\"_fishHitbox\"]) [class*=\"_previewBadge\"] {\n  display: none;\n}\n\n/* 首屏星标：和侧栏同一个 .av-brand-mark，只改尺寸；颜色仍走 --av-mark。 */\n.av-brand-mark.av-hero-mark,\n.av-brand-mark.av-hero-mark svg {\n  width: 34px;\n  height: 34px;\n}\n\n/* 自定义标题：隐藏宿主原文字，用 html 上的 CSS 字符串替换。\n   不碰 React；hover 重渲染不会把文字冲掉。 */\nhtml[data-av-hero-text] [class*=\"_headline\"]:has([class*=\"_fishHitbox\"]) {\n  flex-wrap: nowrap;\n}\n\nhtml[data-av-hero-text] [class*=\"_headline\"]:has([class*=\"_fishHitbox\"]) [class*=\"_titleGroup\"] {\n  max-width: 100%;\n}\n\nhtml[data-av-hero-text] [class*=\"_headline\"]:has([class*=\"_fishHitbox\"]) [class*=\"_titleGroup\"] > span:first-child {\n  display: none;\n}\n\nhtml[data-av-hero-text] [class*=\"_headline\"]:has([class*=\"_fishHitbox\"]) [class*=\"_titleGroup\"]::before {\n  content: var(--av-hero-text);\n  max-width: 100%;\n  overflow-wrap: anywhere;\n  text-align: center;\n}\n\n/* 文案为空：只留星标。 */\nhtml[data-av-hero-empty] [class*=\"_headline\"]:has([class*=\"_fishHitbox\"]) [class*=\"_titleGroup\"] {\n  display: none;\n}\n\n/* ═══ component: dots · 点阵底纹 ═══ */\n/* ============================================================================\n   组件 · 点阵底纹\n   ----------------------------------------------------------------------------\n   挂 html[data-av-dots=\"square\" | \"char\" | \"wall\"] 换颗粒；不挂属性 = 圆点。\n   字符再挂 html[data-av-glyph=\"plus\" | \"hash\" | \"star\" | \"cross\"]；\n   动效挂 html[data-av-motion=\"breathe\" | \"drift\" | \"off\"]；\n   html[data-av-bg=\"flow\" | \"off\"] 时整层不画。\n\n   变量：--av-dot（墨色）· --av-scale（格距倍数）·\n         --av-depth（浓淡乘数）· --av-breathe-min（呼吸低谷）\n   存储：不存；由插件把选择写成属性 / html 行内变量。\n   宿主选择器：只用 body::before，不插 DOM。\n\n   单独复用：复制本文件即可，下面兜底只在没装主题时生效。\n   要让整块底色透出来，还需要给 html 铺 --av-space，并把 AppFrame /\n   centerCol / ConversationRoot 的底色置空（见 theme.css「让外壳透出背景」）。\n   ========================================================================== */\n\n/* 兜底：没有 data-av-theme 时用昼雾 · 靛夜的值。 */\nhtml:not([data-av-theme]) {\n  --av-space: #e5eaf0;\n  --av-dot: rgba(55, 63, 79, 0.055);\n  --av-scale: 1;\n  --av-depth: 1;\n  --av-breathe-min: 0.65;\n}\n\nhtml:not([data-av-theme]):has(body[data-ds-dark-theme]) {\n  --av-space: #0e131e;\n  --av-dot: rgba(217, 230, 243, 0.085);\n}\n\n/* ── 底纹：一层 fixed 伪元素，四种颗粒共用 ──────────────────────────────\n   圆点 / 方块 / 字符 / 字符墙都画成 SVG 遮罩（前三种 10px 一格，字符墙\n   120×80 一块），再和中心渐隐遮罩相交；颜色由填充色给，所以换主题 / 深浅\n   自动跟。缩放 = 缩放遮罩 tile，浓淡 = 乘在墨色 alpha 上。\n   开关在「设置 → 主题 → 背景」，落成 html[data-av-dots] / [data-av-glyph] /\n   [data-av-motion]，缩放 / 浓淡直接写 html 行内变量。 */\n\nbody::before {\n  /* 中心压淡的渐隐，四种颗粒共用。 */\n  --av-vig: radial-gradient(ellipse 82% 74% at 52% 42%, rgba(0, 0, 0, 0.5) 0%, #000 78%);\n  /* 默认颗粒：圆点（r 1.5px ≈ 原来的 1.4px 点 + 一点渐隐边）。 */\n  --av-tile: url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='10'%3E%3Ccircle cx='5' cy='5' r='1.5' fill='%23000'/%3E%3C/svg%3E\");\n  --av-tile-size: calc(10px * var(--av-scale));\n  content: \"\";\n  position: fixed;\n  /* 留出漂移余量：最大 64px / 36px 乘缩放，四边各留 80px 乘缩放。 */\n  inset: calc(-80px * var(--av-scale));\n  z-index: -1;\n  pointer-events: none;\n  /* 墨色按浓淡乘 alpha；不支持相对色语法的内核退回主题原色。 */\n  background-color: var(--av-dot);\n  background-color: rgb(from var(--av-dot) r g b / calc(alpha * var(--av-depth)));\n  -webkit-mask-image: var(--av-tile), var(--av-vig);\n  mask-image: var(--av-tile), var(--av-vig);\n  -webkit-mask-size: var(--av-tile-size), 100% 100%;\n  mask-size: var(--av-tile-size), 100% 100%;\n  -webkit-mask-repeat: repeat, no-repeat;\n  mask-repeat: repeat, no-repeat;\n  -webkit-mask-composite: source-in, source-over;\n  mask-composite: intersect, add;\n  animation:\n    avDotDrift 60s linear infinite alternate,\n    avDotBreathe 30s ease-in-out infinite alternate;\n  will-change: transform, opacity;\n  transform: translateZ(0);\n}\n\n/* 漂移幅度跟着缩放走，不然放大后看着漂得更慢。 */\n@keyframes avDotDrift {\n  from { transform: translate3d(calc(-64px * var(--av-scale)), calc(-36px * var(--av-scale)), 0); }\n  to   { transform: translate3d(calc(64px * var(--av-scale)), calc(36px * var(--av-scale)), 0); }\n}\n\n@keyframes avDotBreathe {\n  from { opacity: var(--av-breathe-min, 0.65); }\n  to   { opacity: 1; }\n}\n\n/* 动效档：默认（both / 不挂属性）漂移 + 呼吸；也可只留一种或全停。\n   这里只重写 animation，不动别的样式。 */\nhtml[data-av-motion=\"breathe\"] body::before {\n  animation: avDotBreathe 30s ease-in-out infinite alternate;\n}\n\nhtml[data-av-motion=\"drift\"] body::before {\n  animation: avDotDrift 60s linear infinite alternate;\n}\n\nhtml[data-av-motion=\"off\"] body::before {\n  animation: none;\n  will-change: auto;\n  transform: none;\n}\n\n/* 窗口不在前台时暂停；减少动效时直接停住。 */\nhtml[data-av-idle] body::before {\n  animation-play-state: paused;\n}\n\n@media (prefers-reduced-motion: reduce) {\n  body::before {\n    animation: none !important;\n  }\n}\n\n/* ── 颗粒：方块 / 字符 / 字符墙（圆点就是上面的默认值） ────────────────── */\n\n/* 方块：2.8px，与圆点同一个包围盒。 */\nhtml[data-av-dots=\"square\"] body::before {\n  --av-tile: url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='10'%3E%3Crect x='3.6' y='3.6' width='2.8' height='2.8' fill='%23000'/%3E%3C/svg%3E\");\n}\n\n/* 字符：10px 格子里一个等宽字符；字号按墨量调过，和圆点 / 方块同一档。 */\nhtml[data-av-dots=\"char\"] body::before {\n  --av-tile: url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='10'%3E%3Ctext x='5' y='7.2' font-family='Consolas,Segoe UI Symbol,monospace' font-size='8' text-anchor='middle' fill='%23000'%3E%2B%3C/text%3E%3C/svg%3E\");\n}\n\nhtml[data-av-dots=\"char\"][data-av-glyph=\"hash\"] body::before {\n  --av-tile: url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='10'%3E%3Ctext x='5' y='7.2' font-family='Consolas,Segoe UI Symbol,monospace' font-size='6.5' text-anchor='middle' fill='%23000'%3E%23%3C/text%3E%3C/svg%3E\");\n}\n\nhtml[data-av-dots=\"char\"][data-av-glyph=\"star\"] body::before {\n  --av-tile: url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='10'%3E%3Ctext x='5' y='7.2' font-family='Consolas,Segoe UI Symbol,monospace' font-size='8' text-anchor='middle' fill='%23000'%3E%2A%3C/text%3E%3C/svg%3E\");\n}\n\nhtml[data-av-dots=\"char\"][data-av-glyph=\"cross\"] body::before {\n  --av-tile: url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='10'%3E%3Ctext x='5' y='7.2' font-family='Consolas,Segoe UI Symbol,monospace' font-size='8' text-anchor='middle' fill='%23000'%3E%C3%97%3C/text%3E%3C/svg%3E\");\n}\n\n/* 字符墙：120×80 一块、8 行密排符号；fill-opacity 压过半，整体比圆点还淡一点。 */\nhtml[data-av-dots=\"wall\"] body::before {\n  --av-tile: url(\"data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20width%3D%27120%27%20height%3D%2780%27%3E%3Cg%20fill%3D%27%2523000%27%20fill-opacity%3D%270.55%27%20font-family%3D%27Consolas%2CSegoe%20UI%20Symbol%2Cmonospace%27%20font-size%3D%277%27%3E%3Ctext%20x%3D%270%27%20y%3D%277%27%3E%20-%2C%3B%25%28%28%3A%7C%28%3B%2C*%3B*%3A~%2F%21%5E..%3D%3F~%23~%3C%2Ftext%3E%3Ctext%20x%3D%270%27%20y%3D%2717%27%3E*%2F~%2F%2B%24%3F%5B%7C*%5D%5C%7B%3D*-%3A%3A%24%23.%2F%3F%40%7B%28%23%3C%2Ftext%3E%3Ctext%20x%3D%270%27%20y%3D%2727%27%3E%20%20%20%3F%2B%24_%7C*%28%2F_%5D~%23%2B-%3B*%5D%7C~%2F%28%5D_%5D%3C%2Ftext%3E%3Ctext%20x%3D%270%27%20y%3D%2737%27%3E%3A%3A%3A%2B%23%40%2F%25*%21%2B%2C%23-%40*%21%7C*%2B%3F%7C%5D%5E%3D%3A.%3C%2Ftext%3E%3Ctext%20x%3D%270%27%20y%3D%2747%27%3E%2B%21%3D%3D%2F%25%5C%3D%3B%5C%7B*%5C%3A%3D%5E%2B%7C%25%25%40%7D%7C%24%24%23*%3C%2Ftext%3E%3Ctext%20x%3D%270%27%20y%3D%2757%27%3E%20%20%20%29%3D%2F.%7B%25%7D%7B%7B%25%2C%25%2F%28%5C%3A%40%5D%5D%25%7C_%3F%2B%3C%2Ftext%3E%3Ctext%20x%3D%270%27%20y%3D%2767%27%3E%24%7D%5D%5D%5C%28%2F%2C_%40%2B*%5B%5C%5E%3A%25.%5D%23%2C%24.%7C%7C%5D%24%3C%2Ftext%3E%3Ctext%20x%3D%270%27%20y%3D%2777%27%3E%20%20%20..%29%5C-%2F%3D%3B%3F%2B%2B%5C%3F%7C%28%3A%3F%7B%3B%3A%40%40%7C-%3C%2Ftext%3E%3C%2Fg%3E%3C%2Fsvg%3E\");\n  --av-tile-size: calc(120px * var(--av-scale)) calc(80px * var(--av-scale));\n}\n\n/* 关闭：整层不画，只留 html 的底色；流光时点阵把位置让给画布。 */\nhtml[data-av-bg=\"off\"] body::before,\nhtml[data-av-bg=\"flow\"] body::before {\n  content: none;\n}\n\n/* 旧版把“关闭”放在底纹里；升级后若属性还残着，同样不画。 */\nhtml[data-av-dots=\"off\"] body::before {\n  content: none;\n}\n\n/* ═══ component: flow · 流光背景 ═══ */\n/* ============================================================================\n   组件 · 流光背景\n   ----------------------------------------------------------------------------\n   WebGL2 画布（src/flow.js），1/5 分辨率、5px 一格、锁 30fps。\n   挂 html[data-av-bg=\"flow\"] 才建画布；色板挂 html[data-av-flow-palette]。\n   变量：--av-flow-0..3（底 / 暗面 / 光带 / 亮芯）· --av-flow-glow（亮芯强度）\n   存储：不存；插件写 html[data-av-flow-palette]。\n   宿主选择器：canvas.av-flow 插在 body 第一个子节点，不碰宿主结构。\n\n   单独复用：复制本文件 + src/flow.js，建画布后 add('av-flow--on')。\n   ========================================================================== */\n\n/* ── 流光：低分辨率噪声场（src/flow.js）────────────────────────────────\n   画布只有视口的 1/5，像素放大回屏幕；颜色默认从主题混出，也可选四套固定色板，\n   JS 只读 --av-flow-0..3 / --av-flow-glow，所以换主题 / 深色 / 色板\n   都不用重建画布。点阵与流光二选一，落成 html[data-av-bg]。 */\n.av-flow {\n  position: fixed;\n  inset: 0;\n  z-index: -1;\n  width: 100%;\n  height: 100%;\n  pointer-events: none;\n  image-rendering: pixelated;\n  opacity: 0;\n  transition: opacity 420ms ease;\n}\n\n.av-flow--on {\n  opacity: 1;\n}\n\n/* 四套固定色板 + 跟随主题：0 底 · 1 暗面 · 2 光带 · 3 亮芯。\n   glow 是亮芯强度：浅色收着当纸上的反光，深色放开当光。 */\nhtml,\nhtml[data-av-flow-palette=\"mist\"] {\n  --av-flow-0: #d9e2ee;\n  --av-flow-1: #c8d6e7;\n  --av-flow-2: #edf3fa;\n  --av-flow-3: #fdfeff;\n  --av-flow-glow: 0.26;\n}\n\n/* 跟随主题：四阶从主题的底色 --av-space 与强调色 --av-mark 混出来，\n   换主题 / 切深浅自动跟，不会和界面撞色。颜色留在 CSS 里，\n   flow.js 通过临时探针把 color-mix 解析成 rgb 再读。 */\nhtml[data-av-flow-palette=\"theme\"] {\n  --av-flow-0: color-mix(in srgb, var(--av-space) 92%, var(--av-mark) 8%);\n  --av-flow-1: color-mix(in srgb, var(--av-space) 80%, var(--av-mark) 20%);\n  --av-flow-2: color-mix(in srgb, var(--av-space) 45%, #ffffff 55%);\n  --av-flow-3: color-mix(in srgb, #ffffff 96%, var(--av-mark) 4%);\n  --av-flow-glow: 0.26;\n}\n\nhtml[data-av-flow-palette=\"theme\"]:has(body[data-ds-dark-theme]) {\n  --av-flow-0: var(--av-space);\n  --av-flow-1: color-mix(in srgb, var(--av-space) 80%, var(--av-mark) 20%);\n  --av-flow-2: color-mix(in srgb, var(--av-space) 60%, var(--av-mark) 40%);\n  --av-flow-3: color-mix(in srgb, var(--av-mark) 94%, #ffffff 6%);\n  --av-flow-glow: 0.5;\n}\n\nhtml[data-av-flow-palette=\"dusk\"] {\n  --av-flow-0: #e2ddec;\n  --av-flow-1: #d2c9e2;\n  --av-flow-2: #f1edfa;\n  --av-flow-3: #fffdff;\n  --av-flow-glow: 0.26;\n}\n\nhtml[data-av-flow-palette=\"jade\"] {\n  --av-flow-0: #d9e5e1;\n  --av-flow-1: #c4d8d1;\n  --av-flow-2: #edf6f2;\n  --av-flow-3: #ffffff;\n  --av-flow-glow: 0.24;\n}\n\nhtml[data-av-flow-palette=\"amber\"] {\n  --av-flow-0: #e9e1d3;\n  --av-flow-1: #ddcdb6;\n  --av-flow-2: #f8f2e7;\n  --av-flow-3: #fffdf8;\n  --av-flow-glow: 0.26;\n}\n\nhtml[data-av-flow-palette=\"mist\"]:has(body[data-ds-dark-theme]) {\n  --av-flow-0: #0b111b;\n  --av-flow-1: #1a2740;\n  --av-flow-2: #40557e;\n  --av-flow-3: #b9cfec;\n  --av-flow-glow: 0.5;\n}\n\nhtml[data-av-flow-palette=\"dusk\"]:has(body[data-ds-dark-theme]) {\n  --av-flow-0: #110e1a;\n  --av-flow-1: #241b38;\n  --av-flow-2: #4a3a6e;\n  --av-flow-3: #ccb4f0;\n  --av-flow-glow: 0.5;\n}\n\nhtml[data-av-flow-palette=\"jade\"]:has(body[data-ds-dark-theme]) {\n  --av-flow-0: #091215;\n  --av-flow-1: #172a2e;\n  --av-flow-2: #2f5158;\n  --av-flow-3: #a8d8d0;\n  --av-flow-glow: 0.48;\n}\n\nhtml[data-av-flow-palette=\"amber\"]:has(body[data-ds-dark-theme]) {\n  --av-flow-0: #13100c;\n  --av-flow-1: #2a2118;\n  --av-flow-2: #513f2c;\n  --av-flow-3: #e6c093;\n  --av-flow-glow: 0.5;\n}\n\n/* ═══ component: motion · 位移动效 ═══ */\n/* ============================================================================\n   组件 · 位移动效\n   ----------------------------------------------------------------------------\n   纯 CSS，没有 JS、没有存储、没有 data-av-* 开关：\n     1. 会话切换上浮 6px；2. 会话行 hover 横移 2px；3. 按钮按下 0.5px；\n     4. 侧栏折叠 300ms；5. 最后一条回复上浮 6px；\n     6. 控件颜色 / 边框 / 阴影过渡（:where 零特异性，不压组件自己的过渡）。\n   依赖宿主令牌：--ds-transition-duration / -fast / -slow · --ds-ease-in-out\n   （主题在 tokens.js 里把宿主默认值换成 180ms / 120ms 与柔出曲线）。\n\n   单独复用：整份复制即可；不想要某条就删对应选择器。\n   ========================================================================== */\n\n/* ── 位移动效 ──────────────────────────────────────────────────────────\n   只动 transform，且都短：\n     1. 会话切换：会话区上浮 6px；\n     2. 会话行：hover 横移 2px；\n     3. 按钮按下：下压 0.5px；\n     后面还有：侧栏折叠的 grid 过渡、最后一条回复的上浮（见下）。\n   菜单不做位移——DSH 的菜单带锚定定位，动它容易跳。 */\n[data-conversation-session] {\n  animation: avSessionIn 160ms var(--ds-ease-in-out);\n}\n\n@keyframes avSessionIn {\n  from { opacity: 0.7; transform: translateY(6px); }\n  to   { opacity: 1; transform: translateY(0); }\n}\n\n[data-row-key] {\n  transition: transform var(--ds-transition-duration-fast) var(--ds-ease-in-out);\n}\n\n[data-row-key]:hover {\n  transform: translateX(2px);\n}\n\n:where(button):active:not(:disabled) {\n  transform: translateY(0.5px);\n}\n/* ── 折叠：frame 的 grid 过渡常开 ─────────────────────────────────────\n   DSH 只在部分切换路径上给 [data-animating] 过渡，折叠时可能直接跳。\n   这里给 frame 常开 300ms 曲线，拖动改宽时再关掉。 */\n[class*=\"_frame\"] {\n  transition: grid-template-columns var(--ds-transition-duration-slow) var(--ds-ease-in-out);\n}\n\n[class*=\"_frame\"][data-dragging] {\n  transition: none;\n}\n\n/* ── 新回复：只给最后一个 turn 挂进入动画 ─────────────────────────────\n   用“后面没有同级 turn”来认定最后一个；历史分页插在上方，不会触发。\n   依赖 turn 是同级兄弟；DSH 结构若变，这条会静默失效（不影响其它）。 */\n[data-chat-turn]:not(:has(~ [data-chat-turn])) {\n  animation: avTurnIn 180ms var(--ds-ease-in-out);\n}\n\n@keyframes avTurnIn {\n  from { opacity: 0.55; transform: translateY(6px); }\n  to   { opacity: 1; transform: translateY(0); }\n}\n\n@media (prefers-reduced-motion: reduce) {\n  [class*=\"_frame\"] {\n    transition: none;\n  }\n\n  [data-chat-turn]:not(:has(~ [data-chat-turn])) {\n    animation: none;\n  }\n}\n\n\n@media (prefers-reduced-motion: reduce) {\n  [data-conversation-session],\n  [data-row-key],\n  :where(button):active:not(:disabled) {\n    animation: none !important;\n    transition: none !important;\n    transform: none !important;\n  }\n}\n\n\n/* ── UI 动效：过渡令牌 + 轻量 hover 过渡 ───────────────────────────────\n   1. tokens.js 里的 --ds-transition-* 把宿主的 0.2s/0.1s 改成 180/120ms，\n      曲线换成个人站那种柔出；\n   2. :where() 补颜色/边框/阴影过渡，零 specificity——组件自己声明的\n      过渡仍然优先，不覆盖宿主行为；\n   3. 菜单不做动效：它的显隐由宿主控制，叠加 opacity 会在收尾时跳。 */\n:where(button, [role=\"button\"], a, summary, input, textarea) {\n  transition:\n    background-color var(--ds-transition-duration-fast) var(--ds-ease-in-out),\n    border-color var(--ds-transition-duration-fast) var(--ds-ease-in-out),\n    color var(--ds-transition-duration-fast) var(--ds-ease-in-out),\n    box-shadow var(--ds-transition-duration) var(--ds-ease-in-out),\n    opacity var(--ds-transition-duration) var(--ds-ease-in-out);\n}\n@media (prefers-reduced-motion: reduce) {\n  :where(button, [role=\"button\"], a, summary, input, textarea) {\n    transition: none !important;\n  }}\n\n/* ═══ component: paper · 纸品装饰 ═══ */\n/* ============================================================================\n   组件 · 纸品装饰（用户消息 / 输入框 / 发送键）\n   ----------------------------------------------------------------------------\n   挂 html[data-av-deco=\"paper\"] 生效；摘掉属性即回原生外观。\n   命中的宿主选择器（DSH 0.2.1-rc.3）：\n     用户消息  [data-chat-flow-kind=\"user\"] [class*=\"_bubble\"]\n     输入框    [data-composer-seat] [class*=\"_card\"] / _input / _row / _placeholder\n     发送键    [data-composer-seat] [class*=\"_primary\"]\n   变量：--av-mark（主墨色）及其派生 --av-line / --av-line-soft / --av-wash、\n         --av-serif（占位语衬线）\n   存储：不存；插件写 html[data-av-deco]。\n   风险：装饰钉在 CSS Modules 的稳定后缀上，DSH 改结构会整段失效（回退原生，不影响功能）。\n\n   单独复用：复制本文件，挂 data-av-deco=\"paper\"；不想要开关就把选择器里的\n   html[data-av-deco=\"paper\"] 换成 html。下面的兜底只在没装主题时生效。\n   ========================================================================== */\n\n/* 兜底：没有 data-av-theme 时用昼雾 · 靛夜的值。 */\nhtml[data-av-deco=\"paper\"]:not([data-av-theme]) {\n  --av-mark: #61567d;\n  --av-line: color-mix(in srgb, var(--av-mark) 36%, transparent);\n  --av-line-soft: color-mix(in srgb, var(--av-mark) 18%, transparent);\n  --av-wash: color-mix(in srgb, var(--av-mark) 7%, transparent);\n  --av-serif: \"Noto Serif SC\", \"Source Han Serif SC\", \"Songti SC\", \"SimSun\", serif;\n}\n\nhtml[data-av-deco=\"paper\"]:not([data-av-theme]):has(body[data-ds-dark-theme]) {\n  --av-mark: #baadd2;\n  --av-line: color-mix(in srgb, var(--av-mark) 26%, transparent);\n  --av-line-soft: color-mix(in srgb, var(--av-mark) 13%, transparent);\n  --av-wash: color-mix(in srgb, var(--av-mark) 8%, transparent);\n}\n\n/* ══════════════════════════════════════════════════════════════════════\n   重装饰：用户消息与输入框\n   ──────────────────────────────────────────────────────────────────────\n   只在 html[data-av-deco=\"paper\"] 时生效。开关在「设置 → 主题」，值存 localStorage；\n   关掉即回到 DSH 原生外观（本段不碰任何功能，只加装饰）。\n   命中点（DSH 0.2.1-rc.3 的真实结构）：\n     用户消息  [data-chat-flow-kind=\"user\"] [class*=\"_bubble\"]\n     输入框    [data-composer-seat] [class*=\"_card\"]\n     发送键    [data-composer-seat] [class*=\"_primary\"]\n   颜色全部走令牌 + color-mix；装饰线由 --av-mark 派生，换主题自动跟。\n   ══════════════════════════════════════════════════════════════════════ */\n\n/* ── 用户消息：贴上去的纸条 ───────────────────────────────────────────── */\nhtml[data-av-deco=\"paper\"] [data-chat-flow-kind=\"user\"] [class*=\"_bubble\"] {\n  position: relative;\n  border: 1px solid var(--av-line);\n  border-radius: 2px 10px 2px 0;\n  padding: 12px 20px 15px 24px;\n  background-color: var(--dsw-specific-bubble);\n  /* 右下折角 + 折痕：折面压在右下角，折痕从底边斜向右缘（镜像 225deg → 135deg） */\n  background-image:\n    linear-gradient(\n      135deg,\n      transparent 0 47%,\n      color-mix(in srgb, var(--av-mark) 14%, var(--dsw-specific-bubble)) 47% 100%\n    ),\n    linear-gradient(\n      135deg,\n      transparent 0 43%,\n      var(--av-line-soft) 43% 45%,\n      transparent 45% 100%\n    );\n  background-repeat: no-repeat, no-repeat;\n  background-size: 18px 18px;\n  background-position: right bottom;\n  /* 底缘齿孔：像撕下来的票根 */\n  mask-image: radial-gradient(circle 2.6px at 3px 100%, transparent 97%, #000 100%);\n  mask-size: 10px 100%;\n  mask-repeat: repeat-x;\n  mask-position: left bottom;\n  filter: drop-shadow(2.5px 2.5px 0 var(--av-line-soft));\n  transform: rotate(-0.3deg);\n  transition:\n    transform var(--ds-transition-duration) var(--ds-ease-in-out),\n    filter var(--ds-transition-duration) var(--ds-ease-in-out);\n}\n\n/* 左缘书签带 */\nhtml[data-av-deco=\"paper\"] [data-chat-flow-kind=\"user\"] [class*=\"_bubble\"]::before {\n  content: \"\";\n  position: absolute;\n  left: 0;\n  top: 10px;\n  bottom: 12px;\n  width: 4px;\n  border-radius: 0 2px 2px 0;\n  background: linear-gradient(\n    180deg,\n    var(--av-mark) 0%,\n    color-mix(in srgb, var(--av-mark) 34%, transparent) 100%\n  );\n}\n\n/* 右上角星章 */\nhtml[data-av-deco=\"paper\"] [data-chat-flow-kind=\"user\"] [class*=\"_bubble\"]::after {\n  content: \"\";\n  position: absolute;\n  top: 6px;\n  right: 6px;\n  width: 13px;\n  height: 13px;\n  background: var(--av-mark);\n  opacity: 0.7;\n  clip-path: polygon(\n    50% 0%, 61% 39%, 100% 50%, 61% 61%,\n    50% 100%, 39% 61%, 0% 50%, 39% 39%\n  );\n}\n\n@media (hover: hover) {\n  html[data-av-deco=\"paper\"] [data-chat-flow-kind=\"user\"] [class*=\"_bubble\"]:hover {\n    transform: rotate(0deg);\n    filter: drop-shadow(1.5px 1.5px 0 var(--av-line));\n  }\n}\n\n/* ── 输入框：待写的活页卡 ─────────────────────────────────────────────── */\nhtml[data-av-deco=\"paper\"] [data-composer-seat] [class*=\"_card\"] {\n  position: relative;\n  border: 1px solid var(--av-line);\n  border-radius: 3px 13px 3px 0;\n  padding-top: 15px;\n  background-color: var(--dsw-specific-input-major);\n  /* 票根裁切线 */\n  outline: 1px dotted var(--av-line);\n  outline-offset: 4px;\n  box-shadow: 0 0 0 3px var(--av-wash);\n  transition:\n    box-shadow var(--ds-transition-duration) var(--ds-ease-in-out),\n    border-color var(--ds-transition-duration) var(--ds-ease-in-out),\n    outline-color var(--ds-transition-duration) var(--ds-ease-in-out);\n}\n\n/* 信头窄带：不带字，只留装订边和一条底线 */\nhtml[data-av-deco=\"paper\"] [data-composer-seat] [class*=\"_card\"]::before {\n  content: \"\";\n  position: absolute;\n  top: 0;\n  left: 0;\n  right: 0;\n  height: 15px;\n  border-bottom: 0.5px solid var(--av-line-soft);\n  border-radius: 3px 13px 0 0;\n  background: var(--av-wash);\n  pointer-events: none;\n}\n\n/* 信头左端三枚装订孔 */\nhtml[data-av-deco=\"paper\"] [data-composer-seat] [class*=\"_card\"]::after {\n  content: \"\";\n  position: absolute;\n  left: 11px;\n  top: 6px;\n  width: 3px;\n  height: 3px;\n  border-radius: 50%;\n  background: color-mix(in srgb, var(--av-mark) 34%, transparent);\n  box-shadow:\n    7px 0 0 color-mix(in srgb, var(--av-mark) 34%, transparent),\n    14px 0 0 color-mix(in srgb, var(--av-mark) 34%, transparent);\n  pointer-events: none;\n}\n\nhtml[data-av-deco=\"paper\"] [data-composer-seat] [class*=\"_card\"]:focus-within {\n  border-color: var(--dsw-alias-brand-primary);\n  outline-color: var(--av-line);\n  box-shadow: 0 0 0 3px var(--av-line-soft);\n}\n\n/* 占位语：衬线斜体，和正文字体分开 */\nhtml[data-av-deco=\"paper\"] [data-composer-seat] [class*=\"_placeholder\"] {\n  font-family: var(--av-serif);\n  font-style: italic;\n  letter-spacing: 0.03em;\n}\n\n/* 输入区横格：极淡的信纸线，跟着行高走 */\nhtml[data-av-deco=\"paper\"] [data-composer-seat] [class*=\"_input\"] {\n  background-image: repeating-linear-gradient(\n    180deg,\n    transparent 0 23px,\n    color-mix(in srgb, var(--av-mark) 9%, transparent) 23px 24px\n  );\n  background-position: 0 5px;\n}\n\n/* 控制行与输入区之间：一条发丝线，像信纸的横格 */\nhtml[data-av-deco=\"paper\"] [data-composer-seat] [class*=\"_row\"] {\n  border-top: 0.5px solid color-mix(in srgb, var(--av-mark) 24%, transparent);\n}\n\n/* 发送键：缺一角的圆章 */\nhtml[data-av-deco=\"paper\"] [data-composer-seat] [class*=\"_primary\"] {\n  border-radius: 50% 50% 50% 5px;\n  box-shadow:\n    inset 0 0 0 1px color-mix(in srgb, var(--dsw-alias-label-primary-inverted) 24%, transparent),\n    inset 0 -7px 12px -7px color-mix(in srgb, var(--dsw-alias-label-primary) 32%, transparent);\n  transition:\n    transform var(--ds-transition-duration) var(--ds-ease-in-out),\n    border-radius var(--ds-transition-duration) var(--ds-ease-in-out);\n}\n\nhtml[data-av-deco=\"paper\"] [data-composer-seat] [class*=\"_primary\"]:hover:not(:disabled) {\n  transform: translateY(-2px) rotate(-6deg);\n  border-radius: 50% 50% 8px 50%;\n}\n\n/* 深色下这些装饰要退半步：底色已经暗，线一浓就吵。 */\nhtml[data-av-deco=\"paper\"]:has(body[data-ds-dark-theme]) [data-chat-flow-kind=\"user\"] [class*=\"_bubble\"]::after {\n  opacity: 0.55;\n}\n\nhtml[data-av-deco=\"paper\"]:has(body[data-ds-dark-theme]) [data-composer-seat] [class*=\"_input\"] {\n  background-image: repeating-linear-gradient(\n    180deg,\n    transparent 0 23px,\n    color-mix(in srgb, var(--av-mark) 7%, transparent) 23px 24px\n  );\n}\n\n@media (prefers-reduced-motion: reduce) {\n  html[data-av-deco=\"paper\"] [data-chat-flow-kind=\"user\"] [class*=\"_bubble\"],\n  html[data-av-deco=\"paper\"] [data-composer-seat] [class*=\"_card\"],\n  html[data-av-deco=\"paper\"] [data-composer-seat] [class*=\"_primary\"] {\n    transform: none;\n    transition: none;\n  }\n\n  html[data-av-deco=\"paper\"] [data-composer-seat] [class*=\"_primary\"]:hover:not(:disabled) {\n    transform: translateY(-2px);\n  }\n}\n\n/* ═══ component: star · 星芒装饰 ═══ */\n/* ============================================================================\n   组件 · 星芒装饰（用户消息 / 输入框 / 发送键）\n   ----------------------------------------------------------------------------\n   挂 html[data-av-deco=\"star\"] 生效，与纸品互斥。\n   星形再挂 html[data-av-star=\"a\" | \"b\"]：a 罗盘刻星、b 针芒。\n   命中的宿主选择器与纸品相同，两套装饰共用一批选择器，靠 data-av-deco 分流。\n   变量：--av-mark（星与光线）· --av-star-shape / -size / -offset / -bubble\n   存储：不存；插件写 html[data-av-deco] / data-av-star。\n   风险：同纸品，钉在宿主结构与 CSS Modules 后缀上。\n\n   单独复用：复制本文件，挂 data-av-deco=\"star\"；不挂 data-av-star 时按 a 画。\n   下面的兜底只在没装主题时生效。\n   ========================================================================== */\n\n/* 兜底：没有 data-av-theme 时用昼雾 · 靛夜的值。 */\nhtml[data-av-deco=\"star\"]:not([data-av-theme]) {\n  --av-mark: #61567d;\n}\n\nhtml[data-av-deco=\"star\"]:not([data-av-theme]):has(body[data-ds-dark-theme]) {\n  --av-mark: #baadd2;\n}\n\n/* ══════════════════════════════════════════════════════════════════════\n   星芒装饰：以四角星芒与放射线为中心的对话框\n   ──────────────────────────────────────────────────────────────────────\n   与纸品（paper）互斥，同由「设置 → 主题 → 装饰」切换。\n   语言：一枚焦点星芒 + 极淡放射线 + 柔光；形状收圆，靠光和发散射程，不靠纸。\n   命中点与纸品相同，两套装饰共用同一批选择器，靠 html[data-av-deco] 分流。\n   ══════════════════════════════════════════════════════════════════════ */\n\n/* ── 星形变体：两组造型，挂在 [data-av-star] 上（容器级也能覆盖）────────\n   a = 罗盘刻星：四长四短，端正\n   b = 针芒：只留四根长针，更薄更利\n   星只做剪影：不转、不加内部渐变、不加光晕，靠形状说话。 */\n[data-av-star=\"a\"],\nhtml[data-av-deco=\"star\"]:not([data-av-star]) {\n  --av-star-shape: polygon(\n    50% 0%, 55% 39%, 78% 24%, 61% 45%,\n    100% 50%, 61% 55%, 78% 76%, 55% 61%,\n    50% 100%, 45% 61%, 22% 76%, 39% 55%,\n    0% 50%, 39% 45%, 22% 24%, 45% 39%\n  );\n  --av-star-size: 32px;\n  --av-star-offset: -15px;\n  --av-star-bubble: 16px;\n}\n\n[data-av-star=\"b\"] {\n  --av-star-shape: polygon(\n    50% 0%, 51.9% 45.4%, 64.8% 35.2%, 54.6% 47.9%,\n    100% 50%, 54.6% 52.1%, 64.8% 64.8%, 51.9% 54.6%,\n    50% 100%, 48.1% 54.6%, 35.2% 64.8%, 45.4% 52.1%,\n    0% 50%, 45.4% 47.9%, 35.2% 35.2%, 48.1% 45.4%\n  );\n  --av-star-size: 40px;\n  --av-star-offset: -19px;\n  --av-star-bubble: 20px;\n}\n\n/* ── 输入框：星芒卡 ───────────────────────────────────────────────────── */\nhtml[data-av-deco=\"star\"] [data-composer-seat] [class*=\"_card\"] {\n  position: relative;\n  border: 1px solid color-mix(in srgb, var(--av-mark) 36%, transparent);\n  border-radius: 16px;\n  background-color: var(--dsw-specific-input-major);\n  box-shadow: 0 0 0 4px color-mix(in srgb, var(--av-mark) 5%, transparent);\n  transition:\n    box-shadow var(--ds-transition-duration) var(--ds-ease-in-out),\n    border-color var(--ds-transition-duration) var(--ds-ease-in-out);\n}\n\n/* 放射线：以右上角星为圆心，向左下渐隐；每 12° 一束，只当氛围 */\nhtml[data-av-deco=\"star\"] [data-composer-seat] [class*=\"_card\"]::before {\n  content: \"\";\n  position: absolute;\n  inset: 0;\n  border-radius: inherit;\n  background-image: repeating-conic-gradient(\n    from 8deg at 100% 0%,\n    transparent 0deg 12deg,\n    color-mix(in srgb, var(--av-mark) 18%, transparent) 12deg 13.2deg\n  );\n  -webkit-mask-image: radial-gradient(circle 620px at 100% 0%, #000 0%, transparent 92%);\n  mask-image: radial-gradient(circle 620px at 100% 0%, #000 0%, transparent 92%);\n  opacity: 0.55;\n  filter: blur(0.5px);\n  pointer-events: none;\n}\n\n/* 焦点星：纯色剪影，聚焦时放大一成 */\nhtml[data-av-deco=\"star\"] [data-composer-seat] [class*=\"_card\"]::after {\n  content: \"\";\n  position: absolute;\n  right: var(--av-star-offset);\n  top: var(--av-star-offset);\n  width: var(--av-star-size);\n  height: var(--av-star-size);\n  background: var(--av-mark);\n  clip-path: var(--av-star-shape);\n  transform: scale(1);\n  transform-origin: 50% 50%;\n  transition: transform var(--ds-transition-duration) var(--ds-ease-in-out);\n  pointer-events: none;\n}\n\nhtml[data-av-deco=\"star\"] [data-composer-seat] [class*=\"_card\"]:focus-within::after {\n  transform: scale(1.12);\n}\n\nhtml[data-av-deco=\"star\"] [data-composer-seat] [class*=\"_card\"]:focus-within {\n  border-color: color-mix(in srgb, var(--av-mark) 70%, transparent);\n  box-shadow: 0 0 0 4px color-mix(in srgb, var(--av-mark) 9%, transparent);\n}\n\n/* 发送键：一圈硬边，hover 撑开 */\nhtml[data-av-deco=\"star\"] [data-composer-seat] [class*=\"_primary\"] {\n  box-shadow: 0 0 0 1px color-mix(in srgb, var(--av-mark) 45%, transparent);\n  transition: box-shadow var(--ds-transition-duration) var(--ds-ease-in-out);\n}\n\nhtml[data-av-deco=\"star\"] [data-composer-seat] [class*=\"_primary\"]:hover:not(:disabled) {\n  box-shadow: 0 0 0 2px color-mix(in srgb, var(--av-mark) 70%, transparent);\n}\n\n/* ── 用户消息：一颗星 + 一条底光 ─────────────────────────────────────── */\nhtml[data-av-deco=\"star\"] [data-chat-flow-kind=\"user\"] [class*=\"_bubble\"] {\n  position: relative;\n  border: 1px solid color-mix(in srgb, var(--av-mark) 30%, transparent);\n  border-radius: 14px 14px 4px 14px;\n  padding: 12px 24px 14px 20px;\n  background-color: var(--dsw-specific-bubble);\n  box-shadow: 0 0 0 3px color-mix(in srgb, var(--av-mark) 4%, transparent);\n  transition: box-shadow var(--ds-transition-duration) var(--ds-ease-in-out);\n}\n\nhtml[data-av-deco=\"star\"] [data-chat-flow-kind=\"user\"] [class*=\"_bubble\"]::before {\n  content: \"\";\n  position: absolute;\n  right: 7px;\n  top: 7px;\n  width: var(--av-star-bubble);\n  height: var(--av-star-bubble);\n  background: var(--av-mark);\n  clip-path: var(--av-star-shape);\n  pointer-events: none;\n}\n\nhtml[data-av-deco=\"star\"] [data-chat-flow-kind=\"user\"] [class*=\"_bubble\"]::after {\n  content: \"\";\n  position: absolute;\n  left: 16px;\n  right: 16px;\n  bottom: 0;\n  height: 1px;\n  border-radius: 1px;\n  background: linear-gradient(\n    90deg,\n    transparent 0%,\n    color-mix(in srgb, var(--av-mark) 55%, transparent) 100%\n  );\n}\n\n@media (hover: hover) {\n  html[data-av-deco=\"star\"] [data-chat-flow-kind=\"user\"] [class*=\"_bubble\"]:hover {\n    box-shadow: 0 0 0 3px color-mix(in srgb, var(--av-mark) 8%, transparent);\n  }\n}\n\n/* 深色：射线换成亮紫，当光束用（浅色只留一层质感） */\nhtml[data-av-deco=\"star\"]:has(body[data-ds-dark-theme]) [data-composer-seat] [class*=\"_card\"]::before {\n  background-image: repeating-conic-gradient(\n    from 8deg at 100% 0%,\n    transparent 0deg 12deg,\n    color-mix(in srgb, var(--av-mark) 75%, transparent) 12deg 13.2deg\n  );\n  opacity: 0.85;\n}\n\n@media (prefers-reduced-motion: reduce) {\n  html[data-av-deco=\"star\"] [data-composer-seat] [class*=\"_card\"]::after,\n  html[data-av-deco=\"star\"] [data-composer-seat] [class*=\"_card\"],\n  html[data-av-deco=\"star\"] [data-composer-seat] [class*=\"_primary\"] {\n    transition: none;\n  }\n\n  html[data-av-deco=\"star\"] [data-composer-seat] [class*=\"_card\"]:focus-within::after {\n    transform: none;\n  }\n}\n\n/* ═══ component: composer · 输入框底衬 ═══ */\n/* ── 输入框底衬 ─────────────────────────────────────────────────────────\n   宿主在会话有内容时给 composerSeat 铺一层底衬：\n   linear-gradient(180deg, transparent 0px, var(--dsw-alias-bg-base) 36px)，\n   往下是纯色，把点阵 / 流光挡在输入框周围。\n\n   这里默认摘掉这层背景（不挂属性 = 关，背景透到输入框后）；设置里选「开」\n   时挂 html[data-av-fade=\"on\"]，宿主原来的渐隐底衬照常显示。\n   只摘 seat 自己的背景，不动宿主的定位 / 层叠，也不动输入卡自己的底色。 */\nhtml:not([data-av-fade=\"on\"]) [data-composer-seat] {\n  background: none !important;\n}\n\n\n/* ── 主题变量（由 scripts/build.mjs 生成，勿手改） ───────────────────── */\nhtml[data-av-theme=\"averita\"] {\n  --av-space: #e5eaf0;\n  --av-dot: rgba(55, 63, 79, 0.055);\n  --av-mark: #61567d;\n}\n\nhtml[data-av-theme=\"averita\"]:has(body[data-ds-dark-theme]) {\n  --av-space: #0e131e;\n  --av-dot: rgba(217, 230, 243, 0.085);\n  --av-mark: #baadd2;\n}\n\nhtml[data-av-theme=\"coldmorning\"] {\n  --av-space: #e4e9e9;\n  --av-dot: rgba(51, 59, 62, 0.055);\n  --av-mark: #5d6d80;\n}\n\nhtml[data-av-theme=\"coldmorning\"]:has(body[data-ds-dark-theme]) {\n  --av-space: #101820;\n  --av-dot: rgba(214, 230, 235, 0.10);\n  --av-mark: #a9c6d4;\n}\n\nhtml[data-av-theme=\"duskrose\"] {\n  --av-space: #ecdfdb;\n  --av-dot: rgba(60, 50, 54, 0.055);\n  --av-mark: #7a4f5c;\n}\n\nhtml[data-av-theme=\"duskrose\"]:has(body[data-ds-dark-theme]) {\n  --av-space: #1b1418;\n  --av-dot: rgba(242, 214, 214, 0.10);\n  --av-mark: #d3a6ad;\n}\n\nhtml[data-av-theme=\"duskpurple\"] {\n  --av-space: #e2ddec;\n  --av-dot: rgba(60, 50, 72, 0.055);\n  --av-mark: #6f5685;\n}\n\nhtml[data-av-theme=\"duskpurple\"]:has(body[data-ds-dark-theme]) {\n  --av-space: #110e1a;\n  --av-dot: rgba(230, 214, 242, 0.10);\n  --av-mark: #ccb4f0;\n}\n";
     const STORAGE_KEY = PLUGIN_ID + ":theme";
     const DECO_KEY = PLUGIN_ID + ":deco";
     const STAR_KEY = PLUGIN_ID + ":star";
+    const FADE_KEY = PLUGIN_ID + ":fade";
     const DOTS_KEY = PLUGIN_ID + ":dots";
     const GLYPH_KEY = PLUGIN_ID + ":glyph";
     const SCALE_KEY = PLUGIN_ID + ":scale";
@@ -2535,10 +3374,14 @@ window.__ModuleLoader__.load({
     const FLOW_KEY = PLUGIN_ID + ":flow";
     const SPEED_KEY = PLUGIN_ID + ":speed";
     const WORDMARK_KEY = PLUGIN_ID + ":wordmark";
+    const HERO_TEXT_KEY = PLUGIN_ID + ":hero-text";
     const DEFAULT_THEME = "averita";
     /** 品牌字标的默认值；空串是合法值，表示只显示星标。 */
     const DEFAULT_WORDMARK = "AveritA's DSH";
     const MAX_WORDMARK = 32;
+    /** 首屏文案：null = 跟随 DSH 原文；空串 = 只留星标；其余 = 替换标题。 */
+    const NATIVE_HERO_TEXT = "探索未至之境";
+    const MAX_HERO_TEXT = 40;
     const DECO_MODES = [
       { id: "paper", label: "纸品" },
       { id: "star", label: "星芒" },
@@ -2557,6 +3400,15 @@ window.__ModuleLoader__.load({
     const STAR_HINT = {
       a: "四长四短，端正",
       b: "四根长针，更利",
+    };
+    /** 输入框底衬：默认关（背景透到输入框后），开 = 保留 DSH 的渐隐底衬。 */
+    const FADE_MODES = [
+      { id: "on", label: "开" },
+      { id: "off", label: "关" },
+    ];
+    const FADE_HINT = {
+      on: "保留 DSH 的渐隐底衬",
+      off: "去掉底衬，背景透到输入框后",
     };
     /** 背景：点阵 / 流光 / 关闭；默认点阵。流光与点阵互斥，关闭时两者都不画。 */
     const BG_MODES = [
@@ -2582,14 +3434,17 @@ window.__ModuleLoader__.load({
       char: "同一网格，字符铺格",
       wall: "密排符号，像一页代码",
     };
-    /** 流光的四套色板：颜色写在 theme.css 的 --av-flow-* 里，浅深各一套。 */
+    /** 流光色板：默认从主题取色，另留四套固定的手选色板。 */
+    const DEFAULT_FLOW = "theme";
     const FLOW_MODES = [
+      { id: "theme", label: "跟随主题" },
       { id: "mist", label: "雾蓝" },
       { id: "dusk", label: "暮紫" },
       { id: "jade", label: "青灰" },
       { id: "amber", label: "暖沙" },
     ];
     const FLOW_HINT = {
+      theme: "从当前主题的底色与强调色取色",
       mist: "冷灰蓝，最接近昼雾",
       dusk: "薄暮紫，给深色留一层光",
       jade: "青灰，像雨后的窗",
@@ -2713,7 +3568,8 @@ window.__ModuleLoader__.load({
      · 4 档调色 + Bayer 抖动量化；
      · 一格 5 个 CSS 像素，整块画布按像素放大（pixelated）。
    去掉的是站点自己的叙事：三条斜缝、夜色池、塌缩圈、风痕、天气、镜头。
-   颜色不写死在这里：读 html 上的 --av-flow-0..3 / --av-flow-glow，
+   颜色不写死在这里：读 html 上的 --av-flow-0..3 / --av-flow-glow。
+   默认「跟随主题」由 CSS 从 --av-space / --av-mark 混出，另四套固定色板，
    由 theme.css 按色板与浅深给值，所以换主题 / 深色 / 色板都不用重建画布。
 
    用法：
@@ -2867,7 +3723,7 @@ void main() {
     const cs = window.getComputedStyle(document.documentElement);
     const read = (name) => {
       const raw = cs.getPropertyValue(name).trim();
-      return parseFlowColor(raw);
+      return resolveFlowColor(raw);
     };
     for (let i = 0; i < 4; i++) {
       const c = read("--av-flow-" + i);
@@ -3084,7 +3940,40 @@ void main() {
   };
 }
 
-/** #rgb / #rrggbb / rgb() / rgba() → [r, g, b] 0–1；读不懂就返回 null。 */
+/**
+ * 读一个 --av-flow-* 值：静态色板直接解析；「跟随主题」拿到的是
+ * color-mix(...)，需要挂一个隐藏探针读计算后的 color 再解析。
+ */
+function resolveFlowColor(raw) {
+  if (!raw) return null;
+  const direct = parseFlowColor(raw);
+  if (direct) return direct;
+  if (
+    typeof document === "undefined" ||
+    !document.body ||
+    typeof window === "undefined" ||
+    typeof window.getComputedStyle !== "function"
+  ) {
+    return null;
+  }
+  const probe = document.createElement("span");
+  probe.style.position = "fixed";
+  probe.style.left = "-1000px";
+  probe.style.visibility = "hidden";
+  probe.style.color = raw;
+  /* 老内核不认 color-mix 时 style.color 会是空串；此时不要拿继承色当结果。 */
+  if (!probe.style.color) return null;
+  document.body.appendChild(probe);
+  let computed = "";
+  try {
+    computed = window.getComputedStyle(probe).color;
+  } finally {
+    probe.remove();
+  }
+  return parseFlowColor(computed);
+}
+
+/** #rgb / #rrggbb / rgb() / rgba() / color(srgb …) → [r, g, b] 0–1；读不懂就返回 null。 */
 function parseFlowColor(raw) {
   if (!raw) return null;
   const s = String(raw).trim();
@@ -3101,6 +3990,8 @@ function parseFlowColor(raw) {
   }
   m = /^rgba?\(\s*([\d.]+)[\s,]+([\d.]+)[\s,]+([\d.]+)/i.exec(s);
   if (m) return [Number(m[1]) / 255, Number(m[2]) / 255, Number(m[3]) / 255];
+  m = /^color\(\s*srgb\s+([\d.]+)\s+([\d.]+)\s+([\d.]+)/i.exec(s);
+  if (m) return [Number(m[1]), Number(m[2]), Number(m[3])];
   return null;
 }
 
@@ -3114,6 +4005,7 @@ if (typeof window !== "undefined") window.createFlowBackground = createFlowBackg
     let activeId = DEFAULT_THEME;
     let decoMode = "paper";
     let starVariant = "a";
+    let fadeMode = "off";
     let dotsMode = "dot";
     let glyphMode = "plus";
     let scaleMode = 1;
@@ -3122,15 +4014,18 @@ if (typeof window !== "undefined") window.createFlowBackground = createFlowBackg
     let motionMode = "both";
     let breatheMode = DEFAULT_BREATHE;
     let bgMode = "dots";
-    let flowPalette = "mist";
+    let flowPalette = DEFAULT_FLOW;
     let wordmark = DEFAULT_WORDMARK;
+    let heroText = null;
     let flowRenderer = null;
     let flowCanvas = null;
     let flowUnavailable = false;
     let getActive = () => activeId;
     let getWordmark = () => wordmark;
+    let getHeroText = () => heroText;
     let getDeco = () => decoMode;
     let getStar = () => starVariant;
+    let getFade = () => fadeMode;
     let getDots = () => dotsMode;
     let getGlyph = () => glyphMode;
     let getScale = () => scaleMode;
@@ -3143,8 +4038,10 @@ if (typeof window !== "undefined") window.createFlowBackground = createFlowBackg
     let getFlowAvailable = () => !flowUnavailable;
     let selectTheme = () => {};
     let selectWordmark = () => {};
+    let selectHeroText = () => {};
     let selectDeco = () => {};
     let selectStar = () => {};
+    let selectFade = () => {};
     let selectDots = () => {};
     let selectGlyph = () => {};
     let selectScale = () => {};
@@ -3202,6 +4099,23 @@ if (typeof window !== "undefined") window.createFlowBackground = createFlowBackg
     function rememberStar(id) {
       try {
         window.localStorage.setItem(STAR_KEY, id);
+      } catch {
+        /* 同上 */
+      }
+    }
+
+    /** 输入框底衬：只有明确存了 "on" 才保留，其余一律按关处理（默认关）。 */
+    function storedFade() {
+      try {
+        return window.localStorage.getItem(FADE_KEY) === "on" ? "on" : "off";
+      } catch {
+        return "off";
+      }
+    }
+
+    function rememberFade(id) {
+      try {
+        window.localStorage.setItem(FADE_KEY, id);
       } catch {
         /* 同上 */
       }
@@ -3333,13 +4247,13 @@ if (typeof window !== "undefined") window.createFlowBackground = createFlowBackg
       }
     }
 
-    /** 流光色板：mist / dusk / jade / amber，默认 mist。 */
+    /** 流光色板：默认跟随主题，另有 mist / dusk / jade / amber。 */
     function storedFlow() {
       try {
         const id = window.localStorage.getItem(FLOW_KEY);
-        return FLOW_MODES.some((mode) => mode.id === id) ? id : "mist";
+        return FLOW_MODES.some((mode) => mode.id === id) ? id : DEFAULT_FLOW;
       } catch {
-        return "mist";
+        return DEFAULT_FLOW;
       }
     }
 
@@ -3389,6 +4303,38 @@ if (typeof window !== "undefined") window.createFlowBackground = createFlowBackg
       } catch {
         /* 同上 */
       }
+    }
+
+    /** 首屏文案：单行化 + 截断；null 表示跟随 DSH 原文，空串表示只留星标。 */
+    function cleanHeroText(value) {
+      if (typeof value !== "string") return "";
+      return value
+        .replace(/[\r\n\t]+/g, " ")
+        .replace(/[\u0000-\u001f\u007f\u2028\u2029]+/g, " ")
+        .slice(0, MAX_HERO_TEXT);
+    }
+
+    function storedHeroText() {
+      try {
+        const value = window.localStorage.getItem(HERO_TEXT_KEY);
+        return value === null ? null : cleanHeroText(value);
+      } catch {
+        return null;
+      }
+    }
+
+    function rememberHeroText(value) {
+      try {
+        if (value === null) window.localStorage.removeItem(HERO_TEXT_KEY);
+        else window.localStorage.setItem(HERO_TEXT_KEY, value);
+      } catch {
+        /* 同上 */
+      }
+    }
+
+    /** 任意文本 -> CSS 字符串字面量，供 content: var(--av-hero-text) 用。 */
+    function cssString(value) {
+      return '"' + value.replace(/\\/g, "\\\\").replace(/"/g, '\\"') + '"';
     }
 
     /** 主题样式表：跟着插件生命周期一起装卸。 */
@@ -3505,6 +4451,69 @@ if (typeof window !== "undefined") window.createFlowBackground = createFlowBackg
       );
     }
 
+    /**
+     * 首屏星标：跟左上角同一颗三轴星。
+     * 静态挂在首屏；鼠标移入 / 移出各绕 z 轴转 90°，累计不回位。
+     * 每帧重画整颗星，深度决定 fill-opacity，转到背面时明暗会跟着换。
+     */
+    function HeroMark() {
+      const group = React.useRef(null);
+      const yaw = React.useRef(45);
+      const target = React.useRef(45);
+      const frameId = React.useRef(0);
+      React.useEffect(() => {
+        const g = group.current;
+        if (g !== null) g.innerHTML = projectStar(yaw.current, 0);
+        return () => {
+          if (frameId.current !== 0) window.cancelAnimationFrame(frameId.current);
+          frameId.current = 0;
+        };
+      }, []);
+      const spin = () => {
+        if (typeof window === "undefined") return;
+        if (
+          typeof window.matchMedia === "function" &&
+          window.matchMedia("(prefers-reduced-motion: reduce)").matches
+        ) {
+          return;
+        }
+        const g = group.current;
+        if (g === null) return;
+        target.current += 90;
+        const from = yaw.current;
+        const to = target.current;
+        if (frameId.current !== 0) window.cancelAnimationFrame(frameId.current);
+        let start = 0;
+        const step = (now) => {
+          if (start === 0) start = now;
+          const t = Math.min(1, (now - start) / 520);
+          const eased = 1 - Math.pow(1 - t, 3);
+          yaw.current = from + (to - from) * eased;
+          g.innerHTML = projectStar(yaw.current, 0);
+          if (t < 1) frameId.current = window.requestAnimationFrame(step);
+          else {
+            yaw.current = to;
+            frameId.current = 0;
+          }
+        };
+        frameId.current = window.requestAnimationFrame(step);
+      };
+      return h(
+        "span",
+        {
+          className: "av-brand-mark av-hero-mark",
+          "aria-hidden": "true",
+          onMouseEnter: spin,
+          onMouseLeave: spin,
+        },
+        h(
+          "svg",
+          { viewBox: "-20 -20 40 40" },
+          h("g", { ref: group, dangerouslySetInnerHTML: { __html: projectStar(45, 0) } }),
+        ),
+      );
+    }
+
     /** 左上角字标：订阅设置里的改动；空值（含全空白）时整段不渲染。 */
     function BrandName() {
       const [text, setText] = React.useState(() => wordmark);
@@ -3534,6 +4543,11 @@ const SETTING_GROUPS = [
     "id": "deco",
     "label": "装饰",
     "order": 30
+  },
+  {
+    "id": "interface",
+    "label": "界面",
+    "order": 40
   }
 ];
 /* ═══ settings: brand ═══ */
@@ -3586,6 +4600,63 @@ function brandSettings(api) {
           { className: "av-theme-state" },
           empty ? "留空：只显示星标" : `侧栏字标 · ${length}/${maxWordmark}`,
         ),
+      ),
+    },
+  ];
+}
+
+/* ═══ settings: hero ═══ */
+/**
+ * 品牌组「首屏文案」：新会话首屏标题的输入框与恢复默认。
+ *
+ * 本文件被 scripts/build.mjs 原样内联进 client.js，只能引用参数 api。
+ * 三种状态：
+ *   null     跟随 DSH 原文（不写 localStorage）
+ *   ""       只留星标（标题整段不渲染）
+ *   "..."    替换标题
+ * 留空是明确隐藏；要回到原文点「恢复默认」。
+ */
+function heroSettings(api) {
+  const { h, props, state, brand } = api;
+  const { heroText } = state;
+  const { nativeHeroText, maxHeroText } = brand;
+  const value = heroText === null ? "" : heroText;
+  const hidden = heroText !== null && heroText.trim() === "";
+  const length = Array.from(value).length;
+  const stateText =
+    heroText === null ? "跟随 DSH 原文" : hidden ? "已隐藏：只留星标" : `首屏文案 · ${length}/${maxHeroText}`;
+
+  return [
+    {
+      group: "brand",
+      order: 20,
+      node: h(
+        "div",
+        { className: "av-deco-row av-deco-row--text" },
+        h("span", { className: "av-theme-sub" }, "首屏文案"),
+        h("input", {
+          type: "text",
+          className: "av-text-input",
+          value,
+          placeholder: heroText === null ? `跟随 DSH 原文「${nativeHeroText}」` : "留空只留星标",
+          maxLength: maxHeroText,
+          autoComplete: "off",
+          spellCheck: false,
+          "aria-label": "新会话首屏文案",
+          title: `留空只留星标；「恢复默认」回到 DSH 原文；最多 ${maxHeroText} 字`,
+          onChange: (event) => props.selectHeroText(event.target.value),
+        }),
+        h(
+          "button",
+          {
+            type: "button",
+            className: "av-deco-chip",
+            title: `恢复为 DSH 原文「${nativeHeroText}」`,
+            onClick: () => props.selectHeroText(null),
+          },
+          "恢复默认",
+        ),
+        h("span", { className: "av-theme-state" }, stateText),
       ),
     },
   ];
@@ -3942,7 +5013,7 @@ function flowSettings(api) {
             mode.label,
           ),
         ),
-        h("span", { className: "av-theme-state" }, FLOW_HINT[flow] ?? FLOW_HINT.mist),
+        h("span", { className: "av-theme-state" }, FLOW_HINT[flow] ?? FLOW_HINT.theme),
       ),
     },
     {
@@ -3975,12 +5046,54 @@ function flowSettings(api) {
   ];
 }
 
+/* ═══ settings: composer ═══ */
+/**
+ * 输入框底衬设置行：开 / 关，默认关。
+ *
+ * 「关」是默认：不挂属性，CSS 摘掉 composerSeat 的渐隐底衬，背景透到输入框后。
+ * 「开」挂 html[data-av-fade="on"]，恢复 DSH 原来的渐变底衬。
+ * 本文件被 scripts/build.mjs 原样内联进 client.js，只能引用参数 api。
+ */
+function composerSettings(api) {
+  const { h, props, state, modes } = api;
+  const { FADE_MODES, FADE_HINT } = modes;
+  const { fade } = state;
+
+  return [
+    {
+      group: "interface",
+      order: 10,
+      node: h(
+        "div",
+        { className: "av-deco-row" },
+        h("span", { className: "av-theme-sub" }, "底部遮罩"),
+        FADE_MODES.map((mode) =>
+          h(
+            "button",
+            {
+              key: mode.id,
+              type: "button",
+              className: "av-deco-chip" + (fade === mode.id ? " av-deco-chip--on" : ""),
+              "aria-pressed": fade === mode.id,
+              onClick: () => props.selectFade(mode.id),
+            },
+            mode.label,
+          ),
+        ),
+        h("span", { className: "av-theme-state" }, FADE_HINT[fade] ?? FADE_HINT.off),
+      ),
+    },
+  ];
+}
+
 const COMPONENT_SETTINGS = {
   brand: brandSettings,
+  hero: heroSettings,
   backdrop: backdropSettings,
   deco: decoSettings,
   dots: dotsSettings,
   flow: flowSettings,
+  composer: composerSettings,
 };
 
     /** 设置页：主题网格是核心，其余行由 src/components/<id>/settings.js 按 order 排。 */
@@ -3988,8 +5101,10 @@ const COMPONENT_SETTINGS = {
       const read = () => ({
         theme: props.getActive(),
         wordmark: props.getWordmark(),
+        heroText: props.getHeroText(),
         deco: props.getDeco(),
         star: props.getStar(),
+        fade: props.getFade(),
         dots: props.getDots(),
         glyph: props.getGlyph(),
         scale: props.getScale(),
@@ -4023,6 +5138,8 @@ const COMPONENT_SETTINGS = {
         brand: {
           defaultWordmark: DEFAULT_WORDMARK,
           maxWordmark: MAX_WORDMARK,
+          nativeHeroText: NATIVE_HERO_TEXT,
+          maxHeroText: MAX_HERO_TEXT,
         },
         helpers: {
           scaleFill,
@@ -4045,6 +5162,8 @@ const COMPONENT_SETTINGS = {
           DECO_HINT,
           STAR_MODES,
           STAR_HINT,
+          FADE_MODES,
+          FADE_HINT,
           DOT_MODES,
           DOT_HINT,
           FLOW_MODES,
@@ -4197,15 +5316,17 @@ const COMPONENT_SETTINGS = {
         else root.setAttribute("data-av-bg", bgMode);
       };
 
+
+
       selectTheme = (id) => {
         const theme = THEME_BY_ID.get(id) ?? THEME_BY_ID.get(DEFAULT_THEME);
+        root.setAttribute("data-av-theme", theme.id);
+        activeId = theme.id;
         if (paletteDispose !== null) {
           paletteDispose();
           paletteDispose = null;
         }
         paletteDispose = ctx.theme.overrideTokens(PLUGIN_ID, theme.tokens);
-        root.setAttribute("data-av-theme", theme.id);
-        activeId = theme.id;
         rememberTheme(theme.id);
         for (const fn of listeners) fn();
       };
@@ -4218,6 +5339,24 @@ const COMPONENT_SETTINGS = {
         for (const fn of listeners) fn();
       };
       getWordmark = () => wordmark;
+
+      /* 首屏文案：null 跟随 DSH 原文；空串只留星标；其余替换标题。 */
+      selectHeroText = (value) => {
+        heroText = value === null ? null : cleanHeroText(value);
+        if (heroText === null) {
+          root.removeAttribute("data-av-hero-text");
+          root.removeAttribute("data-av-hero-empty");
+          root.style.removeProperty("--av-hero-text");
+        } else {
+          root.setAttribute("data-av-hero-text", "");
+          root.style.setProperty("--av-hero-text", cssString(heroText));
+          if (heroText.trim() === "") root.setAttribute("data-av-hero-empty", "");
+          else root.removeAttribute("data-av-hero-empty");
+        }
+        rememberHeroText(heroText);
+        for (const fn of listeners) fn();
+      };
+      getHeroText = () => heroText;
 
       selectDeco = (id) => {
         decoMode = id === "star" || id === "plain" ? id : "paper";
@@ -4235,6 +5374,16 @@ const COMPONENT_SETTINGS = {
         for (const fn of listeners) fn();
       };
       getStar = () => starVariant;
+
+      // 输入框底衬：默认关（不挂属性）；开时挂 data-av-fade="on" 恢复宿主渐变。
+      selectFade = (id) => {
+        fadeMode = id === "on" ? "on" : "off";
+        if (fadeMode === "on") root.setAttribute("data-av-fade", "on");
+        else root.removeAttribute("data-av-fade");
+        rememberFade(fadeMode);
+        for (const fn of listeners) fn();
+      };
+      getFade = () => fadeMode;
 
       selectDots = (id) => {
         dotsMode = DOT_MODES.some((mode) => mode.id === id) ? id : "dot";
@@ -4318,7 +5467,7 @@ const COMPONENT_SETTINGS = {
 
       /* 色板：只改 CSS 属性，画布下一帧自己取色。 */
       selectFlow = (id) => {
-        flowPalette = FLOW_MODES.some((mode) => mode.id === id) ? id : "mist";
+        flowPalette = FLOW_MODES.some((mode) => mode.id === id) ? id : DEFAULT_FLOW;
         root.setAttribute("data-av-flow-palette", flowPalette);
         rememberFlow(flowPalette);
         flowRenderer?.refreshPalette();
@@ -4330,7 +5479,7 @@ const COMPONENT_SETTINGS = {
       const resetBackground = () => {
         selectBg("dots");
         selectDots("dot");
-        selectFlow("mist");
+        selectFlow(DEFAULT_FLOW);
         selectGlyph("plus");
         selectScale(1);
         selectDepth(1);
@@ -4345,8 +5494,10 @@ const COMPONENT_SETTINGS = {
         root.removeAttribute("data-av-depth");
         selectTheme(storedTheme());
         selectWordmark(storedWordmark());
+        selectHeroText(storedHeroText());
         selectDeco(storedDeco());
         selectStar(storedStar());
+        selectFade(storedFade());
         selectFlow(storedFlow());
         selectGlyph(storedGlyph());
         selectScale(storedScale());
@@ -4364,16 +5515,20 @@ const COMPONENT_SETTINGS = {
           root.removeAttribute("data-av-theme");
           root.removeAttribute("data-av-deco");
           root.removeAttribute("data-av-star");
+          root.removeAttribute("data-av-fade");
           root.removeAttribute("data-av-dots");
           root.removeAttribute("data-av-glyph");
           root.removeAttribute("data-av-motion");
           root.removeAttribute("data-av-bg");
           root.removeAttribute("data-av-flow-palette");
+          root.removeAttribute("data-av-hero-text");
+          root.removeAttribute("data-av-hero-empty");
           root.removeAttribute("data-av-scale");
           root.removeAttribute("data-av-depth");
           root.style.removeProperty("--av-scale");
           root.style.removeProperty("--av-depth");
           root.style.removeProperty("--av-breathe-min");
+          root.style.removeProperty("--av-hero-text");
         };
       }, "averita: palette");
 
@@ -4397,6 +5552,10 @@ const COMPONENT_SETTINGS = {
       ctx.slots.inject("sidebar.brand.name", () =>
         ctx.slots.register({ name: "sidebar.brand.name", priority: -1 }, BrandName),
       );
+      // 首屏原本是 DSH 的动画鱼 fallback；用同一颗星替换，卸载即回退。
+      ctx.slots.inject("conversation.hero.brand.mark", () =>
+        ctx.slots.register({ name: "conversation.hero.brand.mark", priority: -1 }, HeroMark),
+      );
       ctx.slots.inject("settings.section", () =>
         ctx.slots.register(
           {
@@ -4409,10 +5568,14 @@ const COMPONENT_SETTINGS = {
               getActive: () => getActive(),
               selectWordmark: (value) => selectWordmark(value),
               getWordmark: () => getWordmark(),
+              selectHeroText: (value) => selectHeroText(value),
+              getHeroText: () => getHeroText(),
               selectDeco: (id) => selectDeco(id),
               getDeco: () => getDeco(),
               selectStar: (id) => selectStar(id),
               getStar: () => getStar(),
+              selectFade: (id) => selectFade(id),
+              getFade: () => getFade(),
               selectDots: (id) => selectDots(id),
               getDots: () => getDots(),
               selectGlyph: (id) => selectGlyph(id),

@@ -1,5 +1,5 @@
 /**
- * 从 averita 主题的令牌结构派生出另外两套主题（冷晨 / 暮玫瑰）：
+ * 从 averita 主题的令牌结构派生出另外三套主题（冷晨 / 暮玫瑰 / 暮紫）：
  * 保留明暗、层级、透明度与明度关系，只把色相族收束到目标方向；
  * 语义状态（error/warn/success）不动色相，只轻微降饱和。
  *
@@ -144,6 +144,36 @@ const themes = [
         '--dsw-alias-link': '#d3a6ad',
         '--dsw-alias-brand-primary': '#e0c3c8',
         '--dsw-alias-state-business-primary': '#d3a6ad',
+      },
+    },
+  },
+  {
+    id: 'duskpurple',
+    label: '暮紫',
+    hue: { light: 262, dark: 262 },
+    accentHue: { light: 264, dark: 264 },
+    shiki: { string: 190, number: 38 },
+    vars: {
+      light: { space: '#e2ddec', dot: 'rgba(60, 50, 72, 0.055)', mark: '#6f5685' },
+      dark: { space: '#110e1a', dot: 'rgba(230, 214, 242, 0.10)', mark: '#ccb4f0' },
+    },
+    overrides: {
+      light: {
+        '--dsw-alias-label-primary': '#302a36',
+        '--dsw-alias-label-secondary': '#5e5466',
+        '--dsw-alias-label-tertiary': '#6a6073',
+        '--dsw-alias-link': '#6f5685',
+        '--dsw-alias-brand-primary': '#644a7a',
+        '--dsw-alias-state-business-primary': '#6f5685',
+        '--dsw-specific-bubble': 'rgba(238, 228, 244, 0.88)',
+      },
+      dark: {
+        '--dsw-alias-label-primary': '#f1e9f7',
+        '--dsw-alias-label-secondary': '#cbbcd8',
+        '--dsw-alias-label-tertiary': '#a897b7',
+        '--dsw-alias-link': '#ccb4f0',
+        '--dsw-alias-brand-primary': '#d4c0ef',
+        '--dsw-alias-state-business-primary': '#ccb4f0',
       },
     },
   },

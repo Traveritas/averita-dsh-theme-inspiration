@@ -71,7 +71,7 @@ export const contrast = (a, b) => {
   return (Math.max(la, lb) + 0.05) / (Math.min(la, lb) + 0.05);
 };
 
-/** 三套主题的色相目标（按明暗分开：亮部偏暖/冷，夜色各自压深）。 */
+/** 四套主题的色相目标（按明暗分开：亮部偏暖/冷，夜色各自压深）。 */
 export const THEME_HUE = {
   averita: {
     strength: 0.35,
@@ -92,6 +92,13 @@ export const THEME_HUE = {
     neutral: { light: 8, dark: 330 },
     accent: { light: 352, dark: 335 },
     satScale: 0.9,
+    satCap: 0.55,
+  },
+  duskpurple: {
+    strength: 0.88,
+    neutral: { light: 262, dark: 262 },
+    accent: { light: 264, dark: 264 },
+    satScale: 0.86,
     satCap: 0.55,
   },
 };

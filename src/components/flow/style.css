@@ -11,7 +11,7 @@
    ========================================================================== */
 
 /* ── 流光：低分辨率噪声场（src/flow.js）────────────────────────────────
-   画布只有视口的 1/5，像素放大回屏幕；颜色来自下面四套色板，
+   画布只有视口的 1/5，像素放大回屏幕；颜色默认从主题混出，也可选四套固定色板，
    JS 只读 --av-flow-0..3 / --av-flow-glow，所以换主题 / 深色 / 色板
    都不用重建画布。点阵与流光二选一，落成 html[data-av-bg]。 */
 .av-flow {
@@ -30,7 +30,7 @@
   opacity: 1;
 }
 
-/* 四套色板：0 底 · 1 暗面 · 2 光带 · 3 亮芯。
+/* 四套固定色板 + 跟随主题：0 底 · 1 暗面 · 2 光带 · 3 亮芯。
    glow 是亮芯强度：浅色收着当纸上的反光，深色放开当光。 */
 html,
 html[data-av-flow-palette="mist"] {
@@ -39,6 +39,25 @@ html[data-av-flow-palette="mist"] {
   --av-flow-2: #edf3fa;
   --av-flow-3: #fdfeff;
   --av-flow-glow: 0.26;
+}
+
+/* 跟随主题：四阶从主题的底色 --av-space 与强调色 --av-mark 混出来，
+   换主题 / 切深浅自动跟，不会和界面撞色。颜色留在 CSS 里，
+   flow.js 通过临时探针把 color-mix 解析成 rgb 再读。 */
+html[data-av-flow-palette="theme"] {
+  --av-flow-0: color-mix(in srgb, var(--av-space) 92%, var(--av-mark) 8%);
+  --av-flow-1: color-mix(in srgb, var(--av-space) 80%, var(--av-mark) 20%);
+  --av-flow-2: color-mix(in srgb, var(--av-space) 45%, #ffffff 55%);
+  --av-flow-3: color-mix(in srgb, #ffffff 96%, var(--av-mark) 4%);
+  --av-flow-glow: 0.26;
+}
+
+html[data-av-flow-palette="theme"]:has(body[data-ds-dark-theme]) {
+  --av-flow-0: var(--av-space);
+  --av-flow-1: color-mix(in srgb, var(--av-space) 80%, var(--av-mark) 20%);
+  --av-flow-2: color-mix(in srgb, var(--av-space) 60%, var(--av-mark) 40%);
+  --av-flow-3: color-mix(in srgb, var(--av-mark) 94%, #ffffff 6%);
+  --av-flow-glow: 0.5;
 }
 
 html[data-av-flow-palette="dusk"] {
