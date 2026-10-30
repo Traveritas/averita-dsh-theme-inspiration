@@ -281,7 +281,7 @@ canvas.av-flow  1/5 视口分辨率（1080p 约 384×216），5px 一格像素�
 
 | 部件 | 命中点 | 纸品（paper） | 星芒（star） |
 |---|---|---|---|
-| 用户消息 | `[data-chat-flow-kind="user"] [class*="_bubble"]` | 左缘书签带、右上星章、右下折角、底缘齿孔，−0.3° 微斜 | 右上 8 角星（带光晕）+ 底缘光边，圆角 14px |
+| 用户消息 | `[data-chat-flow-kind="user"] [class*="_bubble"]:not([role="tooltip"])` | 左缘书签带、右上星章、右下折角、底缘齿孔，−0.3° 微斜 | 右上 8 角星（带光晕）+ 底缘光边，圆角 14px |
 | 输入框 | `[data-composer-seat] [class*="_card"]` | 15px 信头窄带（三枚装订孔）、票根虚线、输入区横格线 | 右上角纯色星（罗盘 / 针芒两形）+ 放射光束，聚焦时放大一成 |
 | 发送键 | `[data-composer-seat] [class*="_primary"]` | 缺角圆章，hover 转 −6° | 一圈光，hover 撑开 |
 
@@ -315,7 +315,7 @@ node scripts/gen-themes.mjs  # 可选：重派生冷晨/暮玫瑰/暮紫基础�
 - **实机验收范围**：已在 DSH 0.2.1-rc.3 / Windows 上确认浅色纸品与深色星芒（顶部截图）；冷晨、暮玫瑰与暮紫的深色是派生夜色，暮紫目前只在预览壳验收，实机仍建议自看一遍。
 - **静态色板是派生值**：blue / deepseek 在冷晨、暮玫瑰、暮紫里会跟强调色走（暮玫瑰的 info 蓝会变成玫瑰色，暮紫的 info 蓝会变成紫色）；若想保留信息蓝，把 `static-derive.mjs` 里 `blue` / `deepseek` 的映射拿掉重跑即可。静态色板的 light / dark 值对 red/green/amber 是分开排的（按对比度），所以状态色在两种模式下会有轻微差异。
 - **新回复动画靠结构选择器**：`[data-chat-turn]:not(:has(~ [data-chat-turn]))` 只认“最后一个 turn”，要求 turn 是同级兄弟；DSH 改结构时会静默失效。侧栏折叠的 300ms 过渡也依赖 frame 的 grid 过渡。
-- **纸品装饰也钉在结构上**：用户消息靠 `data-chat-flow-kind="user"` + `_bubble` 后缀，输入框靠 `data-composer-seat` + `_card`/`_primary` 后缀。DSH 改这两处，装饰会整段失效（功能不受影响，回退成原生外观）。
+- **纸品装饰也钉在结构上**：用户消息靠 `data-chat-flow-kind="user"` + `_bubble` 后缀，输入框靠 `data-composer-seat` + `_card`/`_primary` 后缀。DSH 改这两处，装饰会整段失效（功能不受影响，回退成原生外观）。用户气泡的选择器要带 `:not([role="tooltip"])`：宿主 Tooltip 的类名是 `_bubble_*` 且就挂在消息内部，被命中会从 `position: fixed` 变成 `relative`，把复制按钮那排撑宽、hover 时来回跳。
 - **底部遮罩也钉在 `[data-composer-seat]` 上**：DSH 改这个属性、或把渐变挪到别的层时，开关会静默失效、回到宿主原样。关掉后只摘 seat 自己的背景；滚动内容可能从输入框底部状态栏附近透出一点，输入卡 `_card` 的底色不受影响。
 - **字标只换文字**：品牌位只覆盖 logo 右侧文字，星标仍是主题自带的；字标上限 32 字，超长由侧栏省略，留空只留星标。
 - **首屏文案钉在结构上**：标题替换依赖 `_headline` / `_titleGroup` / `_fishHitbox` / `_previewBadge` 四个 CSS Modules 后缀；DSH 改结构时标题与徽章回退原生，图标 slot 仍会替换。文案上限 40 字，超长在首屏内换行。

@@ -19,7 +19,7 @@
 
 ## 依赖的宿主选择器（DSH 0.2.1-rc.3）
 
-- 用户消息：`[data-chat-flow-kind="user"] [class*="_bubble"]`
+- 用户消息：`[data-chat-flow-kind="user"] [class*="_bubble"]:not([role="tooltip"])`（气泡提示的类名也叫 `_bubble_*`，必须排除，否则会被改成 `position: relative` 撑宽复制按钮那一行）
 - 输入框：`[data-composer-seat] [class*="_card"]`，以及 `_input` / `_row` / `_placeholder`
 - 发送键：`[data-composer-seat] [class*="_primary"]`
 
