@@ -14,7 +14,6 @@ function dotsSettings(api) {
 
   if (onDots) {
     rows.push({
-      group: "background",
       order: 20,
       node: h(
         "div",
@@ -40,7 +39,6 @@ function dotsSettings(api) {
 
   if (onDots && dots === "char") {
     rows.push({
-      group: "background",
       order: 50,
       node: h(
         "div",
@@ -71,7 +69,6 @@ function dotsSettings(api) {
 
   if (onDots) {
     rows.push({
-      group: "background",
       order: 80,
       node: h(
         "div",
@@ -101,7 +98,6 @@ function dotsSettings(api) {
 
   if (onDots && breathing && !reduced) {
     rows.push({
-      group: "background",
       order: 90,
       node: h(
         "div",

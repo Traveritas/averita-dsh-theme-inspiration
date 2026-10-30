@@ -14,7 +14,6 @@ function brandSettings(api) {
 
   return [
     {
-      group: "brand",
       order: 10,
       node: h(
         "div",

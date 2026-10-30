@@ -9,4 +9,4 @@
 真正的视觉在 [`dots/`](../dots/style.css) 与 [`flow/`](../flow/style.css)；关闭背景时
 缩放 / 浓淡两行收起。单独复用组件时不需要这个目录。
 
-所属分组「背景」（`groups.js` order 20），组内行号 10 / 60 / 70，见 [`settings.js`](settings.js)。
+所属模块「背景」（manifest `settings.order` 30），模块内行号 10 / 60 / 70，见 [`settings.js`](settings.js)。

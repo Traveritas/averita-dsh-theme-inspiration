@@ -123,8 +123,14 @@ html[data-av-deco="star"] [data-composer-seat] [class*="_primary"]:hover:not(:di
   box-shadow: 0 0 0 2px color-mix(in srgb, var(--av-mark) 70%, transparent);
 }
 
-/* ── 用户消息：一颗星 + 一条底光 ─────────────────────────────────────── */
-html[data-av-deco="star"] [data-chat-flow-kind="user"] [class*="_bubble"]:not([role="tooltip"]) {
+/* ── 用户消息：一颗星 + 一条底光 ───────────────────────────────────────
+   与纸品同一批命中点：flow-kind 的 user / steering，以及还没有 flow-kind
+   的插话回显（[data-pending-steering]）。 */
+html[data-av-deco="star"] :is(
+  [data-chat-flow-kind="user"],
+  [data-chat-flow-kind="steering"],
+  [data-pending-steering]
+) [class*="_bubble"]:not([role="tooltip"]) {
   position: relative;
   border: 1px solid color-mix(in srgb, var(--av-mark) 30%, transparent);
   border-radius: 14px 14px 4px 14px;
@@ -134,7 +140,11 @@ html[data-av-deco="star"] [data-chat-flow-kind="user"] [class*="_bubble"]:not([r
   transition: box-shadow var(--ds-transition-duration) var(--ds-ease-in-out);
 }
 
-html[data-av-deco="star"] [data-chat-flow-kind="user"] [class*="_bubble"]:not([role="tooltip"])::before {
+html[data-av-deco="star"] :is(
+  [data-chat-flow-kind="user"],
+  [data-chat-flow-kind="steering"],
+  [data-pending-steering]
+) [class*="_bubble"]:not([role="tooltip"])::before {
   content: "";
   position: absolute;
   right: 7px;
@@ -146,7 +156,11 @@ html[data-av-deco="star"] [data-chat-flow-kind="user"] [class*="_bubble"]:not([r
   pointer-events: none;
 }
 
-html[data-av-deco="star"] [data-chat-flow-kind="user"] [class*="_bubble"]:not([role="tooltip"])::after {
+html[data-av-deco="star"] :is(
+  [data-chat-flow-kind="user"],
+  [data-chat-flow-kind="steering"],
+  [data-pending-steering]
+) [class*="_bubble"]:not([role="tooltip"])::after {
   content: "";
   position: absolute;
   left: 16px;
@@ -162,7 +176,11 @@ html[data-av-deco="star"] [data-chat-flow-kind="user"] [class*="_bubble"]:not([r
 }
 
 @media (hover: hover) {
-  html[data-av-deco="star"] [data-chat-flow-kind="user"] [class*="_bubble"]:not([role="tooltip"]):hover {
+  html[data-av-deco="star"] :is(
+    [data-chat-flow-kind="user"],
+    [data-chat-flow-kind="steering"],
+    [data-pending-steering]
+  ) [class*="_bubble"]:not([role="tooltip"]):hover {
     box-shadow: 0 0 0 3px color-mix(in srgb, var(--av-mark) 8%, transparent);
   }
 }

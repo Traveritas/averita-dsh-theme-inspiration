@@ -3,7 +3,8 @@
    ----------------------------------------------------------------------------
    挂 html[data-av-deco="paper"] 生效；摘掉属性即回原生外观。
    命中的宿主选择器（DSH 0.2.1-rc.3）：
-     用户消息  [data-chat-flow-kind="user"] [class*="_bubble"]
+     用户消息  [data-chat-flow-kind="user"|"steering"] [class*="_bubble"]
+               （插话回显的气泡还没有 flow-kind，用 [data-pending-steering] 兜住）
      输入框    [data-composer-seat] [class*="_card"] / _input / _row / _placeholder
      发送键    [data-composer-seat] [class*="_primary"]
    变量：--av-mark（主墨色）及其派生 --av-line / --av-line-soft / --av-wash、
@@ -38,6 +39,8 @@ html[data-av-deco="paper"]:not([data-av-theme]):has(body[data-ds-dark-theme]) {
    关掉即回到 DSH 原生外观（本段不碰任何功能，只加装饰）。
    命中点（DSH 0.2.1-rc.3 的真实结构）：
      用户消息  [data-chat-flow-kind="user"] [class*="_bubble"]
+     插话消息  [data-chat-flow-kind="steering"] [class*="_bubble"]
+     插话回显  [data-pending-steering]（已插话、宿主还没落成正式节点时）
      输入框    [data-composer-seat] [class*="_card"]
      发送键    [data-composer-seat] [class*="_primary"]
    颜色全部走令牌 + color-mix；装饰线由 --av-mark 派生，换主题自动跟。
@@ -49,7 +52,11 @@ html[data-av-deco="paper"]:not([data-av-theme]):has(body[data-ds-dark-theme]) {
    position:fixed 改成 relative，变成 actions 行里的一个 flex 子项，行宽随之
    涨出提示的宽度；光标随按钮左移离开按钮、提示卸载、行又缩回——hover 打成
    来回跳。提示形态与本主题无关，一律排除。 */
-html[data-av-deco="paper"] [data-chat-flow-kind="user"] [class*="_bubble"]:not([role="tooltip"]) {
+html[data-av-deco="paper"] :is(
+  [data-chat-flow-kind="user"],
+  [data-chat-flow-kind="steering"],
+  [data-pending-steering]
+) [class*="_bubble"]:not([role="tooltip"]) {
   position: relative;
   border: 1px solid var(--av-line);
   border-radius: 2px 10px 2px 0;
@@ -84,7 +91,11 @@ html[data-av-deco="paper"] [data-chat-flow-kind="user"] [class*="_bubble"]:not([
 }
 
 /* 左缘书签带 */
-html[data-av-deco="paper"] [data-chat-flow-kind="user"] [class*="_bubble"]:not([role="tooltip"])::before {
+html[data-av-deco="paper"] :is(
+  [data-chat-flow-kind="user"],
+  [data-chat-flow-kind="steering"],
+  [data-pending-steering]
+) [class*="_bubble"]:not([role="tooltip"])::before {
   content: "";
   position: absolute;
   left: 0;
@@ -100,7 +111,11 @@ html[data-av-deco="paper"] [data-chat-flow-kind="user"] [class*="_bubble"]:not([
 }
 
 /* 右上角星章 */
-html[data-av-deco="paper"] [data-chat-flow-kind="user"] [class*="_bubble"]:not([role="tooltip"])::after {
+html[data-av-deco="paper"] :is(
+  [data-chat-flow-kind="user"],
+  [data-chat-flow-kind="steering"],
+  [data-pending-steering]
+) [class*="_bubble"]:not([role="tooltip"])::after {
   content: "";
   position: absolute;
   top: 6px;
@@ -116,7 +131,11 @@ html[data-av-deco="paper"] [data-chat-flow-kind="user"] [class*="_bubble"]:not([
 }
 
 @media (hover: hover) {
-  html[data-av-deco="paper"] [data-chat-flow-kind="user"] [class*="_bubble"]:not([role="tooltip"]):hover {
+  html[data-av-deco="paper"] :is(
+    [data-chat-flow-kind="user"],
+    [data-chat-flow-kind="steering"],
+    [data-pending-steering]
+  ) [class*="_bubble"]:not([role="tooltip"]):hover {
     transform: rotate(0deg);
     filter: drop-shadow(1.5px 1.5px 0 var(--av-line));
   }
@@ -214,7 +233,11 @@ html[data-av-deco="paper"] [data-composer-seat] [class*="_primary"]:hover:not(:d
 }
 
 /* 深色下这些装饰要退半步：底色已经暗，线一浓就吵。 */
-html[data-av-deco="paper"]:has(body[data-ds-dark-theme]) [data-chat-flow-kind="user"] [class*="_bubble"]:not([role="tooltip"])::after {
+html[data-av-deco="paper"]:has(body[data-ds-dark-theme]) :is(
+  [data-chat-flow-kind="user"],
+  [data-chat-flow-kind="steering"],
+  [data-pending-steering]
+) [class*="_bubble"]:not([role="tooltip"])::after {
   opacity: 0.55;
 }
 
@@ -227,7 +250,11 @@ html[data-av-deco="paper"]:has(body[data-ds-dark-theme]) [data-composer-seat] [c
 }
 
 @media (prefers-reduced-motion: reduce) {
-  html[data-av-deco="paper"] [data-chat-flow-kind="user"] [class*="_bubble"]:not([role="tooltip"]),
+  html[data-av-deco="paper"] :is(
+    [data-chat-flow-kind="user"],
+    [data-chat-flow-kind="steering"],
+    [data-pending-steering]
+  ) [class*="_bubble"]:not([role="tooltip"]),
   html[data-av-deco="paper"] [data-composer-seat] [class*="_card"],
   html[data-av-deco="paper"] [data-composer-seat] [class*="_primary"] {
     transform: none;

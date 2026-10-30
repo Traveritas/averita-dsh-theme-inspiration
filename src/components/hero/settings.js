@@ -20,7 +20,6 @@ function heroSettings(api) {
 
   return [
     {
-      group: "brand",
       order: 20,
       node: h(
         "div",

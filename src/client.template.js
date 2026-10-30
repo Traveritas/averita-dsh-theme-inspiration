@@ -772,7 +772,6 @@ window.__ModuleLoader__.load({
       return h("span", { className: "av-brand-name", title: label }, label);
     }
 
-__SETTING_GROUPS__
 __COMPONENT_SETTINGS__
 
     /** 设置页：主题网格是核心，其余行由 src/components/<id>/settings.js 按 order 排。 */
@@ -870,49 +869,25 @@ __COMPONENT_SETTINGS__
         },
       };
 
-      /* 各组件交行；带 group 的行按组连续渲染，没组的排最后（重置是插件级）。 */
-      const rows = [];
-      for (const factory of Object.values(COMPONENT_SETTINGS)) {
-        for (const row of factory(api)) rows.push(row);
+      /* 一个组件一个模块：组件自己交行（可为零行），模块内按 order 排，空模块不渲染。 */
+      const modules = [];
+      for (const component of COMPONENT_SETTINGS) {
+        const rows = component.factory(api) ?? [];
+        if (rows.length === 0) continue;
+        rows.sort((a, b) => (a.order ?? 0) - (b.order ?? 0));
+        modules.push({ component, rows });
       }
-      rows.push({
-        order: 999,
-        node: h(
-          "div",
-          { className: "av-deco-row" },
-          h("span", { className: "av-theme-sub" }, "重置背景"),
-          h(
-            "button",
-            { type: "button", className: "av-deco-chip", onClick: () => props.resetBackground() },
-            "恢复默认",
-          ),
-          h("span", { className: "av-theme-state" }, "背景 / 底纹 / 色板 / 明暗 / 缩放 / 浓淡 回默认"),
+      const resetRow = h(
+        "div",
+        { className: "av-deco-row" },
+        h("span", { className: "av-theme-sub" }, "重置背景"),
+        h(
+          "button",
+          { type: "button", className: "av-deco-chip", onClick: () => props.resetBackground() },
+          "恢复默认",
         ),
-      });
-
-      const groups = new Map(SETTING_GROUPS.map((group) => [group.id, { ...group, rows: [] }]));
-      const loose = [];
-      for (const row of rows) {
-        const bucket = row.group ? groups.get(row.group) : null;
-        if (bucket) bucket.rows.push(row);
-        else loose.push(row);
-      }
-
-      const panelRows = [];
-      const orderedGroups = [...groups.values()]
-        .filter((group) => group.rows.length > 0)
-        .sort((a, b) => a.order - b.order);
-      for (const group of orderedGroups) {
-        panelRows.push(h("div", { className: "av-theme-group", key: "group-" + group.id }, group.label));
-        group.rows.sort((a, b) => a.order - b.order);
-        for (const row of group.rows) {
-          panelRows.push(React.cloneElement(row.node, { key: group.id + ":" + row.order }));
-        }
-      }
-      loose.sort((a, b) => a.order - b.order);
-      for (const row of loose) {
-        panelRows.push(React.cloneElement(row.node, { key: "loose:" + row.order }));
-      }
+        h("span", { className: "av-theme-state" }, "背景 / 底纹 / 色板 / 明暗 / 缩放 / 浓淡 回默认"),
+      );
 
       const { theme: active } = state;
       return h(
@@ -948,7 +923,28 @@ __COMPONENT_SETTINGS__
             ),
           ),
         ),
-        panelRows,
+        h(
+          "div",
+          { className: "av-theme-modules" },
+          modules.map(({ component, rows }) =>
+            h(
+              "section",
+              { key: component.id, className: "av-theme-module" },
+              h(
+                "div",
+                { className: "av-theme-moduleHead" },
+                h("span", { className: "av-theme-moduleTitle" }, component.label),
+                h("span", { className: "av-theme-moduleRule", "aria-hidden": "true" }),
+              ),
+              h(
+                "div",
+                { className: "av-theme-moduleBody" },
+                rows.map((row) => React.cloneElement(row.node, { key: row.order })),
+              ),
+            ),
+          ),
+        ),
+        h("div", { className: "av-theme-foot" }, resetRow),
       );
     }
 

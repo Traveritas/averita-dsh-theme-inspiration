@@ -130,23 +130,53 @@ body :is(h1, h2, h3) {
   color: var(--dsw-alias-label-tertiary);
 }
 
-/* 设置分组：小标题 + 右侧发丝线，把面板切成品牌 / 背景 / 装饰几段。 */
-.av-theme-group {
+/* 组件模块：一个组件一个卡片，标题 + 发丝线 + 它自己的行。 */
+.av-theme-modules {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.av-theme-module {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 12px 14px 13px;
+  border: 0.5px solid var(--dsw-alias-border-l1);
+  border-radius: var(--dsw-radius-lg);
+  background: var(--dsw-alias-bg-layer-1);
+}
+
+.av-theme-moduleHead {
   display: flex;
   align-items: center;
   gap: 10px;
-  margin-top: 2px;
-  font-size: 11px;
+}
+
+.av-theme-moduleTitle {
+  flex: none;
+  font-size: 12px;
   font-weight: 500;
-  letter-spacing: 0.08em;
+  letter-spacing: 0.06em;
   color: var(--dsw-alias-label-secondary);
 }
 
-.av-theme-group::after {
-  content: "";
+.av-theme-moduleRule {
   flex: 1;
   height: 0.5px;
   background: var(--dsw-alias-border-l1);
+}
+
+.av-theme-moduleBody {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.av-theme-foot {
+  display: flex;
+  margin-top: 2px;
+  padding: 0 2px;
 }
 
 .av-theme-grid {

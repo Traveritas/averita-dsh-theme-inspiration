@@ -16,4 +16,4 @@
 - `data-av-hero-empty` 时整段 `_titleGroup` 不渲染，只留居中的星标。
 - 选择器失效时回退：图标仍会被 slot 替换，文案和徽章回到 DSH 原样；不影响功能。
 
-所属分组「品牌」（[`groups.js`](../groups.js) order 10），组内行号 20，见 [`settings.js`](settings.js)。星标组件与状态在 [`client.template.js`](../../client.template.js)。
+所属模块「新会话首屏」（manifest `settings.order` 20），行号 20，见 [`settings.js`](settings.js)。星标组件与状态在 [`client.template.js`](../../client.template.js)。

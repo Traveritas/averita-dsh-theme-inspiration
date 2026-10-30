@@ -14,7 +14,6 @@ function backdropSettings(api) {
   const rows = [];
 
   rows.push({
-    group: "background",
     order: 10,
     node: h(
       "div",
@@ -47,7 +46,6 @@ function backdropSettings(api) {
 
   if (bg !== "off") {
     rows.push({
-      group: "background",
       order: 60,
       node: h(
         "div",
@@ -79,7 +77,6 @@ function backdropSettings(api) {
     });
 
     rows.push({
-      group: "background",
       order: 70,
       node: h(
         "div",

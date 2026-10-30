@@ -21,7 +21,7 @@
 
 ---
 
-四套 DSH 主题的宿主插件。背景二选一：**点阵**（圆点 / 方块 / 字符 / 字符墙，缩放 / 浓淡 / 动效 / 呼吸下限可调）或**流光**（移植个人站的域扭曲 fbm 场，默认从当前主题取色，另有四套固定色板，缩放 / 浓淡可调，明暗默认反转：浅色下白做底、深色只落在光带上）。另有星标、位移动效与纸品装饰（用户消息 / 输入框）；输入框背后的底衬默认去掉（背景透到输入框后），可在「设置 → 主题 → 界面 → 底部遮罩」开回 DSH 的渐隐；左上角 logo 右侧的字标可在设置里改，留空只留星标；新会话首屏也换成同一颗星，标题可自定义（「预览版」徽章隐藏）。**设置 → 主题**里即时切换，选择存在 localStorage。
+四套 DSH 主题的宿主插件。背景二选一：**点阵**（圆点 / 方块 / 字符 / 字符墙，缩放 / 浓淡 / 动效 / 呼吸下限可调）或**流光**（移植个人站的域扭曲 fbm 场，默认从当前主题取色，另有四套固定色板，缩放 / 浓淡可调，明暗默认反转：浅色下白做底、深色只落在光带上）。另有星标、位移动效与纸品装饰（用户消息 / 输入框）；输入框背后的底衬默认去掉（背景透到输入框后），可在「设置 → 主题 → 输入框底衬」开回 DSH 的渐隐；左上角 logo 右侧的字标可在设置里改，留空只留星标；新会话首屏也换成同一颗星，标题可自定义（「预览版」徽章隐藏）。**设置 → 主题**里即时切换，选择存在 localStorage。
 
 | 主题 | 方向 | 数据 |
 |---|---|---|
@@ -32,7 +32,7 @@
 
 - **令牌**：每套 205 个，浅/深成对 —— 128 个语义/语法令牌 + 77 个静态色板阶（`--dsw-static-*`，图标、状态点、diff、插画在用）；主题变量只有 `--av-space` / `--av-dot` / `--av-mark` 三枚。
 - **切换**：`overrideTokens` 换令牌图层 + `html[data-av-theme]` 换 CSS 变量，不重装、不重启。
-- **品牌位**：`sidebar.brand.mark` / `sidebar.brand.name` 两个 single slot，priority `-1`（官方在 0，数值低者渲染）——卸载即回退。星标是 32px 三轴正交六芒星；字标默认衬线 `AveritA's DSH`，可在**设置 → 主题 → 品牌**里自定义，留空只显示星标。新会话首屏用 `conversation.hero.brand.mark` 换同一颗星（34px），标题走 `--av-hero-text`，见[新会话首屏](#新会话首屏)。
+- **品牌位**：`sidebar.brand.mark` / `sidebar.brand.name` 两个 single slot，priority `-1`（官方在 0，数值低者渲染）——卸载即回退。星标是 32px 三轴正交六芒星；字标默认衬线 `AveritA's DSH`，可在**设置 → 主题 → 品牌字标**里自定义，留空只显示星标。新会话首屏用 `conversation.hero.brand.mark` 换同一颗星（34px），标题走 `--av-hero-text`，见[新会话首屏](#新会话首屏)。
 - **背景与细节**：点阵是 `src/components/dots/style.css` 里的一层 fixed 伪元素，不跑逐帧；流光是一层 WebGL2 画布（`src/flow.js`，构建时内联），1/5 分辨率、30fps，切到流光才创建；两者互斥。品牌星是 6 支 SVG，约 30fps 重画。
 - **UI 动效**：`--ds-transition-*` 180/120ms + 柔出曲线；位移动效：会话切换上浮 6px、会话行 hover 横移 2px、按钮按下 0.5px、最后一条回复上浮 6px、侧栏折叠 300ms。
 - **安装形态**：纯客户端插件。Host 半 (`index.js`) 是空壳，浏览器半是 `client.js`（手写 lazy-CJS，无构建依赖）。
@@ -134,13 +134,13 @@ git clone --depth 1 https://github.com/Traveritas/averita-dsh-theme-inspiration 
 
 #### 新会话首屏
 
-四套主题的实机首屏见开头八张；`conversation.hero.brand.mark` 换成同一颗星，标题可在「设置 → 主题 → 品牌 → 首屏文案」改。
+四套主题的实机首屏见开头八张；`conversation.hero.brand.mark` 换成同一颗星，标题可在「设置 → 主题 → 新会话首屏」改。
 
 #### 设置 → 主题
 
-<a href="preview/content-shell/settings.png"><img src="preview/content-shell/settings.png" width="760" alt="设置 → 主题：四张主题卡、品牌、背景、装饰、界面" /></a>
+<a href="preview/content-shell/settings.png"><img src="preview/content-shell/settings.png" width="760" alt="设置 → 主题：四张主题卡，下面每个组件一个模块" /></a>
 
-四张主题卡 + 品牌 / 背景 / 装饰 / 界面四组。这张是按 `src/components/*/settings.js` 的行与 `src/theme.css` 的面板样式重建的预览壳，实际控件以实机为准。
+四张主题卡 + 每个组件一个模块（品牌字标 / 新会话首屏 / 背景 / 点阵底纹 / 流光背景 / 装饰与星形 / 输入框底衬），空模块自动收起。这张是按 `src/components/*/settings.js` 的行与 `src/theme.css` 的面板样式重建的预览壳，实际控件以实机为准；**截图与 `preview/settings.html` 还是分组版旧图**，模块版待重截。
 
 #### 背景五形
 
@@ -164,7 +164,7 @@ CSS 按组件拆在 `src/components/`，构建按 `manifest.js` 的顺序拼进 
 
 拿单个组件三步：复制它的 `style.css` → 在 `<html>` 挂对应属性 → 装了别的主题就把文件开头的兜底块删掉。没有设置面板也能用，属性手写即可；更多约定见 [`src/components/README.md`](src/components/README.md)。
 
-`backdrop/`、`deco/` 与 `brand/` 只有设置行、没有 CSS：前者管背景 / 缩放 / 浓淡，后者管装饰 / 星形与品牌字标；`hero/` 有首屏标题与徽章的 CSS，以及「品牌」组里的首屏文案行。
+`backdrop/`、`deco/` 与 `brand/` 只有设置行、没有 CSS：前者管背景 / 缩放 / 浓淡，后者管装饰 / 星形与品牌字标；`hero/` 有首屏标题与徽章的 CSS，以及首屏文案模块。
 
 组件保持**未分层**：DSH 宿主 CSS 没有 `@layer`，分层里的普通声明会输给未分层声明（不管选择器多具体），主题要覆盖宿主就不能进层。
 
@@ -221,7 +221,7 @@ canvas.av-flow  1/5 视口分辨率（1080p 约 384×216），5px 一格像素�
 
 ## 品牌字标（设置 → 主题）
 
-「品牌」一组有两行：「字标」与「首屏文案」。「字标」输入框实时改 `sidebar.brand.name` 里的文字，默认衬线 `AveritA's DSH`，最多 32 字；换行 / 制表符会折成空格，选择存在 localStorage 的 `<plugin-id>:wordmark`。
+设置 → 主题里「品牌字标」与「新会话首屏」是两个模块。「字标」输入框实时改 `sidebar.brand.name` 里的文字，默认衬线 `AveritA's DSH`，最多 32 字；换行 / 制表符会折成空格，选择存在 localStorage 的 `<plugin-id>:wordmark`。
 
 - 输入框留空（或只有空白）时整段文字不渲染，只留星标；旁边「恢复默认」把默认字标写回去。
 - 字标只走 React 状态，不挂 `data-av-*` 属性；侧栏 `sidebar.brand.name` slot 订阅状态重渲染，切换主题 / 深浅不受影响。
@@ -229,7 +229,7 @@ canvas.av-flow  1/5 视口分辨率（1080p 约 384×216），5px 一格像素�
 
 ## 新会话首屏
 
-首屏（没有会话的空态）把 DSH 的动画鱼换成左上角同一颗星，并隐藏标题右侧的「预览版」徽章；标题可在**设置 → 主题 → 品牌 → 首屏文案**里改。
+首屏（没有会话的空态）把 DSH 的动画鱼换成左上角同一颗星，并隐藏标题右侧的「预览版」徽章；标题可在**设置 → 主题 → 新会话首屏**里改。
 
 - **图标**：`conversation.hero.brand.mark` single slot，`HeroMark` 与侧栏 `BrandMark` 共用 `projectStar()`；34px、颜色 `--av-mark`。鼠标移入 / 移出各绕 z 轴转 90°，累计不回位；系统减少动效时静止。
 - **文案**：宿主没有文案 slot，标题写死在 `t("hero.headline")`。主题用 `html[data-av-hero-text]` + `--av-hero-text` 隐藏原文字，`::before { content: var(--av-hero-text) }` 替换；不碰 React，hover 重渲染不会冲掉。`html[data-av-hero-empty]` 时整段标题不渲染，只留星标。
@@ -239,7 +239,7 @@ canvas.av-flow  1/5 视口分辨率（1080p 约 384×216），5px 一格像素�
 
 ## 背景（设置 → 主题）
 
-「背景」三选一：**点阵 / 流光 / 关闭**；下面按选择只露相关的行。
+「背景」模块三选一：**点阵 / 流光 / 关闭**；缩放 / 浓淡也在同一个模块里，点阵与流光各自一个模块，按选择出现。
 
 ### 点阵
 
@@ -267,27 +267,42 @@ canvas.av-flow  1/5 视口分辨率（1080p 约 384×216），5px 一格像素�
 
 ## 界面（设置 → 主题）
 
-「界面」一组目前只有「底部遮罩」：
+「输入框底衬」是主题里的一个模块。
+
+### 底部遮罩
 
 - **关（默认）**：摘掉 DSH 在会话有内容时给 `composerSeat` 铺的渐隐底衬，点阵 / 流光透到输入框后；输入卡自己的底色不变。
 - **开**：保留宿主原来的效果——顶部 36px 从透明渐隐到 `--dsw-alias-bg-base`，往下纯色，输入框周围不露背景。
 - 选择存在 `<plugin-id>:fade`，落成 `html[data-av-fade="on"]`；关时不挂属性。关掉后滚动内容可能从输入框底部状态栏附近透出一点，这是去掉底衬的连带效果。
 
+## 配套插件
+
+主题只做视觉。两个行为插件是**独立包**，按需单独安装，谁都不依赖主题：
+
+| 插件 | 做什么 | 说明 |
+|---|---|---|
+| [`dsh-yet-another-slider-thingy`](https://github.com/Traveritas/dsh-yet-another-slider-thingy) | 把 composer 的模型位换成「模型行 + 思考强度滑条」，档位与提交走宿主同一份模型目录 | 独立仓，安装与限制见它自己的 README |
+| `dsh-status-minimal` | 把「运行中」那一行换成可轮换文案（打字机 / 可选渐变 / 已用时） | 独立仓，自带设置分区 |
+
+不装时主题保持 DSH 原生行为；两者的设置互不重叠（主题在「设置 → 主题」，滑条在「设置 → 思考强度」，状态文案在「设置 → 状态文案」）。
+
 ## 用户消息与输入框
 
 同一批部件有两套装饰，在「设置 → 主题」下方切换：**纸品 / 星芒 / 原生**。默认纸品，选择存在 localStorage 的 `<plugin-id>:deco`，落成 `html[data-av-deco="paper"|"star"]`；选「原生」就把属性摘掉，退回 DSH 原样。切换只改这一个属性，不动 DOM、不重装插件。
+
+运行中插话（steering）的用户消息，以及它落盘前的回显气泡，与普通用户消息共用同一套装饰：DSH 分别把它们挂在 `data-chat-flow-kind="steering"` 与 `data-pending-steering` 下，选择器已一并覆盖。
 
 星形（只在星芒装饰下出现）默认 **罗盘**，另有针芒可选，存在 `<plugin-id>:star`，落成 `html[data-av-star="a"|"b"]`。
 
 | 部件 | 命中点 | 纸品（paper） | 星芒（star） |
 |---|---|---|---|
-| 用户消息 | `[data-chat-flow-kind="user"] [class*="_bubble"]:not([role="tooltip"])` | 左缘书签带、右上星章、右下折角、底缘齿孔，−0.3° 微斜 | 右上 8 角星（带光晕）+ 底缘光边，圆角 14px |
+| 用户消息 / 插话 | `:is([data-chat-flow-kind="user"], [data-chat-flow-kind="steering"], [data-pending-steering]) [class*="_bubble"]:not([role="tooltip"])` | 左缘书签带、右上星章、右下折角、底缘齿孔，−0.3° 微斜 | 右上 8 角星（带光晕）+ 底缘光边，圆角 14px |
 | 输入框 | `[data-composer-seat] [class*="_card"]` | 15px 信头窄带（三枚装订孔）、票根虚线、输入区横格线 | 右上角纯色星（罗盘 / 针芒两形）+ 放射光束，聚焦时放大一成 |
 | 发送键 | `[data-composer-seat] [class*="_primary"]` | 缺角圆章，hover 转 −6° | 一圈光，hover 撑开 |
 
 - 装饰线不写死色号：`--av-line` / `--av-line-soft` / `--av-wash` 三枚派生变量从 `--av-mark` 用 `color-mix` 算，换主题自动跟；深色单独压/提一档（`html:has(body[data-ds-dark-theme])`）。
 - 纸品：输入卡 `padding-top` 加到 15px 给信头窄带让位；横格线周期 24px 对齐 DSH 行高，改字号设置时会有轻微错位。气泡底缘齿孔用 `mask-image`，会连 `box-shadow` 一起裁掉，所以阴影改用 `filter: drop-shadow()`。
-- 星芒：星只做**纯色剪影**——不转、不加光晕、不做内部渐变，靠形状说话；形状由 `html[data-av-star]` 选：`a` 罗盘刻星（四长四短，端正）、`b` 针芒（四根长针 + 极短刺，更利），在「设置 → 主题 → 装饰 → 星形」里切。射线是 `repeating-conic-gradient`（每 12° 一束）+ `radial-gradient` 遮罩，浅色压到只当质感、深色提亮当光束。两套装饰共用同一批选择器，靠 `html[data-av-deco]` 分流，互斥。
+- 星芒：星只做**纯色剪影**——不转、不加光晕、不做内部渐变，靠形状说话；形状由 `html[data-av-star]` 选：`a` 罗盘刻星（四长四短，端正）、`b` 针芒（四根长针 + 极短刺，更利），在「设置 → 主题 → 装饰与星形」里切。射线是 `repeating-conic-gradient`（每 12° 一束）+ `radial-gradient` 遮罩，浅色压到只当质感、深色提亮当光束。两套装饰共用同一批选择器，靠 `html[data-av-deco]` 分流，互斥。
 
 ## 主题文件与生成
 
@@ -297,13 +312,13 @@ canvas.av-flow  1/5 视口分辨率（1080p 约 384×216），5px 一格像素�
   - `暮紫` 的明暗锚点取自流光「暮紫」色板：浅色 `#e2ddec`、深色 `#110e1a`，强调色 `#6f5685` / `#ccb4f0`。
 - **静态色板**：`scripts/static-base.json` 是从 DSH base.css 提取的 77 个 `--dsw-static-*`；`scripts/static-derive.mjs` 定义派生规则（neutral / bluish 收向主题中性色，blue / deepseek 收向强调色，red / green / amber 保色相并按背景对比度≥4.6:1 排明度），`scripts/gen-static.mjs` 写出 `src/themes/static/<id>.js`。四套主题的键集合一致（build 会断言）。
 - **加第五套**：复制一份 `src/themes/*.js`，在 `scripts/build.mjs` 的 `themeFiles`、`scripts/gen-static.mjs` 与 `scripts/gen-themes.mjs` 里登记，并在 `preview/index.html` 加一个按钮。
-- **组件**：`src/components/<id>/` 的 CSS 由 manifest 拼到 `theme.css` 之后，`settings.js` 由 build 原样内联并注册成 `COMPONENT_SETTINGS`，面板分组在 `groups.js` 登记。加组件要同时改 manifest（有 CSS 还要补三个预览页的 `<link>`），smoke 会查行序、分组与注册表。
+- **组件**：`src/components/<id>/` 的 CSS 由 manifest 拼到 `theme.css` 之后，`settings.js` 由 build 原样内联进 `COMPONENT_SETTINGS`，**一个组件就是设置里的一个模块**（标题取 manifest `label`，顺序取 `settings.order`，空模块不渲染）。加组件要同时改 manifest（有 CSS 还要补三个预览页的 `<link>`），smoke 会查模块表、行序与设置注册表。
 
 ## 构建与自检
 
 ```powershell
 node scripts/build.mjs      # src/theme.css + src/components/* -> client.js（内联令牌 / 组件 CSS / 设置片段 / flow.js）+ preview/tokens.css
-node scripts/smoke.mjs      # 离线冒烟：令牌成对、组件 CSS 与设置片段齐全、样式装卸、4 个 slot 注册、可见性暂停、字标 / 首屏文案 / 底纹 / 字形 / 缩放 / 浓淡 / 动效 / 呼吸下限 / 底衬往返
+node scripts/smoke.mjs      # 离线冒烟：令牌成对、组件 CSS / 设置片段齐全、样式装卸、slot 注册（品牌 / 首屏 / 设置分区）、可见性暂停、字标 / 首屏文案 / 底纹 / 字形 / 缩放 / 浓淡 / 动效 / 呼吸下限 / 底衬往返
 node scripts/gen-static.mjs  # 可选：重派生静态色板（覆盖 src/themes/static/*）
 node scripts/gen-themes.mjs  # 可选：重派生冷晨/暮玫瑰/暮紫基础令牌（覆盖手改，静态色板保留）
 ```
@@ -315,11 +330,12 @@ node scripts/gen-themes.mjs  # 可选：重派生冷晨/暮玫瑰/暮紫基础�
 - **实机验收范围**：已在 DSH 0.2.1-rc.3 / Windows 上确认浅色纸品与深色星芒（顶部截图）；冷晨、暮玫瑰与暮紫的深色是派生夜色，暮紫目前只在预览壳验收，实机仍建议自看一遍。
 - **静态色板是派生值**：blue / deepseek 在冷晨、暮玫瑰、暮紫里会跟强调色走（暮玫瑰的 info 蓝会变成玫瑰色，暮紫的 info 蓝会变成紫色）；若想保留信息蓝，把 `static-derive.mjs` 里 `blue` / `deepseek` 的映射拿掉重跑即可。静态色板的 light / dark 值对 red/green/amber 是分开排的（按对比度），所以状态色在两种模式下会有轻微差异。
 - **新回复动画靠结构选择器**：`[data-chat-turn]:not(:has(~ [data-chat-turn]))` 只认“最后一个 turn”，要求 turn 是同级兄弟；DSH 改结构时会静默失效。侧栏折叠的 300ms 过渡也依赖 frame 的 grid 过渡。
-- **纸品装饰也钉在结构上**：用户消息靠 `data-chat-flow-kind="user"` + `_bubble` 后缀，输入框靠 `data-composer-seat` + `_card`/`_primary` 后缀。DSH 改这两处，装饰会整段失效（功能不受影响，回退成原生外观）。用户气泡的选择器要带 `:not([role="tooltip"])`：宿主 Tooltip 的类名是 `_bubble_*` 且就挂在消息内部，被命中会从 `position: fixed` 变成 `relative`，把复制按钮那排撑宽、hover 时来回跳。
+- **纸品装饰也钉在结构上**：用户消息靠 `data-chat-flow-kind="user"|"steering"`（回显再补 `data-pending-steering`）+ `_bubble` 后缀，输入框靠 `data-composer-seat` + `_card`/`_primary` 后缀。DSH 改这两处，装饰会整段失效（功能不受影响，回退成原生外观）。用户气泡的选择器要带 `:not([role="tooltip"])`：宿主 Tooltip 的类名是 `_bubble_*` 且就挂在消息内部，被命中会从 `position: fixed` 变成 `relative`，把复制按钮那排撑宽、hover 时来回跳。
 - **底部遮罩也钉在 `[data-composer-seat]` 上**：DSH 改这个属性、或把渐变挪到别的层时，开关会静默失效、回到宿主原样。关掉后只摘 seat 自己的背景；滚动内容可能从输入框底部状态栏附近透出一点，输入卡 `_card` 的底色不受影响。
 - **字标只换文字**：品牌位只覆盖 logo 右侧文字，星标仍是主题自带的；字标上限 32 字，超长由侧栏省略，留空只留星标。
 - **首屏文案钉在结构上**：标题替换依赖 `_headline` / `_titleGroup` / `_fishHitbox` / `_previewBadge` 四个 CSS Modules 后缀；DSH 改结构时标题与徽章回退原生，图标 slot 仍会替换。文案上限 40 字，超长在首屏内换行。
-- **组件只拆到 CSS + 设置行**：单独复制 `src/components/<id>/style.css` 能用，但没有设置面板（属性手写即可）；选择器、localStorage 与流光画布的生命周期仍在 `src/client.template.js`。
+- **思考强度滑条已拆成独立插件**：[`dsh-yet-another-slider-thingy`](https://github.com/Traveritas/dsh-yet-another-slider-thingy)，主题不再内联该座位；它的转发限制与版本契约写在该仓 README。
+- **组件只拆到 CSS + 设置模块**：单独复制 `src/components/<id>/style.css` 能用，但没有设置面板（属性手写即可）；选择器、localStorage 与流光画布的生命周期仍在 `src/client.template.js`。
 - **颗粒遮罩依赖 `mask-composite`**：四种颗粒与渐隐两层遮罩相交需要 Chromium 120+ / Safari 15.4+；更老的内核会退化成两层叠加，颗粒照旧、中心渐隐失效，不影响可用性。字符 / 符号走 SVG `<text>`，字体栈是 Consolas / Segoe UI Symbol，换机器字形会有细微差别。
 - **浓淡依赖相对色语法**：`rgb(from var(--av-dot) …)` 需要 Chromium 119+ / Safari 16.4+；不支持的内核退回主题原色，浓淡滑杆静默失效，其余照旧。
 - **流光要 WebGL2 + 硬件渲染**：SwiftShader / Basic Render Driver 这类软件渲染会被 `src/flow.js` 直接拒掉，切流光时回退点阵并在面板提示；切到流光会新建一个 WebGL 上下文，切走即丢。默认锁 30fps，窗口隐藏 / 系统减少动效时停帧。

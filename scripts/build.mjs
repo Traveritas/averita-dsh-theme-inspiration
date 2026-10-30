@@ -50,10 +50,11 @@ for (const theme of themes.slice(1)) {
     throw new Error(`token key set mismatch: ${theme.id} vs ${themes[0].id}`);
   }
 }
-/** 组件：CSS 与设置行都只在 src/components/manifest.js 登记一次。 */
+/** 组件：CSS、设置行与占槽位的组件都只在 src/components/manifest.js 登记一次。 */
 const components = await load('src/components/manifest.js');
 const componentIds = new Set();
 const settingsNames = new Set();
+const settingsOrders = new Set();
 for (const component of components) {
   if (componentIds.has(component.id)) throw new Error(`duplicate component id: ${component.id}`);
   componentIds.add(component.id);
@@ -61,8 +62,11 @@ for (const component of components) {
     throw new Error(`component ${component.id} has neither css nor settings`);
   }
   if (component.settings) {
-    const { file, name } = component.settings;
+    const { file, name, order } = component.settings;
     if (!file || !name) throw new Error(`component ${component.id}: settings needs file + name`);
+    if (typeof order !== 'number') throw new Error(`component ${component.id}: settings needs a numeric order`);
+    if (settingsOrders.has(order)) throw new Error(`duplicate settings module order: ${order}`);
+    settingsOrders.add(order);
     if (settingsNames.has(name)) throw new Error(`duplicate settings function: ${name}`);
     settingsNames.add(name);
     const source = readFileSync(resolve(root, 'src/components', file), 'utf8');
@@ -73,17 +77,6 @@ for (const component of components) {
 }
 const cssComponents = components.filter((component) => component.css);
 const settingsComponents = components.filter((component) => component.settings);
-
-/** 设置分组：面板里的小标题，空组不渲染。 */
-const settingGroups = await load('src/components/groups.js');
-const groupIds = new Set();
-for (const group of settingGroups) {
-  if (!group.id || !group.label) throw new Error('setting group needs id + label');
-  if (typeof group.order !== 'number') throw new Error(`setting group ${group.id} needs a numeric order`);
-  if (groupIds.has(group.id)) throw new Error(`duplicate setting group: ${group.id}`);
-  groupIds.add(group.id);
-}
-const groupsBlock = `const SETTING_GROUPS = ${JSON.stringify(settingGroups, null, 2)};`;
 
 const componentCss = cssComponents
   .map((component) => {
@@ -99,9 +92,16 @@ const settingsBlock = `${settingsComponents
   })
   .join('\n\n')}
 
-const COMPONENT_SETTINGS = {
-${settingsComponents.map((component) => `  ${component.id}: ${component.settings.name},`).join('\n')}
-};`;
+const COMPONENT_SETTINGS = [
+${settingsComponents
+  .slice()
+  .sort((left, right) => left.settings.order - right.settings.order)
+  .map(
+    (component) =>
+      `  { id: ${JSON.stringify(component.id)}, label: ${JSON.stringify(component.label)}, order: ${component.settings.order}, factory: ${component.settings.name} },`,
+  )
+  .join('\n')}
+];`;
 
 const css = readFileSync(resolve(root, 'src/theme.css'), 'utf8');
 const template = readFileSync(resolve(root, 'src/client.template.js'), 'utf8');
@@ -136,12 +136,11 @@ const bundle = template
   .replaceAll('__PLUGIN_ID__', pkg.name)
   .replace('__THEMES__', JSON.stringify(themes, null, 2))
   .replace('__CSS__', JSON.stringify(fullCss))
-  .replace('__SETTING_GROUPS__', () => groupsBlock)
   .replace('__COMPONENT_SETTINGS__', () => settingsBlock)
   .replace('__FLOW_SRC__', () => flow);
 
 writeFileSync(resolve(root, 'client.js'), bundle);
-console.log(`built client.js (${Buffer.byteLength(bundle)} bytes, ${themes.length} themes, ${cssComponents.length} css components, ${settingsComponents.length} settings groups, ${Object.keys(themes[0].tokens).length} tokens each)`);
+console.log(`built client.js (${Buffer.byteLength(bundle)} bytes, ${themes.length} themes, ${cssComponents.length} css components, ${settingsComponents.length} settings modules, ${Object.keys(themes[0].tokens).length} tokens each)`);
 
 /** 预览用的令牌表：同一份数据，别手抄。 */
 const toCss = (entries, indent = '  ') =>

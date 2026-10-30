@@ -10,7 +10,6 @@ function decoSettings(api) {
   const { deco, star } = state;
   const rows = [
     {
-      group: "deco",
       order: 10,
       node: h(
         "div",
@@ -36,7 +35,6 @@ function decoSettings(api) {
 
   if (deco === "star") {
     rows.push({
-      group: "deco",
       order: 20,
       node: h(
         "div",

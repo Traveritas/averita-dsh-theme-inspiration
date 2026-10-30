@@ -12,7 +12,6 @@ function composerSettings(api) {
 
   return [
     {
-      group: "interface",
       order: 10,
       node: h(
         "div",

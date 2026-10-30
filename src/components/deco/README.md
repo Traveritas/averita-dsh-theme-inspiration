@@ -8,4 +8,4 @@
 视觉在 [`paper/`](../paper/style.css) 与 [`star/`](../star/style.css)。单独复用组件时
 不需要这个目录。
 
-所属分组「装饰」（`groups.js` order 30），组内行号 10 / 20，见 [`settings.js`](settings.js)。
+所属模块「装饰与星形」（manifest `settings.order` 60），模块内行号 10 / 20，见 [`settings.js`](settings.js)。

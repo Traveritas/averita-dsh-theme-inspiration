@@ -12,5 +12,5 @@
 视觉在 [`src/theme.css`](../../theme.css) 的 `.av-brand-name` / `.av-text-input`，
 星标在 `client.template.js` 的 `BrandMark`。单独复用组件时不需要这个目录。
 
-所属分组「品牌」（[`groups.js`](../groups.js) order 10），组内行号 10，见 [`settings.js`](settings.js)。
+所属模块「品牌字标」（manifest `settings.order` 10），行号 10，见 [`settings.js`](settings.js)。
 同组的「首屏文案」行在 [`hero/`](../hero/README.md)（order 20），视觉 CSS 也在那边。

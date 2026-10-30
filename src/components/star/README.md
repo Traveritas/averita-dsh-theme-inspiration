@@ -19,7 +19,7 @@
 
 ## 依赖
 
-- 与纸品共用同一批宿主选择器（见 `paper/README.md`），靠 `data-av-deco` 分流。
+- 与纸品共用同一批宿主选择器（见 `paper/README.md`），靠 `data-av-deco` 分流；用户消息同样覆盖 `steering` 与 `[data-pending-steering]` 回显。
 - 放射线是 `repeating-conic-gradient` + 径向遮罩；深色单独提亮当光束。
 - 星只做纯色剪影：不转、不加内部渐变、不加光晕，靠形状说话。
 - 品牌位那颗 32px 三轴六芒星是 JS 画的（`client.template.js` 的 `projectStar`），

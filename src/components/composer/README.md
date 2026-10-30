@@ -18,5 +18,5 @@
 - 选择器失效时回退成 DSH 的渐隐底衬；关掉后输入框周围会露出背景，滚动内容也可能从 seat 的
   非卡片区域（底部状态栏附近）透出一点，这是去掉底衬的连带效果。
 
-所属分组「界面」（[`groups.js`](../groups.js) order 40），组内行号 10，见 [`settings.js`](settings.js)。
+所属模块「输入框底衬」（manifest `settings.order` 70），行号 10，见 [`settings.js`](settings.js)。
 状态与属性写在 [`client.template.js`](../../client.template.js)。

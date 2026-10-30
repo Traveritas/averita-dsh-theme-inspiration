@@ -13,7 +13,6 @@ function flowSettings(api) {
 
   return [
     {
-      group: "background",
       order: 20,
       node: h(
         "div",
@@ -41,7 +40,6 @@ function flowSettings(api) {
       ),
     },
     {
-      group: "background",
       order: 30,
       node: h(
         "div",
@@ -64,7 +62,6 @@ function flowSettings(api) {
       ),
     },
     {
-      group: "background",
       order: 40,
       node: h(
         "div",

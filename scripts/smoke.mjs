@@ -170,8 +170,25 @@ const React = {
   // useState 支持惰性初值（ThemeSection 传的是函数），每次渲染重新求值。
   useState: (initial) => [typeof initial === 'function' ? initial() : initial, () => {}],
 };
+const primitivesStub = {
+  /* 真实宿主里 MenuSurface 是 React.forwardRef 的产物：对象，不是函数。 */
+  MenuSurface: { $$typeof: Symbol.for('react.forward_ref'), render() {} },
+  MenuGroup: function MenuGroup() {},
+  Input: function Input() {},
+  StateDot: function StateDot() {},
+  Toast: function Toast() {},
+  IconChevronDownOutlineRegular: function IconChevronDownOutlineRegular() {},
+  IconChevronRightOutlineRegular: function IconChevronRightOutlineRegular() {},
+  IconCheckOutlineRegular: function IconCheckOutlineRegular() {},
+  IconCloseFillRegular: function IconCloseFillRegular() {},
+  IconWarningOutlineRegular: function IconWarningOutlineRegular() {},
+  rankByName: (models) => models,
+  observeStickyMenuGroups: () => () => {},
+};
 const requireStub = (name) => {
   if (name === 'react') return React;
+  if (name === '@deepseek-ai/dsh-client-ui-primitives') return primitivesStub;
+  if (name === 'react-dom') return { createPortal: (node) => node };
   throw new Error(`unexpected require: ${name}`);
 };
 
@@ -187,6 +204,26 @@ const ctx = {
   effect(fn, label) {
     const dispose = fn();
     if (typeof dispose === 'function') disposers.push({ label, dispose });
+  },
+  inject(deps, callback) {
+    /* 座位注册用到的两个服务：目录与 session 线面。只做形状，不跑真 RPC。 */
+    const store = {
+      getSnapshot: () => ({ current: null, groups: [], status: 'idle', pending: null, error: null, failures: [] }),
+      subscribe: () => () => {},
+    };
+    const dispose = callback({
+      modelDirectories: {
+        directoryFor: () => ({
+          store,
+          load: async () => {},
+          select: async () => ({ ok: true }),
+        }),
+      },
+      sessions: { subagentAddress: () => undefined },
+    });
+    return () => {
+      if (typeof dispose === 'function') dispose();
+    };
   },
   theme: {
     overrideTokens(source, tokens) {
@@ -285,14 +322,15 @@ for (const page of ['index.html', 'lab.html', 'star.html']) {
   }
 }
 
-/** 2.7 设置行：每个片段都进了 bundle，注册表按 manifest 收齐。 */
+/** 2.7 设置模块：每个片段都进了 bundle，模块表按 manifest 收齐（id / 标签 / 顺序 / 工厂）。 */
 const settingsComponents = components.filter((component) => component.settings);
 for (const component of settingsComponents) {
   if (!bundle.includes(`function ${component.settings.name}(`)) {
     throw new Error(`settings function missing: ${component.settings.name}`);
   }
-  if (!bundle.includes(`${component.id}: ${component.settings.name},`)) {
-    throw new Error(`settings registry missing: ${component.id}`);
+  const entry = `{ id: ${JSON.stringify(component.id)}, label: ${JSON.stringify(component.label)}, order: ${component.settings.order}, factory: ${component.settings.name} }`;
+  if (!bundle.includes(entry)) {
+    throw new Error(`settings module missing from COMPONENT_SETTINGS: ${component.id}`);
   }
 }
 
@@ -354,6 +392,7 @@ if (!section) throw new Error('missing settings.section registration');
 if (typeof section.options.label !== 'function' || typeof section.options.label() !== 'string') {
   throw new Error('settings.section label must be a function returning a string');
 }
+
 const props = section.options.inject();
 if (typeof props.select !== 'function' || typeof props.getActive !== 'function' || typeof props.subscribe !== 'function') {
   throw new Error('settings.section inject payload incomplete');
@@ -647,25 +686,32 @@ const rowLabels = () =>
     .filter((node) => node.props && String(node.props.className || '').includes('av-deco-row'))
     .map((node) => node.children?.[0]?.children?.[0] ?? '?');
 const panelNodes = () => walk(section.Component(props));
-const groupLabels = () =>
+const moduleLabels = () =>
   panelNodes()
-    .filter((node) => String(node.props?.className || '') === 'av-theme-group')
+    .filter((node) => String(node.props?.className || '') === 'av-theme-moduleTitle')
     .map((node) => node.children?.[0]);
 
 props.selectDots('dot');
 let labels = rowLabels();
-if (labels.join('/') !== '字标/首屏文案/背景/底纹/缩放/浓淡/动效/呼吸下限/装饰/底部遮罩/重置背景') throw new Error('panel rows (default) = ' + labels.join('/'));
-if (groupLabels().join('/') !== '品牌/背景/装饰/界面') throw new Error('panel groups (default) = ' + groupLabels().join('/'));
+if (labels.join('/') !== '字标/首屏文案/背景/缩放/浓淡/底纹/动效/呼吸下限/装饰/底部遮罩/重置背景') throw new Error('panel rows (default) = ' + labels.join('/'));
+if (moduleLabels().join('/') !== '品牌字标/新会话首屏/背景/点阵底纹/装饰与星形/输入框底衬') throw new Error('panel modules (default) = ' + moduleLabels().join('/'));
 
-const fadeChips = panelNodes().filter(
-  (node) => node.type === 'button' && ['开', '关'].includes(node.children?.[0]),
-);
+const rowByLabel = (label) =>
+  panelNodes().find(
+    (node) =>
+      node.props &&
+      String(node.props.className || '').includes('av-deco-row') &&
+      node.children?.[0]?.children?.[0] === label,
+  );
+const chipsOf = (row) => (row ? walk(row.children).filter((node) => node.type === 'button') : []);
+
+const fadeChips = chipsOf(rowByLabel('底部遮罩'));
 if (fadeChips.length !== 2) throw new Error('composer fade chips = ' + fadeChips.length);
 if (fadeChips.find((node) => node.children[0] === '关')?.props['aria-pressed'] !== true) {
   throw new Error('composer fade chip should default to off');
 }
 props.selectFade('on');
-const fadeOnChip = panelNodes().find((node) => node.type === 'button' && node.children?.[0] === '开');
+const fadeOnChip = chipsOf(rowByLabel('底部遮罩')).find((node) => node.children?.[0] === '开');
 if (fadeOnChip?.props['aria-pressed'] !== true) throw new Error('composer fade chip did not follow state');
 props.selectFade('off');
 
@@ -723,7 +769,7 @@ if (motionLabels.length !== 4) throw new Error('motion chips missing');
 
 props.selectMotion('drift');
 labels = rowLabels();
-if (labels.join('/') !== '字标/首屏文案/背景/底纹/缩放/浓淡/动效/装饰/底部遮罩/重置背景') throw new Error('panel rows (drift) = ' + labels.join('/'));
+if (labels.join('/') !== '字标/首屏文案/背景/缩放/浓淡/底纹/动效/装饰/底部遮罩/重置背景') throw new Error('panel rows (drift) = ' + labels.join('/'));
 props.selectMotion('both');
 
 props.selectScale(2.6);
@@ -753,7 +799,7 @@ props.selectMotion('both');
 
 props.selectDots('char');
 labels = rowLabels();
-if (labels.join('/') !== '字标/首屏文案/背景/底纹/字符/缩放/浓淡/动效/呼吸下限/装饰/底部遮罩/重置背景') throw new Error('panel rows (char) = ' + labels.join('/'));
+if (labels.join('/') !== '字标/首屏文案/背景/缩放/浓淡/底纹/字符/动效/呼吸下限/装饰/底部遮罩/重置背景') throw new Error('panel rows (char) = ' + labels.join('/'));
 
 props.selectBg('off');
 labels = rowLabels();
@@ -770,7 +816,7 @@ if (attrs.has('data-av-dots')) throw new Error('selectDots(dot) did not clear da
 /** 8. 流光面板：只剩 背景 / 色板 / 缩放 / 浓淡 / 重置，滑杆换成流光的说法。 */
 props.selectBg('flow');
 labels = rowLabels();
-if (labels.join('/') !== '字标/首屏文案/背景/明暗/色板/速率/缩放/浓淡/装饰/底部遮罩/重置背景') throw new Error('panel rows (flow) = ' + labels.join('/'));
+if (labels.join('/') !== '字标/首屏文案/背景/缩放/浓淡/明暗/色板/速率/装饰/底部遮罩/重置背景') throw new Error('panel rows (flow) = ' + labels.join('/'));
 const invertChips = panelNodes()
   .filter((node) => node.type === 'button' && ['反转', '不反转'].includes(node.children?.[0]))
   .map((node) => node.children[0]);
