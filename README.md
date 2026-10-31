@@ -1,5 +1,7 @@
 # AveritA 的 DSH 主题灵感集
 
+同系列 · [AveritA 的 DSH 插件目录](https://github.com/Traveritas/averita-s-dsh-plugins)
+
 [DeepSeek Harness](https://github.com/deepseek-ai/dsh) 的主题。
 
 **一个轻量主题插件，分享出来希望给大家提供一些个性化专属自己的DSH的灵感~可以随意取用/魔改❤**
