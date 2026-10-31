@@ -41,33 +41,21 @@
 
 ## 安装
 
-### 路线 A：应用内插件管理器（推荐）
-
-设置 → 插件 → 添加插件，spec 填本目录的**绝对路径**：
-
-```
-<clone 目录>
-```
-
-管理器会把它 `pnpm link` 进 profile 并加入 `dsh.profile.bundles`。看返回的 `application`：`applied` 即生效；`restart-required` 则完全退出桌面端再开。
-
-### 路线 B：手动放进 profile（不必先发布）
+先克隆仓库到任意目录（下面拿 `D:\dsh\averita-dsh-theme-inspiration` 举例，换成你自己的路径也行）：
 
 ```powershell
-git clone --depth 1 https://github.com/Traveritas/averita-dsh-theme-inspiration "$env:USERPROFILE\.dsh\profiles\desktop\local-plugins\averita-theme"
+git clone --depth 1 https://github.com/Traveritas/averita-dsh-theme-inspiration.git D:\dsh\averita-dsh-theme-inspiration
 ```
 
-然后在 profile 的 `cordis.patch.yml` 末尾追加：
+**设置 → 插件 → 添加插件**，spec 填克隆目录的**绝对路径**（已经 clone 过的，直接在管理器里选那个目录）。管理器会把它 `pnpm link` 进 profile 并加入 `dsh.profile.bundles`；看返回的 `application`：`applied` 即生效，`restart-required` 就完全退出桌面端再开。
 
-```yaml
-- insert:
-    - id: averita-theme
-      name: './local-plugins/averita-theme/index.js'
-```
+> 桌面端的 `desktop` profile 由 Electron 独占，`dsh plugin --profile desktop ...` 会被拒（`profile "desktop" is managed exclusively by the Electron application`）。所以桌面端只走应用内插件管理器；其它 profile 才用得上 `dsh plugin --profile <名字> add "link:<绝对路径>"`（路径带空格要引号）。
 
-重启 DSH 桌面端。卸掉时删掉这段、删除目录即可；令牌与样式都挂在 `ctx.effect` 上，不会残留。
+装好后在**设置 → 主题**里切换主题、调背景与字标。
 
-> 官方提供的「添加插件」走 `plugin_manager`（会改 profile 的 package.json / bundles），路线 B 是手改 profile，二选一即可。
+## 卸载
+
+在同一个插件管理器里移除即可；样式与令牌都挂在 `ctx.effect` 上，不会残留。
 
 ## 预览
 
