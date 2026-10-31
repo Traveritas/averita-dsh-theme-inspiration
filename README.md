@@ -321,6 +321,7 @@ node scripts/build.mjs      # src/theme.css + src/components/* -> client.js（�
 node scripts/smoke.mjs      # 离线冒烟：令牌成对、组件 CSS / 设置片段齐全、样式装卸、slot 注册（品牌 / 首屏 / 设置分区）、可见性暂停、字标 / 首屏文案 / 底纹 / 字形 / 缩放 / 浓淡 / 动效 / 呼吸下限 / 底衬往返
 node scripts/gen-static.mjs  # 可选：重派生静态色板（覆盖 src/themes/static/*）
 node scripts/gen-themes.mjs  # 可选：重派生冷晨/暮玫瑰/暮紫基础令牌（覆盖手改，静态色板保留）
+node scripts/derive-slider-palettes.mjs  # 可选：输出思考强度滑条的四套主题配色（静态 hex，粘到滑条仓的 BUILTIN_PALETTES）
 ```
 
 `client.js` 是产物，不要手改；改 `src/`。
