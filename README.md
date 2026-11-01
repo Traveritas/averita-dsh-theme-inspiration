@@ -345,6 +345,9 @@ node scripts/derive-slider-palettes.mjs  # 可选：输出思考强度滑条的�
 - 正文/界面字体沿用 DSH 设置（当前 profile 是 Source Serif 4 + 霞鹜文楷）。想要个人站的文章感，建议把「正文字体」设为 `"Noto Serif SC", "Source Serif 4"`（装了 Noto Serif SC 时）。
 - 预览壳里的字体回退与实际 DSH 不同，看截图时请忽略字形差异。
 
+## 致谢
+[LINUX DO](linux.do)
+
 ## License
 
 MIT，见仓库根目录的 [LICENSE](LICENSE)。
