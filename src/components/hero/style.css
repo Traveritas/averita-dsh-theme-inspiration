@@ -6,8 +6,8 @@
    CSS Modules 前缀会变，这里只认稳定后缀；结构变了就整段失效，回退原生外观。
    ========================================================================== */
 
-/* 「预览版」先去掉；以后要恢复就删这一条。 */
-[class*="_headline"]:has([class*="_fishHitbox"]) [class*="_previewBadge"] {
+/* 「预览版」只在首屏总开关打开时去掉；总开关关掉就恢复原生徽章。 */
+html[data-av-hero] [class*="_headline"]:has([class*="_fishHitbox"]) [class*="_previewBadge"] {
   display: none;
 }
 

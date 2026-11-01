@@ -7,9 +7,9 @@
 function flowSettings(api) {
   const { h, props, state, helpers, modes, limits } = api;
   const { FLOW_MODES, FLOW_HINT, FLOW_INVERT_MODES, FLOW_INVERT_HINT } = modes;
-  const { bg, flow, flowInvert, speed } = state;
+  const { bg, bgOn, flow, flowInvert, speed } = state;
 
-  if (bg !== "flow") return [];
+  if (!bgOn || bg !== "flow") return [];
 
   return [
     {

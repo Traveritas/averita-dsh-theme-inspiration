@@ -7,8 +7,8 @@
 function dotsSettings(api) {
   const { h, props, state, reduced, helpers, modes, limits } = api;
   const { DOT_MODES, DOT_HINT, GLYPH_MODES, MOTION_MODES, MOTION_HINT } = modes;
-  const { dots, glyph, motion, breathe, bg } = state;
-  const onDots = bg === "dots";
+  const { dots, glyph, motion, breathe, bg, bgOn } = state;
+  const onDots = bgOn && bg === "dots";
   const breathing = motion === "both" || motion === "breathe";
   const rows = [];
 

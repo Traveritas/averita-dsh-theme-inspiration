@@ -233,11 +233,16 @@ const ctx = {
   },
   slots: {
     inject(name, callback) {
-      callback();
+      const dispose = callback();
+      return typeof dispose === 'function' ? dispose : () => {};
     },
     register(options, Component) {
-      registrations.push({ options, Component });
-      return () => {};
+      const registration = { options, Component };
+      registrations.push(registration);
+      return () => {
+        const index = registrations.indexOf(registration);
+        if (index >= 0) registrations.splice(index, 1);
+      };
     },
   },
 };
@@ -261,6 +266,9 @@ for (const name of names) {
   }
 }
 if (attrs.get('data-av-theme') !== 'averita') throw new Error('default theme marker missing');
+if (attrs.get('data-av-deco') !== 'paper') throw new Error('default deco should be paper');
+if (attrs.has('data-av-bg')) throw new Error('default background should be dots without data-av-bg');
+if (!attrs.has('data-av-hero')) throw new Error('default hero override marker missing');
 if (attrs.has('data-av-hero-text')) throw new Error('default hero text should follow DSH');
 if (attrs.has('data-av-fade')) throw new Error('default composer fade should be off');
 if (attrs.get('data-av-flow-invert') !== 'on') throw new Error('default flow invert attr missing');
@@ -293,6 +301,8 @@ for (const needle of [
   'mask-composite: intersect',
   'data-av-fade="on"',
   'background: none !important',
+  '.av-switch',
+  '.av-switch--on',
 ]) {
   if (!head[0].textContent.includes(needle)) throw new Error(`theme css missing: ${needle}`);
 }
@@ -352,6 +362,7 @@ if (attrs.get('data-av-fade') !== 'on') throw new Error('fade attr was not set b
 for (const d of disposers) d.dispose();
 if (head.length !== 0) throw new Error('style tag was not removed on dispose');
 if (attrs.has('data-av-theme')) throw new Error('data-av-theme was not removed on dispose');
+if (attrs.has('data-av-deco')) throw new Error('data-av-deco was not removed on dispose');
 if (attrs.has('data-av-fade')) throw new Error('data-av-fade was not removed on dispose');
 if (attrs.has('data-av-dots')) throw new Error('data-av-dots was not removed on dispose');
 if (attrs.has('data-av-glyph')) throw new Error('data-av-glyph was not removed on dispose');
@@ -359,6 +370,7 @@ if (attrs.has('data-av-motion')) throw new Error('data-av-motion was not removed
 if (attrs.has('data-av-bg')) throw new Error('data-av-bg was not removed on dispose');
 if (attrs.has('data-av-flow-palette')) throw new Error('data-av-flow-palette was not removed on dispose');
 if (attrs.has('data-av-flow-invert')) throw new Error('data-av-flow-invert was not removed on dispose');
+if (attrs.has('data-av-hero')) throw new Error('data-av-hero was not removed on dispose');
 if (attrs.has('data-av-hero-text')) throw new Error('data-av-hero-text was not removed on dispose');
 if (attrs.has('data-av-hero-empty')) throw new Error('data-av-hero-empty was not removed on dispose');
 if (styles.has('--av-scale')) throw new Error('--av-scale was not removed on dispose');
@@ -367,7 +379,9 @@ if (styles.has('--av-breathe-min')) throw new Error('--av-breathe-min was not re
 if (styles.has('--av-hero-text')) throw new Error('--av-hero-text was not removed on dispose');
 if (listeners.has('visibilitychange')) throw new Error('visibilitychange listener was not removed on dispose');
 /* 回放前面为卸载测试挂上的 on；后面的默认值 / 面板测试都按关（默认）走。 */
-disposeSection.options.inject().selectFade('off');
+const postDispose = disposeSection.options.inject();
+postDispose.selectFade('off');
+postDispose.selectHeroOn(true);
 
 /** 3. 品牌位、首屏星标与设置页：两个品牌 single slot + 一个首屏 slot + 一个 settings.section。 */
 for (const slot of ['sidebar.brand.mark', 'sidebar.brand.name']) {
@@ -400,6 +414,21 @@ if (typeof props.select !== 'function' || typeof props.getActive !== 'function' 
 if (typeof props.selectWordmark !== 'function' || typeof props.getWordmark !== 'function') {
   throw new Error('settings.section inject payload missing wordmark controls');
 }
+if (typeof props.selectBrandOn !== 'function' || typeof props.getBrandOn !== 'function') {
+  throw new Error('settings.section inject payload missing brand master switch');
+}
+if (typeof props.selectBrandMarkOn !== 'function' || typeof props.getBrandMarkOn !== 'function') {
+  throw new Error('settings.section inject payload missing brand icon switch');
+}
+if (typeof props.selectHeroMarkOn !== 'function' || typeof props.getHeroMarkOn !== 'function') {
+  throw new Error('settings.section inject payload missing hero icon switch');
+}
+if (typeof props.selectHeroOn !== 'function' || typeof props.getHeroOn !== 'function') {
+  throw new Error('settings.section inject payload missing hero master switch');
+}
+if (typeof props.selectDecoOn !== 'function' || typeof props.getDecoOn !== 'function') {
+  throw new Error('settings.section inject payload missing deco switch');
+}
 if (typeof props.selectHeroText !== 'function' || typeof props.getHeroText !== 'function') {
   throw new Error('settings.section inject payload missing hero text controls');
 }
@@ -426,6 +455,9 @@ if (typeof props.selectBreathe !== 'function' || typeof props.getBreathe !== 'fu
 }
 if (typeof props.selectBg !== 'function' || typeof props.getBg !== 'function') {
   throw new Error('settings.section inject payload missing background controls');
+}
+if (typeof props.selectBgOn !== 'function' || typeof props.getBgOn !== 'function') {
+  throw new Error('settings.section inject payload missing background switch');
 }
 if (typeof props.selectFlow !== 'function' || typeof props.getFlow !== 'function') {
   throw new Error('settings.section inject payload missing flow palette controls');
@@ -471,9 +503,82 @@ props.selectWordmark('');
 if (brandNameText() !== null) throw new Error('empty wordmark should hide the brand name');
 props.selectWordmark("AveritA's DSH");
 
+/** 3.5b 品牌位总开关 + 图标开关：总关 = 两个 slot 都不挂；图标关只摘星标。 */
+const brandNameRegistration = () => registrations.find((r) => r.options.name === 'sidebar.brand.name');
+const brandMarkRegistration = () => registrations.find((r) => r.options.name === 'sidebar.brand.mark');
+if (props.getBrandOn() !== true) throw new Error('brand master switch must default to on');
+if (props.getBrandMarkOn() !== true) throw new Error('brand icon switch must default to on');
+if (!brandMarkRegistration()) throw new Error('brand mark should be registered by default');
+props.selectBrandMarkOn(false);
+if (props.getBrandMarkOn() !== false) throw new Error('selectBrandMarkOn(false) did not stick');
+if (brandMarkRegistration()) throw new Error('brand icon off should remove only the mark slot');
+if (!brandNameRegistration()) throw new Error('brand icon off should keep the name slot');
+if (storage.get('dsh-theme-averita:brand-mark-on') !== 'off') throw new Error('brand icon switch was not persisted');
+props.selectBrandMarkOn(true);
+if (!brandMarkRegistration()) throw new Error('brand icon on should restore the mark slot');
+props.selectBrandOn(false);
+if (props.getBrandOn() !== false) throw new Error('selectBrandOn(false) did not stick');
+if (brandNameRegistration() || brandMarkRegistration()) throw new Error('brand off should remove both brand slots');
+if (storage.get('dsh-theme-averita:brand-on') !== 'off') throw new Error('brand master switch was not persisted');
+props.selectWordmark('关掉开关后改的文字');
+if (brandNameRegistration() || brandMarkRegistration()) throw new Error('brand off must not re-register brand slots');
+props.selectBrandOn(true);
+if (props.getBrandOn() !== true) throw new Error('selectBrandOn(true) did not stick');
+const restoredBrand = brandNameRegistration();
+if (!restoredBrand) throw new Error('brand on should restore the brand name slot');
+if (!brandMarkRegistration()) throw new Error('brand on should restore the brand mark slot');
+if ((restoredBrand.Component().children?.[0] ?? null) !== '关掉开关后改的文字') {
+  throw new Error('restored wordmark did not follow state');
+}
+if (storage.get('dsh-theme-averita:brand-on') !== 'on') throw new Error('brand master switch on was not persisted');
+props.selectBrandMarkOn(false);
+if (brandMarkRegistration() || !brandNameRegistration()) throw new Error('brand icon off should keep name only while master on');
+props.selectBrandMarkOn(true);
+props.selectWordmark("AveritA's DSH");
+
+/** 3.5c 新会话总开关 + 图标开关：总关 = 图标/标题/徽章都回原生；图标关只摘星标。 */
+const heroRegistration = () =>
+  registrations.find((r) => r.options.name === 'conversation.hero.brand.mark');
+if (props.getHeroOn() !== true) throw new Error('hero master switch must default to on');
+if (props.getHeroMarkOn() !== true) throw new Error('hero icon switch must default to on');
+if (!attrs.has('data-av-hero')) throw new Error('hero master on should set data-av-hero');
+if (!heroRegistration()) throw new Error('hero mark should be registered by default');
+props.selectHeroMarkOn(false);
+if (props.getHeroMarkOn() !== false) throw new Error('selectHeroMarkOn(false) did not stick');
+if (heroRegistration()) throw new Error('hero icon off should remove only the hero slot');
+if (!attrs.has('data-av-hero')) throw new Error('hero icon off should keep the hero master marker');
+if (storage.get('dsh-theme-averita:hero-mark-on') !== 'off') throw new Error('hero icon switch was not persisted');
+props.selectHeroMarkOn(true);
+if (!heroRegistration()) throw new Error('hero icon on should restore the hero slot');
+props.selectHeroOn(false);
+if (props.getHeroOn() !== false) throw new Error('selectHeroOn(false) did not stick');
+if (heroRegistration()) throw new Error('hero off should remove the hero slot');
+if (attrs.has('data-av-hero')) throw new Error('hero off should remove data-av-hero');
+if (storage.get('dsh-theme-averita:hero-on') !== 'off') throw new Error('hero master switch was not persisted');
+props.selectHeroText('关掉总开关后写的标题');
+if (attrs.has('data-av-hero-text') || attrs.has('data-av-hero-empty') || styles.has('--av-hero-text')) {
+  throw new Error('hero off should not apply the title override');
+}
+props.selectHeroOn(true);
+if (props.getHeroOn() !== true) throw new Error('selectHeroOn(true) did not stick');
+if (!attrs.has('data-av-hero')) throw new Error('hero on should restore data-av-hero');
+if (!heroRegistration()) throw new Error('hero on should restore the hero slot');
+if (!attrs.has('data-av-hero-text')) throw new Error('hero on should apply the stored title');
+if (styles.get('--av-hero-text') !== '"关掉总开关后写的标题"') {
+  throw new Error('hero on title CSS var = ' + styles.get('--av-hero-text'));
+}
+props.selectHeroMarkOn(false);
+if (heroRegistration()) throw new Error('hero icon off should still remove the slot while master on');
+if (!attrs.has('data-av-hero') || !attrs.has('data-av-hero-text')) {
+  throw new Error('hero icon off should not clear the title / master marker');
+}
+props.selectHeroMarkOn(true);
+props.selectHeroText(null);
+
 /** 3.6 首屏文案：默认跟随、替换、空值隐藏、恢复默认、单行化、上限与 CSS 转义。 */
 props.selectHeroText(null);
 if (props.getHeroText() !== null) throw new Error('hero text should reset to null');
+if (!attrs.has('data-av-hero')) throw new Error('hero master marker should stay on');
 if (attrs.has('data-av-hero-text') || attrs.has('data-av-hero-empty')) {
   throw new Error('hero attrs should be cleared when following DSH');
 }
@@ -510,6 +615,7 @@ if (styles.get('--av-hero-text') !== quote + 'a' + slash + quote + 'b' + slash +
   throw new Error('hero text CSS escaping = ' + styles.get('--av-hero-text'));
 }
 props.selectHeroText(null);
+if (!attrs.has('data-av-hero')) throw new Error('hero master marker should survive title reset');
 if (attrs.has('data-av-hero-text') || attrs.has('data-av-hero-empty')) {
   throw new Error('hero attrs should be cleared on reset');
 }
@@ -546,12 +652,13 @@ if (props.getDots() !== 'dot') throw new Error('dots off is no longer a shape; m
 props.selectDots('nope');
 if (props.getDots() !== 'dot') throw new Error('unknown dots must fall back to dot');
 
-/** 4.5 背景：默认点阵；关闭挂 data-av-bg；流光建画布、切色板、切走拆画布。 */
+/** 4.5 背景：默认点阵；总开关关掉时不画；流光建画布、切色板、切走拆画布。 */
 if (props.getBg() !== 'dots') throw new Error('default background must be dots');
+if (props.getBgOn() !== true) throw new Error('background switch must default to on');
 if (attrs.has('data-av-bg')) throw new Error('dots background should not set data-av-bg');
 props.selectBg('off');
-if (attrs.get('data-av-bg') !== 'off') throw new Error('selectBg(off) did not set data-av-bg');
-if (storage.get('dsh-theme-averita:bg') !== 'off') throw new Error('background choice was not persisted');
+if (props.getBg() !== 'dots') throw new Error('background off is no longer a style; must fall back to dots');
+if (attrs.has('data-av-bg')) throw new Error('selectBg(off) should not set data-av-bg');
 props.selectBg('flow');
 if (props.getBg() !== 'flow') throw new Error('selectBg(flow) did not stick');
 if (attrs.get('data-av-bg') !== 'flow') throw new Error('selectBg(flow) did not set data-av-bg');
@@ -589,6 +696,27 @@ if (bodyNodes.length !== 0) throw new Error('flow canvas was not removed when le
 props.selectFlow('mist');
 props.selectBg('dots');
 if (props.getBg() !== 'dots') throw new Error('background did not return to dots');
+
+props.selectBgOn(false);
+if (props.getBgOn() !== false) throw new Error('selectBgOn(false) did not stick');
+if (attrs.get('data-av-bg') !== 'off') throw new Error('background off should set data-av-bg=off');
+if (storage.get('dsh-theme-averita:bg-on') !== 'off') throw new Error('background switch was not persisted');
+props.selectBg('flow');
+if (props.getBg() !== 'flow') throw new Error('background style should still move while off');
+if (attrs.get('data-av-bg') !== 'off') throw new Error('background off must keep data-av-bg=off');
+if (bodyNodes.length !== 0) throw new Error('background off should not mount the flow canvas');
+props.selectBgOn(true);
+if (props.getBgOn() !== true) throw new Error('selectBgOn(true) did not stick');
+if (attrs.get('data-av-bg') !== 'flow') throw new Error('background on should restore flow');
+if (bodyNodes.length !== 1) throw new Error('background on did not mount the flow canvas');
+props.selectBg('dots');
+if (attrs.has('data-av-bg')) throw new Error('selectBg(dots) did not clear data-av-bg');
+if (bodyNodes.length !== 0) throw new Error('flow canvas was not removed when leaving flow');
+props.selectBgOn(false);
+props.selectBgOn(true);
+if (props.getBgOn() !== true) throw new Error('background switch did not return on');
+if (attrs.has('data-av-bg')) throw new Error('background on at dots should not set data-av-bg');
+if (storage.get('dsh-theme-averita:bg-on') !== 'on') throw new Error('background switch on was not persisted');
 
 /** 5. 字符：默认加号，四枚字形可切，未知值退回加号。 */
 if (props.getGlyph() !== 'plus') throw new Error('default glyph must be plus');
@@ -653,7 +781,9 @@ props.selectDepth('1.4');
 props.selectSpeed('1.8');
 props.selectMotion('off');
 props.selectBreathe('0.2');
+props.selectBgOn(false);
 props.resetBackground();
+if (props.getBgOn() !== true) throw new Error('resetBackground did not turn the background switch on');
 if (props.getBg() !== 'dots' || attrs.has('data-av-bg')) throw new Error('resetBackground did not restore dots background');
 if (props.getFlow() !== 'theme' || attrs.get('data-av-flow-palette') !== 'theme') throw new Error('resetBackground did not restore flow palette');
 if (props.getFlowInvert() !== 'on' || attrs.get('data-av-flow-invert') !== 'on') throw new Error('resetBackground did not restore flow invert');
@@ -694,7 +824,7 @@ const moduleLabels = () =>
 props.selectDots('dot');
 let labels = rowLabels();
 if (labels.join('/') !== '字标/首屏文案/背景/缩放/浓淡/底纹/动效/呼吸下限/装饰/底部遮罩/重置背景') throw new Error('panel rows (default) = ' + labels.join('/'));
-if (moduleLabels().join('/') !== '品牌字标/新会话首屏/背景/点阵底纹/装饰与星形/输入框底衬') throw new Error('panel modules (default) = ' + moduleLabels().join('/'));
+if (moduleLabels().join('/') !== '主题覆盖/品牌字标/新会话首屏/背景/点阵底纹/装饰与星形/输入框底衬') throw new Error('panel modules (default) = ' + moduleLabels().join('/'));
 
 const rowByLabel = (label) =>
   panelNodes().find(
@@ -704,6 +834,17 @@ const rowByLabel = (label) =>
       node.children?.[0]?.children?.[0] === label,
   );
 const chipsOf = (row) => (row ? walk(row.children).filter((node) => node.type === 'button') : []);
+const switchButtons = () =>
+  panelNodes().filter((node) => node.type === 'button' && node.props?.role === 'switch');
+const switchByLabel = (label) =>
+  switchButtons().find((node) => node.props?.['aria-label'] === label);
+
+if (switchButtons().map((node) => node.props['aria-label']).join('/') !== '品牌位/新会话/装饰/背景/品牌位图标/首屏图标') {
+  throw new Error('override switches = ' + switchButtons().map((node) => node.props['aria-label']).join('/'));
+}
+for (const button of switchButtons()) {
+  if (button.props['aria-checked'] !== true) throw new Error(`default switch should be on: ${button.props['aria-label']}`);
+}
 
 const fadeChips = chipsOf(rowByLabel('底部遮罩'));
 if (fadeChips.length !== 2) throw new Error('composer fade chips = ' + fadeChips.length);
@@ -732,7 +873,7 @@ const emptyWordmarkInput = panelNodes().find(
   (node) => node.type === 'input' && node.props?.['aria-label'] === '左上角 logo 右侧的字标',
 );
 if (emptyWordmarkInput.props.value !== '') throw new Error('wordmark input did not clear');
-if (!panelNodes().some((node) => node.children?.[0] === '留空：只显示星标')) {
+if (!panelNodes().some((node) => node.children?.[0] === '留空：只显示图标')) {
   throw new Error('empty wordmark hint missing');
 }
 props.selectWordmark("AveritA's DSH");
@@ -754,10 +895,85 @@ const customHeroInput = panelNodes().find(
 );
 if (customHeroInput.props.value !== '自定义标题') throw new Error('hero text input did not follow state');
 props.selectHeroText('');
-if (!panelNodes().some((node) => node.children?.[0] === '已隐藏：只留星标')) {
+if (!panelNodes().some((node) => node.children?.[0] === '已隐藏：只留图标')) {
   throw new Error('hero text hidden hint missing');
 }
 props.selectHeroText(null);
+
+/* 7.5 四个区域总开关 + 两个图标开关：关掉后对应模块 / 属性 / slot 一起收起，再打开恢复。 */
+switchByLabel('品牌位').props.onClick();
+if (props.getBrandOn() !== false) throw new Error('brand master switch click did not turn off');
+if (brandNameRegistration() || brandMarkRegistration()) throw new Error('brand master off should remove both brand slots');
+if (moduleLabels().includes('品牌字标')) throw new Error('brand module should hide when master off');
+if (!panelNodes().some((node) => node.children?.[0] === '关 · 完全不覆盖原生品牌位')) {
+  throw new Error('brand master off hint missing');
+}
+switchByLabel('品牌位').props.onClick();
+if (props.getBrandOn() !== true) throw new Error('brand master switch click did not turn on');
+if (!brandNameRegistration() || !brandMarkRegistration()) throw new Error('brand master on should restore both brand slots');
+if (!moduleLabels().includes('品牌字标')) throw new Error('brand module should return when master on');
+
+switchByLabel('品牌位图标').props.onClick();
+if (props.getBrandMarkOn() !== false) throw new Error('brand icon switch click did not turn off');
+if (brandMarkRegistration()) throw new Error('brand icon off should remove the mark slot');
+if (!brandNameRegistration()) throw new Error('brand icon off should keep the name slot');
+if (!moduleLabels().includes('品牌字标')) throw new Error('brand icon off should keep the brand module');
+if (!panelNodes().some((node) => node.children?.[0] === '关 · 跟随 DSH 原生鲸标')) {
+  throw new Error('brand icon off hint missing');
+}
+switchByLabel('品牌位图标').props.onClick();
+if (props.getBrandMarkOn() !== true) throw new Error('brand icon switch click did not turn on');
+if (!brandMarkRegistration()) throw new Error('brand icon on should restore the mark slot');
+
+switchByLabel('新会话').props.onClick();
+if (props.getHeroOn() !== false) throw new Error('hero master switch click did not turn off');
+if (heroRegistration()) throw new Error('hero master off should remove the hero slot');
+if (attrs.has('data-av-hero')) throw new Error('hero master off should clear data-av-hero');
+if (moduleLabels().includes('新会话首屏')) throw new Error('hero module should hide when master off');
+if (!panelNodes().some((node) => node.children?.[0] === '关 · 完全不覆盖原生首屏')) {
+  throw new Error('hero master off hint missing');
+}
+switchByLabel('新会话').props.onClick();
+if (props.getHeroOn() !== true) throw new Error('hero master switch click did not turn on');
+if (!heroRegistration()) throw new Error('hero master on should restore the hero slot');
+if (!attrs.has('data-av-hero')) throw new Error('hero master on should set data-av-hero');
+if (!moduleLabels().includes('新会话首屏')) throw new Error('hero module should return when master on');
+
+switchByLabel('首屏图标').props.onClick();
+if (props.getHeroMarkOn() !== false) throw new Error('hero icon switch click did not turn off');
+if (heroRegistration()) throw new Error('hero icon off should remove the hero slot');
+if (!attrs.has('data-av-hero')) throw new Error('hero icon off should keep the hero master marker');
+if (!panelNodes().some((node) => node.children?.[0] === '关 · 跟随 DSH 原生图标')) {
+  throw new Error('hero icon off hint missing');
+}
+switchByLabel('首屏图标').props.onClick();
+if (props.getHeroMarkOn() !== true) throw new Error('hero icon switch click did not turn on');
+if (!heroRegistration()) throw new Error('hero icon on should restore the hero slot');
+
+switchByLabel('装饰').props.onClick();
+if (props.getDecoOn() !== false) throw new Error('deco switch click did not turn off');
+if (attrs.has('data-av-deco')) throw new Error('deco switch off should clear data-av-deco');
+if (moduleLabels().includes('装饰与星形')) throw new Error('deco module should hide when off');
+if (!panelNodes().some((node) => node.children?.[0] === '关 · 完全不覆盖原生外观')) {
+  throw new Error('deco off hint missing');
+}
+switchByLabel('装饰').props.onClick();
+if (props.getDecoOn() !== true) throw new Error('deco switch click did not turn on');
+if (attrs.get('data-av-deco') !== 'paper') throw new Error('deco switch on should restore paper');
+
+switchByLabel('背景').props.onClick();
+if (props.getBgOn() !== false) throw new Error('background switch click did not turn off');
+if (attrs.get('data-av-bg') !== 'off') throw new Error('background switch off should set data-av-bg=off');
+if (moduleLabels().includes('背景') || moduleLabels().includes('点阵底纹')) {
+  throw new Error('background modules should hide when off');
+}
+if (!panelNodes().some((node) => node.children?.[0] === '关 · 不画背景')) {
+  throw new Error('background off hint missing');
+}
+switchByLabel('背景').props.onClick();
+if (props.getBgOn() !== true) throw new Error('background switch click did not turn on');
+if (attrs.has('data-av-bg')) throw new Error('background switch on should clear data-av-bg');
+
 if (scaleInput.props.style?.['--av-fill'] !== '14.29%') throw new Error('scale fill at 1× = ' + scaleInput.props.style?.['--av-fill']);
 if (depthInput.props.style?.['--av-fill'] !== '18.92%') throw new Error('depth fill at 100% = ' + depthInput.props.style?.['--av-fill']);
 if (breatheInput.props.style?.['--av-fill'] !== '65.00%') throw new Error('breathe fill at 65% = ' + breatheInput.props.style?.['--av-fill']);
@@ -801,13 +1017,37 @@ props.selectDots('char');
 labels = rowLabels();
 if (labels.join('/') !== '字标/首屏文案/背景/缩放/浓淡/底纹/字符/动效/呼吸下限/装饰/底部遮罩/重置背景') throw new Error('panel rows (char) = ' + labels.join('/'));
 
-props.selectBg('off');
+props.selectBgOn(false);
 labels = rowLabels();
-if (labels.join('/') !== '字标/首屏文案/背景/装饰/底部遮罩/重置背景') throw new Error('panel rows (off) = ' + labels.join('/'));
+if (labels.join('/') !== '字标/首屏文案/装饰/底部遮罩/重置背景') throw new Error('panel rows (background off) = ' + labels.join('/'));
+if (moduleLabels().join('/') !== '主题覆盖/品牌字标/新会话首屏/装饰与星形/输入框底衬') {
+  throw new Error('panel modules (background off) = ' + moduleLabels().join('/'));
+}
+
+props.selectBgOn(true);
+props.selectBg('dots');
+props.selectDots('dot');
+props.selectDecoOn(false);
+labels = rowLabels();
+if (labels.join('/') !== '字标/首屏文案/背景/缩放/浓淡/底纹/动效/呼吸下限/底部遮罩/重置背景') throw new Error('panel rows (deco off) = ' + labels.join('/'));
+if (moduleLabels().includes('装饰与星形')) throw new Error('deco module should hide when off');
+props.selectDecoOn(true);
+
+props.selectBrandOn(false);
+labels = rowLabels();
+if (labels.join('/') !== '首屏文案/背景/缩放/浓淡/底纹/动效/呼吸下限/装饰/底部遮罩/重置背景') throw new Error('panel rows (brand off) = ' + labels.join('/'));
+if (moduleLabels().includes('品牌字标')) throw new Error('brand module should hide when master off');
+props.selectBrandOn(true);
+
+props.selectHeroOn(false);
+labels = rowLabels();
+if (labels.join('/') !== '字标/背景/缩放/浓淡/底纹/动效/呼吸下限/装饰/底部遮罩/重置背景') throw new Error('panel rows (hero off) = ' + labels.join('/'));
+if (moduleLabels().includes('新会话首屏')) throw new Error('hero module should hide when master off');
+props.selectHeroOn(true);
 
 props.selectDeco('star');
 labels = rowLabels();
-if (labels.join('/') !== '字标/首屏文案/背景/装饰/星形/底部遮罩/重置背景') throw new Error('panel rows (star) = ' + labels.join('/'));
+if (labels.join('/') !== '字标/首屏文案/背景/缩放/浓淡/底纹/动效/呼吸下限/装饰/星形/底部遮罩/重置背景') throw new Error('panel rows (star) = ' + labels.join('/'));
 props.selectDeco('paper');
 props.selectBg('dots');
 props.selectDots('dot');

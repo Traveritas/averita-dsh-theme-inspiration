@@ -12,6 +12,11 @@
  */
 export default [
   {
+    id: 'overrides',
+    label: '主题覆盖',
+    settings: { file: 'overrides/settings.js', name: 'overridesSettings', order: 5 },
+  },
+  {
     id: 'brand',
     label: '品牌字标',
     settings: { file: 'brand/settings.js', name: 'brandSettings', order: 10 },

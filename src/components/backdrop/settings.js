@@ -1,15 +1,17 @@
 /**
- * 背景组设置行：背景三选一、缩放、浓淡。
+ * 背景组设置行：背景二选一、缩放、浓淡。
  *
  * 这一组没有对应的 CSS（点阵在 dots/，流光在 flow/），只负责设置面板。
  * 本文件被 scripts/build.mjs 原样内联进 client.js，只能引用参数 api 里的东西：
  *   { h, props, state, reduced, helpers, modes, limits }
  * 返回 [{ group, order, node }]：group 是面板分组，order 是组内顺序。
+ * 「主题覆盖」里背景开关关掉时整组收起；关掉后的“不画背景”由总开关承担。
  */
 function backdropSettings(api) {
   const { h, props, state, reduced, helpers, modes, limits } = api;
   const { BG_MODES, BG_HINT } = modes;
-  const { bg, scale, depth, flowOk } = state;
+  const { bg, bgOn, scale, depth, flowOk } = state;
+  if (!bgOn) return [];
   const onFlow = bg === "flow";
   const rows = [];
 
@@ -44,7 +46,7 @@ function backdropSettings(api) {
     ),
   });
 
-  if (bg !== "off") {
+  if (bgOn) {
     rows.push({
       order: 60,
       node: h(

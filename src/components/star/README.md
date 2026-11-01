@@ -4,7 +4,7 @@
 
 ## 挂什么
 
-- `html[data-av-deco="star"]`：启用，与纸品互斥
+- `html[data-av-deco="star"]`：启用，与纸品互斥；装饰总开关关掉时整个属性摘掉
 - `html[data-av-star="a" | "b"]`：`a` 罗盘刻星（默认）/ `b` 针芒；不挂时按 `a` 画
 
 ## 变量
@@ -15,7 +15,7 @@
 
 ## 存
 
-不存。插件存 `dsh-theme-averita:deco` / `:star`。
+不存。插件存 `dsh-theme-averita:deco` / `:star`；装饰总开关存 `:deco-on`。
 
 ## 依赖
 

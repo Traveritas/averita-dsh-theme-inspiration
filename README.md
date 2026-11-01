@@ -23,7 +23,7 @@
 
 ---
 
-四套 DSH 主题的宿主插件。背景二选一：**点阵**（圆点 / 方块 / 字符 / 字符墙，缩放 / 浓淡 / 动效 / 呼吸下限可调）或**流光**（移植个人站的域扭曲 fbm 场，默认从当前主题取色，另有四套固定色板，缩放 / 浓淡可调，明暗默认反转：浅色下白做底、深色只落在光带上）。另有星标、位移动效与纸品装饰（用户消息 / 输入框）；输入框背后的底衬默认去掉（背景透到输入框后），可在「设置 → 主题 → 输入框底衬」开回 DSH 的渐隐；左上角 logo 右侧的字标可在设置里改，留空只留星标；新会话首屏也换成同一颗星，标题可自定义（「预览版」徽章隐藏）。**设置 → 主题**里即时切换，选择存在 localStorage。
+四套 DSH 主题的宿主插件。背景二选一：**点阵**（圆点 / 方块 / 字符 / 字符墙，缩放 / 浓淡 / 动效 / 呼吸下限可调）或**流光**（移植个人站的域扭曲 fbm 场，默认从当前主题取色，另有四套固定色板，缩放 / 浓淡可调，明暗默认反转：浅色下白做底、深色只落在光带上）。另有星标、位移动效与纸品装饰（用户消息 / 输入框）；输入框背后的底衬默认去掉（背景透到输入框后），可在「设置 → 主题 → 输入框底衬」开回 DSH 的渐隐；左上角 logo 右侧的字标可在设置里改，留空只留图标；新会话首屏也换成同一颗星，标题可自定义（「预览版」徽章隐藏）。「主题覆盖」里还有四个区域总开关：品牌位 / 新会话 / 装饰 / 背景，默认全开，关掉即完全不覆盖；品牌位与新会话模块里再各自选择图标是否换成星标。**设置 → 主题**里即时切换，选择存在 localStorage。
 
 | 主题 | 方向 | 数据 |
 |---|---|---|
@@ -34,7 +34,7 @@
 
 - **令牌**：每套 205 个，浅/深成对 —— 128 个语义/语法令牌 + 77 个静态色板阶（`--dsw-static-*`，图标、状态点、diff、插画在用）；主题变量只有 `--av-space` / `--av-dot` / `--av-mark` 三枚。
 - **切换**：`overrideTokens` 换令牌图层 + `html[data-av-theme]` 换 CSS 变量，不重装、不重启。
-- **品牌位**：`sidebar.brand.mark` / `sidebar.brand.name` 两个 single slot，priority `-1`（官方在 0，数值低者渲染）——卸载即回退。星标是 32px 三轴正交六芒星；字标默认衬线 `AveritA's DSH`，可在**设置 → 主题 → 品牌字标**里自定义，留空只显示星标。新会话首屏用 `conversation.hero.brand.mark` 换同一颗星（34px），标题走 `--av-hero-text`，见[新会话首屏](#新会话首屏)。
+- **品牌位**：`sidebar.brand.mark` / `sidebar.brand.name` 两个 single slot，priority `-1`（官方在 0，数值低者渲染）——卸载即回退。星标是 32px 三轴正交六芒星；字标默认衬线 `AveritA's DSH`，可在**设置 → 主题 → 品牌字标**里自定义，留空只显示图标；「主题覆盖」的品牌位总开关关掉后两个 slot 一起摘掉，侧栏回 DSH 原生鲸标与字标；总开关打开时，模块里的图标开关再决定星标 / 原生鲸标。新会话首屏用 `conversation.hero.brand.mark` 换同一颗星（34px），同样受「新会话」总开关与模块内图标开关控制；标题走 `--av-hero-text`，见[新会话首屏](#新会话首屏)。
 - **背景与细节**：点阵是 `src/components/dots/style.css` 里的一层 fixed 伪元素，不跑逐帧；流光是一层 WebGL2 画布（`src/flow.js`，构建时内联），1/5 分辨率、30fps，切到流光才创建；两者互斥。品牌星是 6 支 SVG，约 30fps 重画。
 - **UI 动效**：`--ds-transition-*` 180/120ms + 柔出曲线；位移动效：会话切换上浮 6px、会话行 hover 横移 2px、按钮按下 0.5px、最后一条回复上浮 6px、侧栏折叠 300ms。
 - **安装形态**：纯客户端插件。Host 半 (`index.js`) 是空壳，浏览器半是 `client.js`（手写 lazy-CJS，无构建依赖）。
@@ -51,7 +51,7 @@ git clone --depth 1 https://github.com/Traveritas/averita-dsh-theme-inspiration.
 
 > 桌面端的 `desktop` profile 由 Electron 独占，`dsh plugin --profile desktop ...` 会被拒（`profile "desktop" is managed exclusively by the Electron application`）。所以桌面端只走应用内插件管理器；其它 profile 才用得上 `dsh plugin --profile <名字> add "link:<绝对路径>"`（路径带空格要引号）。
 
-装好后在**设置 → 主题**里切换主题、调背景与字标。
+装好后在**设置 → 主题**里切换主题、调背景与字标；「主题覆盖」的四个区域总开关控制要不要覆盖品牌位 / 首屏 / 装饰 / 背景，品牌位与首屏模块里再选图标是否换成星标。
 
 ## 卸载
 
@@ -61,7 +61,7 @@ git clone --depth 1 https://github.com/Traveritas/averita-dsh-theme-inspiration.
 
 这里放的是按 DSH 三栏骨架搭的近似壳截图，只用来量配色与比例；实机图见顶部。下面另有「配色」与「主要内容」两节，把四套主题的关键角色和主界面六块补齐。
 
-直接用浏览器打开 `preview/index.html`（左下角可切四套主题、背景（点阵 / 流光 / 关闭）、底衬（开 / 关）、底纹四形、色板（跟随主题 + 四套固定）、明暗（反转 / 不反转）、字符四形、缩放（0.5–4×）、浓淡（30–400%）、动效四选、呼吸下限（0–100%），`?theme=coldmorning`、`?bg=flow`、`?fade=on|off`、`?flow=theme|mist|dusk|jade|amber`、`?invert=on|off`、`?speed=1.6`、`?dots=dot|square|char|wall`、`?glyph=plus|hash|star|cross`、`?scale=2.4`、`?depth=2.6`、`?motion=both|breathe|drift|off`、`?breathe=0.3` 也能直达，`?dark=1` 看深色，`?soft=1` 放行软件渲染给截图用，`?bgonly=1` 只留背景层给截图用），或看：
+直接用浏览器打开 `preview/index.html`（左下角可切四套主题、背景（点阵 / 流光；预览壳仍留着旧版「关闭」，插件的关闭改由「主题覆盖」总开关承担）、底衬（开 / 关）、底纹四形、色板（跟随主题 + 四套固定）、明暗（反转 / 不反转）、字符四形、缩放（0.5–4×）、浓淡（30–400%）、动效四选、呼吸下限（0–100%），`?theme=coldmorning`、`?bg=flow`、`?fade=on|off`、`?flow=theme|mist|dusk|jade|amber`、`?invert=on|off`、`?speed=1.6`、`?dots=dot|square|char|wall`、`?glyph=plus|hash|star|cross`、`?scale=2.4`、`?depth=2.6`、`?motion=both|breathe|drift|off`、`?breathe=0.3` 也能直达，`?dark=1` 看深色，`?soft=1` 放行软件渲染给截图用，`?bgonly=1` 只留背景层给截图用），或看：
 
 - 开头八张：`preview/shots-new/a-l.png` … `d-d.png`（四套主题 × 浅 / 深，实机首屏）
 
@@ -104,7 +104,7 @@ git clone --depth 1 https://github.com/Traveritas/averita-dsh-theme-inspiration.
 
 <a href="preview/content-shell/sidebar.png"><img src="preview/content-shell/sidebar.png" width="300" alt="侧栏与品牌：星标、字标、新会话、会话列表" /></a>
 
-星标是 32px 三轴正交六芒星，字标默认衬线 `AveritA's DSH`；留空只留星标。
+星标是 32px 三轴正交六芒星，字标默认衬线 `AveritA's DSH`；留空只留图标。
 
 #### 会话与装饰
 
@@ -124,13 +124,13 @@ git clone --depth 1 https://github.com/Traveritas/averita-dsh-theme-inspiration.
 
 #### 新会话首屏
 
-四套主题的实机首屏见开头八张；`conversation.hero.brand.mark` 换成同一颗星，标题可在「设置 → 主题 → 新会话首屏」改。
+四套主题的实机首屏见开头八张；`conversation.hero.brand.mark` 换成同一颗星，标题可在「设置 → 主题 → 新会话首屏」改。图标要不要换由「新会话首屏」模块里的图标开关决定；「主题覆盖 → 新会话」总开关关掉则整块首屏回原生。
 
 #### 设置 → 主题
 
 <a href="preview/content-shell/settings.png"><img src="preview/content-shell/settings.png" width="760" alt="设置 → 主题：四张主题卡，下面每个组件一个模块" /></a>
 
-四张主题卡 + 每个组件一个模块（品牌字标 / 新会话首屏 / 背景 / 点阵底纹 / 流光背景 / 装饰与星形 / 输入框底衬），空模块自动收起。这张是按 `src/components/*/settings.js` 的行与 `src/theme.css` 的面板样式重建的预览壳，实际控件以实机为准；**截图与 `preview/settings.html` 还是分组版旧图**，模块版待重截。
+四张主题卡 + 「主题覆盖」四个区域总开关 + 每个组件一个模块（品牌字标 / 新会话首屏 / 背景 / 点阵底纹 / 流光背景 / 装饰与星形 / 输入框底衬），空模块自动收起。品牌位与新会话模块里各有一个图标开关，决定用星标还是原生图标。这张是按 `src/components/*/settings.js` 的行与 `src/theme.css` 的面板样式重建的预览壳，实际控件以实机为准；**截图与 `preview/settings.html` 还是分组版旧图，`preview/settings.html` 已补上「主题覆盖」与图标开关，模块卡片以实机为准**。
 
 #### 背景五形
 
@@ -154,13 +154,13 @@ CSS 按组件拆在 `src/components/`，构建按 `manifest.js` 的顺序拼进 
 
 拿单个组件三步：复制它的 `style.css` → 在 `<html>` 挂对应属性 → 装了别的主题就把文件开头的兜底块删掉。没有设置面板也能用，属性手写即可；更多约定见 [`src/components/README.md`](src/components/README.md)。
 
-`backdrop/`、`deco/` 与 `brand/` 只有设置行、没有 CSS：前者管背景 / 缩放 / 浓淡，后者管装饰 / 星形与品牌字标；`hero/` 有首屏标题与徽章的 CSS，以及首屏文案模块。
+`backdrop/`、`deco/`、`brand/` 与 `overrides/` 只有设置行、没有 CSS：前三者管背景 / 缩放 / 浓淡，装饰 / 星形与品牌字标；`overrides/` 是四个总开关。`hero/` 有首屏标题与徽章的 CSS，以及首屏文案模块。
 
 组件保持**未分层**：DSH 宿主 CSS 没有 `@layer`，分层里的普通声明会输给未分层声明（不管选择器多具体），主题要覆盖宿主就不能进层。
 
 ## 背景是怎么动起来的
 
-背景二选一，落成 `html[data-av-bg="flow"|"off"]`（不挂属性 = 点阵）。两者互斥，切走就拆，不常驻。
+背景二选一，落成 `html[data-av-bg="flow"]`（不挂属性 = 点阵）；「主题覆盖」的背景总开关关掉时落成 `data-av-bg="off"`，两套都不画。两者互斥，切走就拆，不常驻。
 
 ### 点阵
 
@@ -205,31 +205,36 @@ canvas.av-flow  1/5 视口分辨率（1080p 约 384×216），5px 一格像素�
 - 色板默认**跟随主题**：四阶由 `color-mix(in srgb, var(--av-space) …, var(--av-mark) …)` 混出，换主题 / 切深浅自动跟，不会和界面撞色。另有雾蓝 / 暮紫 / 青灰 / 暖沙四套固定色板，各带浅深两版；切换只改 `html[data-av-flow-palette]`，画布下一帧重新取色，不重建上下文。
 - 明暗默认**反转**：场里大部分面积落在前两档，所以第 0 档决定整页明暗。浅色反转时 0 档是纸白、深色只落在第 2/3 档的窄带上，整页不会被压成一块灰；`html[data-av-flow-invert="off"]` 回到旧写法（0 档从纸色往下压，白带再提亮）。深色两档一样——底色本来就是场底。
 - `flow.js` 读 `--av-flow-*` 时先用隐藏探针把 `color-mix(...)` 解析成 `color(srgb …)` 再解析；固定色板仍走原来的十六进制 / `rgb()` 路径。
-- 窗口隐藏 / 系统减少动效时停帧；减少动效只画一帧静态。切到点阵或关闭时画布整个拆掉、上下文一起丢。
+- 窗口隐藏 / 系统减少动效时停帧；减少动效只画一帧静态。切到点阵或关掉背景总开关时画布整个拆掉、上下文一起丢。
 
 - 外壳透明度：DSH 0.2.1-rc.3 的 AppFrame / centerCol / ConversationRoot 各自用 `--dsw-alias-bg-base` 铺满，主题用 CSS Modules 稳定后缀 + `:has` 把三处底色置空，背景才透出来。
 
 ## 品牌字标（设置 → 主题）
 
-设置 → 主题里「品牌字标」与「新会话首屏」是两个模块。「字标」输入框实时改 `sidebar.brand.name` 里的文字，默认衬线 `AveritA's DSH`，最多 32 字；换行 / 制表符会折成空格，选择存在 localStorage 的 `<plugin-id>:wordmark`。
+设置 → 主题里「品牌字标」与「新会话首屏」是两个模块；最上面还有「主题覆盖」的四个区域总开关。「品牌字标」模块有两行：
 
-- 输入框留空（或只有空白）时整段文字不渲染，只留星标；旁边「恢复默认」把默认字标写回去。
+- **图标**：开关决定侧栏品牌位用主题星标还是 DSH 原生鲸标，存在 `<plugin-id>:brand-mark-on`；只控制 `sidebar.brand.mark`，不影响右侧文字。
+- **字标**：输入框实时改 `sidebar.brand.name` 里的文字，默认衬线 `AveritA's DSH`，最多 32 字；换行 / 制表符会折成空格，选择存在 `<plugin-id>:wordmark`。
+- 输入框留空（或只有空白）时整段文字不渲染，只留图标；旁边「恢复默认」把默认字标写回去。
+- 「主题覆盖 → 品牌位」关掉时整个「品牌字标」模块收起，`sidebar.brand.mark` 与 `sidebar.brand.name` 两个 slot 一起摘掉，侧栏回 DSH 原生鲸标与字标。开关存在 `<plugin-id>:brand-on`；旧版 `:wordmark-on` 自动迁移。
+- 总开关打开、图标开关关掉时，只摘 `sidebar.brand.mark`，品牌位保留原生鲸标与自定义文字。
 - 字标只走 React 状态，不挂 `data-av-*` 属性；侧栏 `sidebar.brand.name` slot 订阅状态重渲染，切换主题 / 深浅不受影响。
 - 自定义文字过长时侧栏按 `text-overflow: ellipsis` 省略，不会把 logo 挤走；完整文字在 `title` 里。
 
 ## 新会话首屏
 
-首屏（没有会话的空态）把 DSH 的动画鱼换成左上角同一颗星，并隐藏标题右侧的「预览版」徽章；标题可在**设置 → 主题 → 新会话首屏**里改。
+首屏（没有会话的空态）把 DSH 的动画鱼换成左上角同一颗星，并隐藏标题右侧的「预览版」徽章；标题可在**设置 → 主题 → 新会话首屏**里改。「主题覆盖 → 新会话」总开关控制整块首屏；总开关打开时，模块里的图标开关再决定星标 / 原生鱼。
 
-- **图标**：`conversation.hero.brand.mark` single slot，`HeroMark` 与侧栏 `BrandMark` 共用 `projectStar()`；34px、颜色 `--av-mark`。鼠标移入 / 移出各绕 z 轴转 90°，累计不回位；系统减少动效时静止。
-- **文案**：宿主没有文案 slot，标题写死在 `t("hero.headline")`。主题用 `html[data-av-hero-text]` + `--av-hero-text` 隐藏原文字，`::before { content: var(--av-hero-text) }` 替换；不碰 React，hover 重渲染不会冲掉。`html[data-av-hero-empty]` 时整段标题不渲染，只留星标。
-- **默认**：跟随 DSH 原文（不写键）。输入即替换；清空只留星标；「恢复默认」回到原文。存在 `<plugin-id>:hero-text`，上限 40 字。
-- **徽章**：`_previewBadge` 无条件隐藏；要恢复删 `src/components/hero/style.css` 第一条规则。
-- **结构依赖**：`_headline` / `_fishHitbox` / `_titleGroup` / `_previewBadge`（ui-conversation 0.2.1-rc.3 的 CSS Modules 稳定后缀）。结构变了，标题与徽章回退原生，图标 slot 不受影响。
+- **总开关**：`<plugin-id>:hero-on`。关掉时 `html[data-av-hero]`、标题 attrs、图标 slot 全部摘掉，图标 / 标题 / 徽章都回原生；「新会话首屏」模块整个收起。
+- **图标**：`conversation.hero.brand.mark` single slot，`HeroMark` 与侧栏 `BrandMark` 共用 `projectStar()`；34px、颜色 `--av-mark`。鼠标移入 / 移出各绕 z 轴转 90°，累计不回位；系统减少动效时静止。总开关打开时，模块里的图标开关（`:hero-mark-on`）再决定星标 / 原生鱼；关掉只摘 slot。
+- **文案**：宿主没有文案 slot，标题写死在 `t("hero.headline")`。主题用 `html[data-av-hero-text]` + `--av-hero-text` 隐藏原文字，`::before { content: var(--av-hero-text) }` 替换；不碰 React，hover 重渲染不会冲掉。`html[data-av-hero-empty]` 时整段标题不渲染，只留图标。
+- **默认**：跟随 DSH 原文（不写键）。输入即替换；清空只留图标；「恢复默认」回到原文。存在 `<plugin-id>:hero-text`，上限 40 字。
+- **徽章**：`html[data-av-hero]` 时隐藏 `_previewBadge`；总开关关掉就回原生。要整体恢复删 `src/components/hero/style.css` 第一条规则。
+- **结构依赖**：`_headline` / `_fishHitbox` / `_titleGroup` / `_previewBadge`（ui-conversation 0.2.1-rc.3 的 CSS Modules 稳定后缀）。结构变了，标题与徽章回退原生，图标 slot 在开关打开时仍会替换。
 
 ## 背景（设置 → 主题）
 
-「背景」模块三选一：**点阵 / 流光 / 关闭**；缩放 / 浓淡也在同一个模块里，点阵与流光各自一个模块，按选择出现。
+「背景」模块二选一：**点阵 / 流光**；开不开由「主题覆盖 → 背景」总开关决定。缩放 / 浓淡也在同一个模块里，点阵与流光各自一个模块，按选择出现。
 
 ### 点阵
 
@@ -248,12 +253,12 @@ canvas.av-flow  1/5 视口分辨率（1080p 约 384×216），5px 一格像素�
 - **浓淡**：画布不透明度，30%–400% 映射到 0.12–0.86，默认 0.62。
 - 系统减少动效时只画一帧，设置面板会提示「流光静止」；没有 WebGL2 时切不过去，面板会说明并留在点阵。
 
-- 关闭背景时下面几排自动收起。
-- 末尾「重置 → 恢复默认」把背景 / 底纹 / 色板 / 明暗 / 速率 / 字形 / 缩放 / 浓淡 / 动效 / 呼吸下限一键回默认，主题与装饰不动。
+- 背景总开关关掉时「背景」「点阵底纹」「流光背景」三个模块一起收起，`html[data-av-bg="off"]` 不画背景。
+- 末尾「重置 → 恢复默认」把背景开关 / 底纹 / 色板 / 明暗 / 速率 / 字形 / 缩放 / 浓淡 / 动效 / 呼吸下限一键回默认，主题与装饰不动。
 
-选择存在 localStorage 的 `<plugin-id>:wordmark` / `:bg` / `:dots` / `:flow` / `:flow-invert` / `:speed` / `:glyph` / `:scale` / `:depth` / `:motion` / `:breathe` / `:fade`（速率 / 缩放 / 浓淡 / 呼吸下限存乘数，1 = 1× / 1× / 100% / 100%），落成 `html[data-av-bg="flow"|"off"]`、`html[data-av-dots="square"|"char"|"wall"]`、`html[data-av-flow-palette="theme"|"mist"|"dusk"|"jade"|"amber"]`、`html[data-av-flow-invert="on"|"off"]`、`html[data-av-glyph="plus"|"hash"|"star"|"cross"]`、`html[data-av-motion="breathe"|"drift"|"off"]`、`html[data-av-fade="on"]`；缩放 / 浓淡 / 呼吸下限直接写成 `html` 行内的 `--av-scale` / `--av-depth` / `--av-breathe-min`，不再挂 data 属性；「都开」把 `data-av-motion` 摘掉，选「圆点」把 `data-av-dots` 摘掉，选「点阵」把 `data-av-bg` 摘掉，选「关」把 `data-av-fade` 摘掉。切换只改属性 / 变量；点阵不动 DOM，流光按需建 / 拆画布；字符缺字形时 CSS 退回加号，不会把整块涂实。
+选择存在 localStorage 的 `<plugin-id>:wordmark` / `:brand-on` / `:brand-mark-on` / `:hero-on` / `:hero-mark-on` / `:deco` / `:deco-on` / `:bg` / `:bg-on` / `:dots` / `:flow` / `:flow-invert` / `:speed` / `:glyph` / `:scale` / `:depth` / `:motion` / `:breathe` / `:fade`（速率 / 缩放 / 浓淡 / 呼吸下限存乘数，1 = 1× / 1× / 100% / 100%），落成 `html[data-av-hero]`、`html[data-av-bg="flow"|"off"]`、`html[data-av-deco="paper"|"star"]`、`html[data-av-dots="square"|"char"|"wall"]`、`html[data-av-flow-palette="theme"|"mist"|"dusk"|"jade"|"amber"]`、`html[data-av-flow-invert="on"|"off"]`、`html[data-av-glyph="plus"|"hash"|"star"|"cross"]`、`html[data-av-motion="breathe"|"drift"|"off"]`、`html[data-av-fade="on"]`；缩放 / 浓淡 / 呼吸下限直接写成 `html` 行内的 `--av-scale` / `--av-depth` / `--av-breathe-min`，不再挂 data 属性。摘属性规则：「都开」把 `data-av-motion` 摘掉，选「圆点」把 `data-av-dots` 摘掉，选「点阵」把 `data-av-bg` 摘掉；背景开关关掉时挂 `data-av-bg="off"`，装饰开关关掉时摘 `data-av-deco`，品牌位总开关关掉时摘品牌位 mark / name 两个 slot，品牌图标开关关掉时只摘 mark，新会话总开关关掉时摘 `data-av-hero`、标题 attrs 与首屏 mark slot，首屏图标开关关掉时只摘 mark；输入框底衬选「关」时摘 `data-av-fade`。切换只改属性 / 变量；点阵不动 DOM，流光按需建 / 拆画布；字符缺字形时 CSS 退回加号，不会把整块涂实。
 
-首屏文案存在 `<plugin-id>:hero-text`：键不存在 = 跟随 DSH 原文，空串 = 只留星标，其余 = 替换标题；落成 `html[data-av-hero-text]` / `html[data-av-hero-empty]` 与行内 `--av-hero-text`。
+首屏文案存在 `<plugin-id>:hero-text`：键不存在 = 跟随 DSH 原文，空串 = 只留图标，其余 = 替换标题；落成 `html[data-av-hero]` / `html[data-av-hero-text]` / `html[data-av-hero-empty]` 与行内 `--av-hero-text`。
 
 ## 界面（设置 → 主题）
 
@@ -278,7 +283,7 @@ canvas.av-flow  1/5 视口分辨率（1080p 约 384×216），5px 一格像素�
 
 ## 用户消息与输入框
 
-同一批部件有两套装饰，在「设置 → 主题」下方切换：**纸品 / 星芒 / 原生**。默认纸品，选择存在 localStorage 的 `<plugin-id>:deco`，落成 `html[data-av-deco="paper"|"star"]`；选「原生」就把属性摘掉，退回 DSH 原样。切换只改这一个属性，不动 DOM、不重装插件。
+同一批部件有两套装饰，在「设置 → 主题 → 装饰与星形」里切换：**纸品 / 星芒**。默认纸品，选择存在 localStorage 的 `<plugin-id>:deco`，落成 `html[data-av-deco="paper"|"star"]`；「主题覆盖 → 装饰」总开关关掉时摘掉属性，退回 DSH 原样（开关存在 `<plugin-id>:deco-on`）。切换只改这一个属性，不动 DOM、不重装插件。
 
 运行中插话（steering）的用户消息，以及它落盘前的回显气泡，与普通用户消息共用同一套装饰：DSH 分别把它们挂在 `data-chat-flow-kind="steering"` 与 `data-pending-steering` 下，选择器已一并覆盖。
 
@@ -323,8 +328,8 @@ node scripts/derive-slider-palettes.mjs  # 可选：输出思考强度滑条的�
 - **新回复动画靠结构选择器**：`[data-chat-turn]:not(:has(~ [data-chat-turn]))` 只认“最后一个 turn”，要求 turn 是同级兄弟；DSH 改结构时会静默失效。侧栏折叠的 300ms 过渡也依赖 frame 的 grid 过渡。
 - **纸品装饰也钉在结构上**：用户消息靠 `data-chat-flow-kind="user"|"steering"`（回显再补 `data-pending-steering`）+ `_bubble` 后缀，输入框靠 `data-composer-seat` + `_card`/`_primary` 后缀。DSH 改这两处，装饰会整段失效（功能不受影响，回退成原生外观）。用户气泡的选择器要带 `:not([role="tooltip"])`：宿主 Tooltip 的类名是 `_bubble_*` 且就挂在消息内部，被命中会从 `position: fixed` 变成 `relative`，把复制按钮那排撑宽、hover 时来回跳。
 - **底部遮罩也钉在 `[data-composer-seat]` 上**：DSH 改这个属性、或把渐变挪到别的层时，开关会静默失效、回到宿主原样。关掉后只摘 seat 自己的背景；滚动内容可能从输入框底部状态栏附近透出一点，输入卡 `_card` 的底色不受影响。
-- **字标只换文字**：品牌位只覆盖 logo 右侧文字，星标仍是主题自带的；字标上限 32 字，超长由侧栏省略，留空只留星标。
-- **首屏文案钉在结构上**：标题替换依赖 `_headline` / `_titleGroup` / `_fishHitbox` / `_previewBadge` 四个 CSS Modules 后缀；DSH 改结构时标题与徽章回退原生，图标 slot 仍会替换。文案上限 40 字，超长在首屏内换行。
+- **品牌位是两级开关**：品牌位总开关打开时，模块里的图标开关决定星标 / 原生鲸标，文字仍按输入框替换；总开关关掉时 `sidebar.brand.mark` / `sidebar.brand.name` 两个 slot 一起摘掉，回原生鲸标与字标。字标上限 32 字，超长由侧栏省略，留空只留图标。
+- **首屏文案钉在结构上**：标题替换依赖 `_headline` / `_titleGroup` / `_fishHitbox` / `_previewBadge` 四个 CSS Modules 后缀；DSH 改结构时标题与徽章回退原生，开关打开时图标 slot 仍会替换。文案上限 40 字，超长在首屏内换行。
 - **思考强度滑条已拆成独立插件**：[`dsh-yet-another-slider-thingy`](https://github.com/Traveritas/dsh-yet-another-slider-thingy)，主题不再内联该座位；它的转发限制与版本契约写在该仓 README。
 - **组件只拆到 CSS + 设置模块**：单独复制 `src/components/<id>/style.css` 能用，但没有设置面板（属性手写即可）；选择器、localStorage 与流光画布的生命周期仍在 `src/client.template.js`。
 - **颗粒遮罩依赖 `mask-composite`**：四种颗粒与渐隐两层遮罩相交需要 Chromium 120+ / Safari 15.4+；更老的内核会退化成两层叠加，颗粒照旧、中心渐隐失效，不影响可用性。字符 / 符号走 SVG `<text>`，字体栈是 Consolas / Segoe UI Symbol，换机器字形会有细微差别。

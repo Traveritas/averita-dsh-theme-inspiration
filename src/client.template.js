@@ -23,6 +23,13 @@ window.__ModuleLoader__.load({
     const SPEED_KEY = PLUGIN_ID + ":speed";
     const WORDMARK_KEY = PLUGIN_ID + ":wordmark";
     const HERO_TEXT_KEY = PLUGIN_ID + ":hero-text";
+    const BRAND_ON_KEY = PLUGIN_ID + ":brand-on";
+    const LEGACY_WORDMARK_ON_KEY = PLUGIN_ID + ":wordmark-on";
+    const BRAND_MARK_ON_KEY = PLUGIN_ID + ":brand-mark-on";
+    const HERO_ON_KEY = PLUGIN_ID + ":hero-on";
+    const HERO_MARK_ON_KEY = PLUGIN_ID + ":hero-mark-on";
+    const DECO_ON_KEY = PLUGIN_ID + ":deco-on";
+    const BG_ON_KEY = PLUGIN_ID + ":bg-on";
     const DEFAULT_THEME = "averita";
     /** 品牌字标的默认值；空串是合法值，表示只显示星标。 */
     const DEFAULT_WORDMARK = "AveritA's DSH";
@@ -33,12 +40,10 @@ window.__ModuleLoader__.load({
     const DECO_MODES = [
       { id: "paper", label: "纸品" },
       { id: "star", label: "星芒" },
-      { id: "plain", label: "原生" },
     ];
     const DECO_HINT = {
       paper: "消息与输入框用纸品装饰",
       star: "消息与输入框用星芒装饰",
-      plain: "跟随 DSH 原生外观",
     };
     /** 星芒造型：a = 罗盘刻星（四长四短），b = 针芒（四根长针 + 短刺）。 */
     const STAR_MODES = [
@@ -58,16 +63,14 @@ window.__ModuleLoader__.load({
       on: "保留 DSH 的渐隐底衬",
       off: "去掉底衬，背景透到输入框后",
     };
-    /** 背景：点阵 / 流光 / 关闭；默认点阵。流光与点阵互斥，关闭时两者都不画。 */
+    /** 背景：点阵 / 流光；默认点阵。流光与点阵互斥，总开关关掉时两者都不画。 */
     const BG_MODES = [
       { id: "dots", label: "点阵" },
       { id: "flow", label: "流光" },
-      { id: "off", label: "关闭" },
     ];
     const BG_HINT = {
       dots: "10px 网格的印刷颗粒",
       flow: "低分辨率噪声场，慢慢流",
-      off: "不画背景，只留底色",
     };
     /** 底纹：圆点（默认）/ square 方块 / char 字符 / wall 字符墙。 */
     const DOT_MODES = [
@@ -226,7 +229,8 @@ window.__ModuleLoader__.load({
     const THEME_BY_ID = new Map(THEMES.map((theme) => [theme.id, theme]));
     const listeners = new Set();
     let activeId = DEFAULT_THEME;
-    let decoMode = "paper";
+    let decoStyle = "paper";
+    let decoOn = true;
     let starVariant = "a";
     let fadeMode = "off";
     let dotsMode = "dot";
@@ -236,18 +240,28 @@ window.__ModuleLoader__.load({
     let speedMode = DEFAULT_SPEED;
     let motionMode = "both";
     let breatheMode = DEFAULT_BREATHE;
-    let bgMode = "dots";
+    let bgStyle = "dots";
+    let bgOn = true;
     let flowPalette = DEFAULT_FLOW;
     let flowInvert = DEFAULT_FLOW_INVERT;
     let wordmark = DEFAULT_WORDMARK;
+    let brandOn = true;
+    let brandMarkOn = true;
     let heroText = null;
+    let heroOn = true;
+    let heroMarkOn = true;
     let flowRenderer = null;
     let flowCanvas = null;
     let flowUnavailable = false;
     let getActive = () => activeId;
     let getWordmark = () => wordmark;
+    let getBrandOn = () => brandOn;
+    let getBrandMarkOn = () => brandMarkOn;
     let getHeroText = () => heroText;
-    let getDeco = () => decoMode;
+    let getHeroOn = () => heroOn;
+    let getHeroMarkOn = () => heroMarkOn;
+    let getDeco = () => decoStyle;
+    let getDecoOn = () => decoOn;
     let getStar = () => starVariant;
     let getFade = () => fadeMode;
     let getDots = () => dotsMode;
@@ -257,14 +271,20 @@ window.__ModuleLoader__.load({
     let getSpeed = () => speedMode;
     let getMotion = () => motionMode;
     let getBreathe = () => breatheMode;
-    let getBg = () => bgMode;
+    let getBg = () => bgStyle;
+    let getBgOn = () => bgOn;
     let getFlow = () => flowPalette;
     let getFlowInvert = () => flowInvert;
     let getFlowAvailable = () => !flowUnavailable;
     let selectTheme = () => {};
     let selectWordmark = () => {};
+    let selectBrandOn = () => {};
+    let selectBrandMarkOn = () => {};
     let selectHeroText = () => {};
+    let selectHeroOn = () => {};
+    let selectHeroMarkOn = () => {};
     let selectDeco = () => {};
+    let selectDecoOn = () => {};
     let selectStar = () => {};
     let selectFade = () => {};
     let selectDots = () => {};
@@ -275,6 +295,7 @@ window.__ModuleLoader__.load({
     let selectMotion = () => {};
     let selectBreathe = () => {};
     let selectBg = () => {};
+    let selectBgOn = () => {};
     let selectFlow = () => {};
     let selectFlowInvert = () => {};
 
@@ -295,13 +316,56 @@ window.__ModuleLoader__.load({
       }
     }
 
-    /** 装饰风格：纸品 / 星芒 / 原生，默认纸品。 */
+    /** 布尔开关：只有明确存了 "on" 才算开，读不到 / 不认都按 fallback。 */
+    function storedFlag(key, fallback) {
+      try {
+        const value = window.localStorage.getItem(key);
+        if (value === "on") return true;
+        if (value === "off") return false;
+        return fallback;
+      } catch {
+        return fallback;
+      }
+    }
+
+    function rememberFlag(key, on) {
+      try {
+        window.localStorage.setItem(key, on ? "on" : "off");
+      } catch {
+        /* 同上 */
+      }
+    }
+
+    /** 品牌位总开关：新键优先；旧版把开关存在 :wordmark-on 里，迁移一下。 */
+    function storedBrandOn() {
+      try {
+        const flag = window.localStorage.getItem(BRAND_ON_KEY);
+        if (flag === "on") return true;
+        if (flag === "off") return false;
+        return window.localStorage.getItem(LEGACY_WORDMARK_ON_KEY) !== "off";
+      } catch {
+        return true;
+      }
+    }
+
+    /** 装饰风格：纸品 / 星芒，默认纸品。旧版 "plain"（原生）迁移为纸品 + 关闭。 */
     function storedDeco() {
       try {
-        const id = window.localStorage.getItem(DECO_KEY);
-        return id === "paper" || id === "star" || id === "plain" ? id : "paper";
+        return window.localStorage.getItem(DECO_KEY) === "star" ? "star" : "paper";
       } catch {
         return "paper";
+      }
+    }
+
+    /** 装饰开关：新开关键优先；旧版 "plain" 视为关。 */
+    function storedDecoOn() {
+      try {
+        const flag = window.localStorage.getItem(DECO_ON_KEY);
+        if (flag === "on") return true;
+        if (flag === "off") return false;
+        return window.localStorage.getItem(DECO_KEY) !== "plain";
+      } catch {
+        return true;
       }
     }
 
@@ -452,16 +516,27 @@ window.__ModuleLoader__.load({
       }
     }
 
-    /** 背景样式：点阵 / 流光 / 关闭，默认点阵。
-        旧版把“关闭”存在底纹里（:dots = off），读不到 :bg 时兼容一下。 */
+    /** 背景样式：点阵 / 流光，默认点阵；旧版 "off" 迁移为点阵 + 关闭。 */
     function storedBg() {
       try {
-        const id = window.localStorage.getItem(BG_KEY);
-        if (BG_MODES.some((mode) => mode.id === id)) return id;
-        if (window.localStorage.getItem(DOTS_KEY) === "off") return "off";
-        return "dots";
+        return window.localStorage.getItem(BG_KEY) === "flow" ? "flow" : "dots";
       } catch {
         return "dots";
+      }
+    }
+
+    /** 背景开关：新开关键优先；旧版把“关闭”存在 :bg 或 :dots 里，兼容一下。 */
+    function storedBgOn() {
+      try {
+        const flag = window.localStorage.getItem(BG_ON_KEY);
+        if (flag === "on") return true;
+        if (flag === "off") return false;
+        const id = window.localStorage.getItem(BG_KEY);
+        if (id === "off") return false;
+        if (id === null && window.localStorage.getItem(DOTS_KEY) === "off") return false;
+        return true;
+      } catch {
+        return true;
       }
     }
 
@@ -779,8 +854,13 @@ __COMPONENT_SETTINGS__
       const read = () => ({
         theme: props.getActive(),
         wordmark: props.getWordmark(),
+        brandOn: props.getBrandOn(),
+        brandMarkOn: props.getBrandMarkOn(),
         heroText: props.getHeroText(),
+        heroOn: props.getHeroOn(),
+        heroMarkOn: props.getHeroMarkOn(),
         deco: props.getDeco(),
+        decoOn: props.getDecoOn(),
         star: props.getStar(),
         fade: props.getFade(),
         dots: props.getDots(),
@@ -791,6 +871,7 @@ __COMPONENT_SETTINGS__
         motion: props.getMotion(),
         breathe: props.getBreathe(),
         bg: props.getBg(),
+        bgOn: props.getBgOn(),
         flow: props.getFlow(),
         flowInvert: props.getFlowInvert(),
         flowOk: props.getFlowAvailable(),
@@ -886,7 +967,7 @@ __COMPONENT_SETTINGS__
           { type: "button", className: "av-deco-chip", onClick: () => props.resetBackground() },
           "恢复默认",
         ),
-        h("span", { className: "av-theme-state" }, "背景 / 底纹 / 色板 / 明暗 / 缩放 / 浓淡 回默认"),
+        h("span", { className: "av-theme-state" }, "背景开关 / 底纹 / 色板 / 明暗 / 缩放 / 浓淡 回默认"),
       );
 
       const { theme: active } = state;
@@ -989,10 +1070,67 @@ __COMPONENT_SETTINGS__
         }
       }
 
-      const applyBg = () => {
-        if (bgMode === "dots") root.removeAttribute("data-av-bg");
-        else root.setAttribute("data-av-bg", bgMode);
+      const applyDeco = () => {
+        if (decoOn) root.setAttribute("data-av-deco", decoStyle);
+        else root.removeAttribute("data-av-deco");
       };
+
+      const applyBg = () => {
+        if (!bgOn) root.setAttribute("data-av-bg", "off");
+        else if (bgStyle === "dots") root.removeAttribute("data-av-bg");
+        else root.setAttribute("data-av-bg", bgStyle);
+      };
+
+      /* ── 品牌位 / 首屏：总开关关掉时整个区域不覆盖，官方组件接管。
+         品牌位 = 星标 + 字标两个 slot（官方在 priority 0）；首屏没有官方注册，
+         摘掉后回到声明包的鱼；标题与徽章由 data-av-hero 总闸控制。 */
+      let brandMarkController = null;
+      let brandNameController = null;
+      let heroMarkController = null;
+
+      function syncBrandSlots() {
+        if (!brandOn) {
+          if (brandNameController !== null) {
+            brandNameController();
+            brandNameController = null;
+          }
+          if (brandMarkController !== null) {
+            brandMarkController();
+            brandMarkController = null;
+          }
+          return;
+        }
+
+        if (brandMarkOn) {
+          if (brandMarkController === null) {
+            brandMarkController = ctx.slots.inject("sidebar.brand.mark", () =>
+              ctx.slots.register({ name: "sidebar.brand.mark", priority: -1 }, BrandMark),
+            );
+          }
+        } else if (brandMarkController !== null) {
+          brandMarkController();
+          brandMarkController = null;
+        }
+
+        if (brandNameController === null) {
+          brandNameController = ctx.slots.inject("sidebar.brand.name", () =>
+            ctx.slots.register({ name: "sidebar.brand.name", priority: -1 }, BrandName),
+          );
+        }
+      }
+
+      function syncHeroMarkSlot() {
+        if (heroOn && heroMarkOn) {
+          if (heroMarkController === null) {
+            heroMarkController = ctx.slots.inject("conversation.hero.brand.mark", () =>
+              ctx.slots.register({ name: "conversation.hero.brand.mark", priority: -1 }, HeroMark),
+            );
+          }
+        } else if (heroMarkController !== null) {
+          heroMarkController();
+          heroMarkController = null;
+        }
+      }
 
 
 
@@ -1018,32 +1156,82 @@ __COMPONENT_SETTINGS__
       };
       getWordmark = () => wordmark;
 
+      /* 品牌位总开关：关掉 = 品牌位完全不覆盖（星标与文字都回原生）。 */
+      selectBrandOn = (on) => {
+        brandOn = on !== false;
+        syncBrandSlots();
+        rememberFlag(BRAND_ON_KEY, brandOn);
+        for (const fn of listeners) fn();
+      };
+      getBrandOn = () => brandOn;
+
+      /* 品牌位图标：只决定星标还是原生鲸标，不影响字标文字。 */
+      selectBrandMarkOn = (on) => {
+        brandMarkOn = on !== false;
+        syncBrandSlots();
+        rememberFlag(BRAND_MARK_ON_KEY, brandMarkOn);
+        for (const fn of listeners) fn();
+      };
+      getBrandMarkOn = () => brandMarkOn;
+
       /* 首屏文案：null 跟随 DSH 原文；空串只留星标；其余替换标题。 */
-      selectHeroText = (value) => {
-        heroText = value === null ? null : cleanHeroText(value);
-        if (heroText === null) {
+      function applyHeroText() {
+        if (!heroOn || heroText === null) {
           root.removeAttribute("data-av-hero-text");
           root.removeAttribute("data-av-hero-empty");
           root.style.removeProperty("--av-hero-text");
-        } else {
-          root.setAttribute("data-av-hero-text", "");
-          root.style.setProperty("--av-hero-text", cssString(heroText));
-          if (heroText.trim() === "") root.setAttribute("data-av-hero-empty", "");
-          else root.removeAttribute("data-av-hero-empty");
+          return;
         }
+        root.setAttribute("data-av-hero-text", "");
+        root.style.setProperty("--av-hero-text", cssString(heroText));
+        if (heroText.trim() === "") root.setAttribute("data-av-hero-empty", "");
+        else root.removeAttribute("data-av-hero-empty");
+      }
+
+      selectHeroText = (value) => {
+        heroText = value === null ? null : cleanHeroText(value);
+        applyHeroText();
         rememberHeroText(heroText);
         for (const fn of listeners) fn();
       };
       getHeroText = () => heroText;
 
-      selectDeco = (id) => {
-        decoMode = id === "star" || id === "plain" ? id : "paper";
-        if (decoMode === "plain") root.removeAttribute("data-av-deco");
-        else root.setAttribute("data-av-deco", decoMode);
-        rememberDeco(decoMode);
+      /* 新会话总开关：关掉 = 首屏完全不覆盖（图标、标题、徽章都回原生）。 */
+      selectHeroOn = (on) => {
+        heroOn = on !== false;
+        if (heroOn) root.setAttribute("data-av-hero", "");
+        else root.removeAttribute("data-av-hero");
+        applyHeroText();
+        syncHeroMarkSlot();
+        rememberFlag(HERO_ON_KEY, heroOn);
         for (const fn of listeners) fn();
       };
-      getDeco = () => decoMode;
+      getHeroOn = () => heroOn;
+
+      /* 首屏图标：只决定星标还是原生鱼，不影响标题 / 徽章的总开关。 */
+      selectHeroMarkOn = (on) => {
+        heroMarkOn = on !== false;
+        syncHeroMarkSlot();
+        rememberFlag(HERO_MARK_ON_KEY, heroMarkOn);
+        for (const fn of listeners) fn();
+      };
+      getHeroMarkOn = () => heroMarkOn;
+
+      selectDeco = (id) => {
+        decoStyle = id === "star" ? "star" : "paper";
+        applyDeco();
+        rememberDeco(decoStyle);
+        for (const fn of listeners) fn();
+      };
+      getDeco = () => decoStyle;
+
+      selectDecoOn = (on) => {
+        decoOn = on !== false;
+        applyDeco();
+        rememberFlag(DECO_ON_KEY, decoOn);
+        for (const fn of listeners) fn();
+      };
+      getDecoOn = () => decoOn;
 
       selectStar = (id) => {
         starVariant = id === "b" ? "b" : "a";
@@ -1127,21 +1315,37 @@ __COMPONENT_SETTINGS__
       };
       getBreathe = () => breatheMode;
 
-      /* 背景样式：点阵 / 流光 / 关闭。流光要有 WebGL2，建不起来就不切，面板给提示。 */
+      /* 背景样式：点阵 / 流光。流光要有 WebGL2，建不起来就不切，面板给提示。 */
       selectBg = (id) => {
-        const next = BG_MODES.some((mode) => mode.id === id) ? id : "dots";
-        if (next === "flow" && !ensureFlow()) {
+        const next = id === "flow" ? "flow" : "dots";
+        if (bgOn && next === "flow" && !ensureFlow()) {
           flowUnavailable = true;
           for (const fn of listeners) fn();
           return;
         }
         if (next !== "flow") destroyFlow();
-        bgMode = next;
+        bgStyle = next;
         applyBg();
-        rememberBg(bgMode);
+        rememberBg(bgStyle);
         for (const fn of listeners) fn();
       };
-      getBg = () => bgMode;
+      getBg = () => bgStyle;
+
+      /* 背景总开关：关掉时摘掉点阵与流光；打开流光失败就退回点阵。 */
+      selectBgOn = (on) => {
+        bgOn = on !== false;
+        if (!bgOn) {
+          destroyFlow();
+        } else if (bgStyle === "flow" && !ensureFlow()) {
+          flowUnavailable = true;
+          bgStyle = "dots";
+          rememberBg(bgStyle);
+        }
+        applyBg();
+        rememberFlag(BG_ON_KEY, bgOn);
+        for (const fn of listeners) fn();
+      };
+      getBgOn = () => bgOn;
 
       /* 色板：只改 CSS 属性，画布下一帧自己取色。 */
       selectFlow = (id) => {
@@ -1164,9 +1368,10 @@ __COMPONENT_SETTINGS__
       };
       getFlowInvert = () => flowInvert;
 
-      // 背景那一组一键回默认（主题 / 装饰 / 星形不动）。
+      // 背景那一组一键回默认（主题 / 装饰 / 星形 / 字标与图标开关不动）。
       const resetBackground = () => {
         selectBg("dots");
+        selectBgOn(true);
         selectDots("dot");
         selectFlow(DEFAULT_FLOW);
         selectFlowInvert(DEFAULT_FLOW_INVERT);
@@ -1184,7 +1389,12 @@ __COMPONENT_SETTINGS__
         root.removeAttribute("data-av-depth");
         selectTheme(storedTheme());
         selectWordmark(storedWordmark());
+        selectBrandOn(storedBrandOn());
+        selectBrandMarkOn(storedFlag(BRAND_MARK_ON_KEY, true));
+        selectHeroOn(storedFlag(HERO_ON_KEY, true));
+        selectHeroMarkOn(storedFlag(HERO_MARK_ON_KEY, true));
         selectHeroText(storedHeroText());
+        selectDecoOn(storedDecoOn());
         selectDeco(storedDeco());
         selectStar(storedStar());
         selectFade(storedFade());
@@ -1197,6 +1407,7 @@ __COMPONENT_SETTINGS__
         selectMotion(storedMotion());
         selectBreathe(storedBreathe());
         selectDots(storedDots());
+        selectBgOn(storedBgOn());
         selectBg(storedBg());
         return () => {
           destroyFlow();
@@ -1213,6 +1424,7 @@ __COMPONENT_SETTINGS__
           root.removeAttribute("data-av-bg");
           root.removeAttribute("data-av-flow-palette");
           root.removeAttribute("data-av-flow-invert");
+          root.removeAttribute("data-av-hero");
           root.removeAttribute("data-av-hero-text");
           root.removeAttribute("data-av-hero-empty");
           root.removeAttribute("data-av-scale");
@@ -1238,16 +1450,9 @@ __COMPONENT_SETTINGS__
       }
 
       // single slot、官方品牌在 priority 0；用更低的优先级盖住，卸载即回退。
-      ctx.slots.inject("sidebar.brand.mark", () =>
-        ctx.slots.register({ name: "sidebar.brand.mark", priority: -1 }, BrandMark),
-      );
-      ctx.slots.inject("sidebar.brand.name", () =>
-        ctx.slots.register({ name: "sidebar.brand.name", priority: -1 }, BrandName),
-      );
-      // 首屏原本是 DSH 的动画鱼 fallback；用同一颗星替换，卸载即回退。
-      ctx.slots.inject("conversation.hero.brand.mark", () =>
-        ctx.slots.register({ name: "conversation.hero.brand.mark", priority: -1 }, HeroMark),
-      );
+      // 品牌位的鲸标与字标两个 slot 由品牌位总开关按需挂 / 摘（syncBrandSlots）；
+      // 总开关打开时，品牌模块自己的图标开关再决定星标还是原生鲸标。
+      // 首屏图标同理：总开关 + 首屏模块里的图标开关（syncHeroMarkSlot）。
       ctx.slots.inject("settings.section", () =>
         ctx.slots.register(
           {
@@ -1260,10 +1465,20 @@ __COMPONENT_SETTINGS__
               getActive: () => getActive(),
               selectWordmark: (value) => selectWordmark(value),
               getWordmark: () => getWordmark(),
+              selectBrandOn: (on) => selectBrandOn(on),
+              getBrandOn: () => getBrandOn(),
+              selectBrandMarkOn: (on) => selectBrandMarkOn(on),
+              getBrandMarkOn: () => getBrandMarkOn(),
               selectHeroText: (value) => selectHeroText(value),
               getHeroText: () => getHeroText(),
+              selectHeroOn: (on) => selectHeroOn(on),
+              getHeroOn: () => getHeroOn(),
+              selectHeroMarkOn: (on) => selectHeroMarkOn(on),
+              getHeroMarkOn: () => getHeroMarkOn(),
               selectDeco: (id) => selectDeco(id),
               getDeco: () => getDeco(),
+              selectDecoOn: (on) => selectDecoOn(on),
+              getDecoOn: () => getDecoOn(),
               selectStar: (id) => selectStar(id),
               getStar: () => getStar(),
               selectFade: (id) => selectFade(id),
@@ -1284,6 +1499,8 @@ __COMPONENT_SETTINGS__
               getBreathe: () => getBreathe(),
               selectBg: (id) => selectBg(id),
               getBg: () => getBg(),
+              selectBgOn: (on) => selectBgOn(on),
+              getBgOn: () => getBgOn(),
               selectFlow: (id) => selectFlow(id),
               getFlow: () => getFlow(),
               selectFlowInvert: (id) => selectFlowInvert(id),

@@ -1,13 +1,15 @@
 /**
- * 装饰组设置行：装饰三选一（纸品 / 星芒 / 原生），选了星芒再出星形。
+ * 装饰组设置行：装饰二选一（纸品 / 星芒），选了星芒再出星形。
  *
  * 这一组没有对应的 CSS（纸品在 paper/，星芒在 star/），只负责设置面板。
  * 本文件被 scripts/build.mjs 原样内联进 client.js，只能引用参数 api。
+ * 「主题覆盖」里装饰开关关掉时整组收起，原生/关闭语义由那个开关承担。
  */
 function decoSettings(api) {
   const { h, props, state, modes } = api;
   const { DECO_MODES, DECO_HINT, STAR_MODES, STAR_HINT } = modes;
-  const { deco, star } = state;
+  const { deco, star, decoOn } = state;
+  if (!decoOn) return [];
   const rows = [
     {
       order: 10,

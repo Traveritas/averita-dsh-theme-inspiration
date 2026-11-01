@@ -10,7 +10,7 @@
 | `data-av-dots` | `square` / `char` / `wall` | 不挂 = 圆点 |
 | `data-av-glyph` | `plus` / `hash` / `star` / `cross` | `plus`，只在字符底纹下用 |
 | `data-av-motion` | `breathe` / `drift` / `off` | 不挂 = 两样都开 |
-| `data-av-bg` | `flow` / `off` | 不挂 = 点阵 |
+| `data-av-bg` | `flow` / `off` | 不挂 = 点阵；`off` = 背景总开关关掉 |
 | `data-av-idle` | 布尔 | 窗口失焦时暂停 |
 
 ## 变量
@@ -24,7 +24,7 @@
 ## 存
 
 不存。插件把选择存进 `dsh-theme-averita:dots` / `:glyph` / `:motion` / `:breathe`，
-再写成 HTML 属性或 `html` 行内变量。
+再写成 HTML 属性或 `html` 行内变量；背景总开关存 `:bg-on`，关掉时写 `data-av-bg="off"`。
 
 ## 依赖
 

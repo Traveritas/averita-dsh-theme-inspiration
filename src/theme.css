@@ -310,6 +310,71 @@ body :is(h1, h2, h3) {
   transform: scale(1.12);
 }
 
+/* 总开关行：主题覆盖里的字标 / 图标 / 装饰 / 背景。 */
+.av-switch-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding-top: 2px;
+}
+
+.av-switch-row .av-theme-sub {
+  flex: 0 0 56px;
+  white-space: nowrap;
+}
+
+/* 拨动开关：轨道 + 圆钮；开时轨道用主题墨色与淡底。 */
+.av-switch {
+  position: relative;
+  flex: none;
+  box-sizing: border-box;
+  width: 36px;
+  height: 20px;
+  padding: 0;
+  border: 0.5px solid var(--dsw-alias-border-l2);
+  border-radius: 999px;
+  background: var(--dsw-alias-bg-layer-1);
+  cursor: pointer;
+  transition:
+    background-color var(--ds-transition-duration-fast) var(--ds-ease-in-out),
+    border-color var(--ds-transition-duration-fast) var(--ds-ease-in-out);
+}
+
+.av-switch-knob {
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+  background: var(--dsw-alias-label-tertiary);
+  transition:
+    transform var(--ds-transition-duration-fast) var(--ds-ease-in-out),
+    background-color var(--ds-transition-duration-fast) var(--ds-ease-in-out);
+}
+
+.av-switch--on {
+  border-color: var(--av-mark);
+  background: var(--av-wash);
+}
+
+.av-switch--on .av-switch-knob {
+  transform: translateX(16px);
+  background: var(--av-mark);
+}
+
+.av-switch:focus-visible {
+  outline: 2px solid var(--dsw-alias-brand-primary);
+  outline-offset: 3px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .av-switch,
+  .av-switch-knob {
+    transition: none;
+  }
+}
+
 /* 开关行：装饰 / 底纹 / 星形 / 动效共用 */
 .av-deco-row {
   display: flex;

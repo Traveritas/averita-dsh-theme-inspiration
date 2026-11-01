@@ -121,7 +121,7 @@
         <h1>主题</h1>
         <small>AveritA's DSH 主题集</small>
       </div>
-      <p class="panel-note">四套令牌 + 品牌 / 背景 / 装饰 / 界面。所有选择即时落到 <code>html</code> 的属性与 CSS 变量上，不重装插件。</p>
+      <p class="panel-note">四套令牌 + 主题覆盖 / 品牌 / 新会话 / 背景 / 装饰 / 界面。所有选择即时落到 <code>html</code> 的属性与 CSS 变量上，不重装插件。</p>
 
       <div class="av-theme-panel">
         <div class="av-theme-grid">
@@ -147,12 +147,46 @@
           </button>
         </div>
 
+        <div class="av-theme-group">主题覆盖 <span class="group-note">overrides</span></div>
+        <div class="av-switch-row">
+          <span class="av-theme-sub">品牌位</span>
+          <button type="button" role="switch" aria-checked="true" aria-label="品牌位" class="av-switch av-switch--on"><span class="av-switch-knob"></span></button>
+          <span class="av-theme-state">开 · 品牌位按模块设置</span>
+        </div>
+        <div class="av-switch-row">
+          <span class="av-theme-sub">新会话</span>
+          <button type="button" role="switch" aria-checked="true" aria-label="新会话" class="av-switch av-switch--on"><span class="av-switch-knob"></span></button>
+          <span class="av-theme-state">开 · 首屏按模块设置</span>
+        </div>
+        <div class="av-switch-row">
+          <span class="av-theme-sub">装饰</span>
+          <button type="button" role="switch" aria-checked="true" aria-label="装饰" class="av-switch av-switch--on"><span class="av-switch-knob"></span></button>
+          <span class="av-theme-state">开 · 纸品装饰</span>
+        </div>
+        <div class="av-switch-row">
+          <span class="av-theme-sub">背景</span>
+          <button type="button" role="switch" aria-checked="true" aria-label="背景" class="av-switch av-switch--on"><span class="av-switch-knob"></span></button>
+          <span class="av-theme-state">开 · 点阵底纹</span>
+        </div>
+
         <div class="av-theme-group">品牌 <span class="group-note">brand</span></div>
+        <div class="av-switch-row">
+          <span class="av-theme-sub">图标</span>
+          <button type="button" role="switch" aria-checked="true" aria-label="品牌位图标" class="av-switch av-switch--on"><span class="av-switch-knob"></span></button>
+          <span class="av-theme-state">开 · 星标替换原生鲸标</span>
+        </div>
         <div class="av-deco-row av-deco-row--text">
           <span class="av-theme-sub">字标</span>
           <input type="text" class="av-text-input" value="AveritA's DSH" aria-label="字标" />
           <button type="button" class="av-deco-chip">恢复默认</button>
           <span class="av-theme-state">侧栏字标 · 13/32</span>
+        </div>
+
+        <div class="av-theme-group">新会话 <span class="group-note">hero</span></div>
+        <div class="av-switch-row">
+          <span class="av-theme-sub">图标</span>
+          <button type="button" role="switch" aria-checked="true" aria-label="首屏图标" class="av-switch av-switch--on"><span class="av-switch-knob"></span></button>
+          <span class="av-theme-state">开 · 星标替换原生图标</span>
         </div>
         <div class="av-deco-row av-deco-row--text">
           <span class="av-theme-sub">首屏文案</span>
@@ -166,7 +200,6 @@
           <span class="av-theme-sub">背景</span>
           <button type="button" class="av-deco-chip av-deco-chip--on">点阵</button>
           <button type="button" class="av-deco-chip">流光</button>
-          <button type="button" class="av-deco-chip">关闭</button>
           <span class="av-theme-state">极慢漂移 + 透明度呼吸</span>
         </div>
         <div class="av-deco-row">
@@ -214,7 +247,6 @@
           <span class="av-theme-sub">装饰</span>
           <button type="button" class="av-deco-chip av-deco-chip--on">纸品</button>
           <button type="button" class="av-deco-chip">星芒</button>
-          <button type="button" class="av-deco-chip">原生</button>
           <span class="av-theme-state">纸品：书签带 / 星章 / 齿孔</span>
         </div>
 
@@ -229,12 +261,12 @@
         <div class="av-deco-row">
           <span class="av-theme-sub">重置</span>
           <button type="button" class="av-deco-chip">恢复默认</button>
-          <span class="av-theme-state">背景 / 底纹 / 色板 / 速率 / 字形 / 缩放 / 浓淡 / 动效 / 呼吸下限</span>
+          <span class="av-theme-state">背景开关 / 底纹 / 色板 / 速率 / 字形 / 缩放 / 浓淡 / 动效 / 呼吸下限</span>
         </div>
       </div>
 
       <div class="footer-note">
-        <span>预览壳：按 <code>src/components/*/settings.js</code> 的行与 <code>src/theme.css</code> 的面板样式重建；实际控件以实机为准。</span>
+        <span>预览壳：按 <code>src/components/*/settings.js</code> 的行与 <code>src/theme.css</code> 的面板样式重建；这里仍是分组版，开关默认全开，实际模块卡片以实机为准。</span>
         <span class="mono">preview/settings.html</span>
       </div>
     </section>

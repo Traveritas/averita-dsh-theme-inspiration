@@ -135,7 +135,7 @@ html[data-av-dots="wall"] body::before {
   --av-tile-size: calc(120px * var(--av-scale)) calc(80px * var(--av-scale));
 }
 
-/* 关闭：整层不画，只留 html 的底色；流光时点阵把位置让给画布。 */
+/* 背景总开关关掉（data-av-bg="off"）：整层不画，只留 html 的底色；流光时点阵把位置让给画布。 */
 html[data-av-bg="off"] body::before,
 html[data-av-bg="flow"] body::before {
   content: none;

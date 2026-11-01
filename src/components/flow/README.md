@@ -5,7 +5,7 @@ WebGL2 画布：1/5 视口分辨率、5px 一格放大、锁 30fps；场来自�
 
 ## 挂什么
 
-- `data-av-bg="flow"`：启用（不挂就不建画布）
+- `data-av-bg="flow"`：启用（不挂就不建画布）；背景总开关关掉时是 `off`
 - `data-av-flow-palette="theme" | "mist" | "dusk" | "jade" | "amber"`：色板，默认跟随主题
 - `data-av-flow-invert="on" | "off"`：浅色明暗，默认 `on`（反转：0 阶纸白、深色落在光带上）；
   不挂属性等于 `on`，`off` 是旧写法（底色下沉、白带提亮）。深色两档一样
@@ -19,7 +19,8 @@ WebGL2 画布：1/5 视口分辨率、5px 一格放大、锁 30fps；场来自�
 
 ## 存
 
-不存。插件存 `dsh-theme-averita:bg` / `:flow` / `:flow-invert` / `:speed`。
+不存。插件存 `dsh-theme-averita:bg` / `:flow` / `:flow-invert` / `:speed`；背景总开关存
+`:bg-on`，关掉时拆掉画布并写 `data-av-bg="off"`。
 
 ## 依赖
 
