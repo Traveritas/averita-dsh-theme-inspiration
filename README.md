@@ -291,7 +291,7 @@ canvas.av-flow  1/5 视口分辨率（1080p 约 384×216），5px 一格像素�
 
 | 部件 | 命中点 | 纸品（paper） | 星芒（star） |
 |---|---|---|---|
-| 用户消息 / 插话 | `:is([data-chat-flow-kind="user"], [data-chat-flow-kind="steering"], [data-pending-steering]) [class*="_bubble"]:not([role="tooltip"])` | 左缘书签带、右上星章、右下折角、底缘齿孔，−0.3° 微斜 | 右上 8 角星（带光晕）+ 底缘光边，圆角 14px |
+| 用户消息 / 插话 | `:is([data-chat-flow-kind="user"], [data-chat-flow-kind="steering"], [data-pending-steering]) [class*="_bubble"]:not([role="tooltip"])` | 左缘书签带、右上星章、右下折角、底缘齿孔，hover 时投影收紧 | 右上 8 角星（带光晕）+ 底缘光边，圆角 14px |
 | 输入框 | `[data-composer-seat] [class*="_card"]` | 15px 信头窄带（三枚装订孔）、票根虚线、输入区横格线 | 右上角纯色星（罗盘 / 针芒两形）+ 放射光束，聚焦时放大一成 |
 | 发送键 | `[data-composer-seat] [class*="_primary"]` | 缺角圆章，hover 转 −6° | 一圈光，hover 撑开 |
 
