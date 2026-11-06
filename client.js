@@ -4463,6 +4463,10 @@ if (typeof window !== "undefined") window.createFlowBackground = createFlowBackg
        六支 = ±x ±y ±z，yaw 45° / pitch 35.264°；每支是一个锥形四边形，
        fill-opacity 按深度 z 从 0.44（远）到 0.90（近）。 */
     const STAR_DEG = Math.PI / 180;
+    /* 品牌位星标默认静止：只画一帧。之前每 33ms 重写一次 innerHTML，
+       会让宿主 :has() 选择器整片失效（实测 5 秒里 4.3 秒耗在样式重算）。
+       改成 true 恢复自转 + 摆动。 */
+    const STAR_MOTION = false;
 
     function projectStar(angle, wobble) {
       const yaw = angle * STAR_DEG;
@@ -4531,6 +4535,7 @@ if (typeof window !== "undefined") window.createFlowBackground = createFlowBackg
           last = 0;
           lastDraw = 0;
           g.innerHTML = projectStar(auto, 0);
+          if (!STAR_MOTION) return;
           if (raf === 0) raf = requestAnimationFrame(frame);
         };
         const stop = () => {
