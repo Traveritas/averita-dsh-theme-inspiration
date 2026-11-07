@@ -49,6 +49,17 @@ body {
   background-color: transparent !important;
 }
 
+/* ── 形状 ───────────────────────────────────────────────────────────────
+   DSH 的 ui-theme 注入 `*, :before, :after { corner-shape: var(--dsw-corner-shape) }`，
+   值是 superellipse(1.5)：在这套界面里 `border-radius: 50%` 画出来是圆角方，不是
+   正圆（32px 的方块看起来像半径 40%）。宿主组件各自写 `corner-shape: round` 退出
+   这套形状，本插件该圆的地方（圆钮 / 胶囊 / 圆点）也照做。
+   下面这条是启动转圈的 `::after`：宿主只在盒子上写了 round，画弧线的伪元素漏了，
+   于是插件一加载、转圈就从圆变方。升级 DSH 后若又变方，先核对 `_spinner_` 后缀。 */
+[class*="_spinner_"]::after {
+  corner-shape: round;
+}
+
 
 /* 缩放 / 浓淡：滑杆直接写 html 上的 --av-scale / --av-depth，
    取值 0.5–4× / 30%–400%，不再走离散属性。
@@ -254,6 +265,7 @@ body :is(h1, h2, h3) {
 .av-range::-webkit-slider-runnable-track {
   height: 3px;
   border-radius: 999px;
+  corner-shape: round;
   background: linear-gradient(
     to right,
     var(--av-mark) 0 var(--av-fill, 0%),
@@ -282,6 +294,7 @@ body :is(h1, h2, h3) {
   outline: 2px solid var(--dsw-alias-brand-primary);
   outline-offset: 3px;
   border-radius: 999px;
+  corner-shape: round;
 }
 
 /* Firefox：轨道 / 已选段 / 滑块分开画。 */
@@ -333,6 +346,7 @@ body :is(h1, h2, h3) {
   padding: 0;
   border: 0.5px solid var(--dsw-alias-border-l2);
   border-radius: 999px;
+  corner-shape: round;
   background: var(--dsw-alias-bg-layer-1);
   cursor: pointer;
   transition:
@@ -347,6 +361,7 @@ body :is(h1, h2, h3) {
   width: 15px;
   height: 15px;
   border-radius: 50%;
+  corner-shape: round;
   background: var(--dsw-alias-label-tertiary);
   transition:
     transform var(--ds-transition-duration-fast) var(--ds-ease-in-out),

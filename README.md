@@ -334,6 +334,7 @@ node scripts/derive-slider-palettes.mjs  # 可选：输出思考强度滑条的�
 - **组件只拆到 CSS + 设置模块**：单独复制 `src/components/<id>/style.css` 能用，但没有设置面板（属性手写即可）；选择器、localStorage 与流光画布的生命周期仍在 `src/client.template.js`。
 - **颗粒遮罩依赖 `mask-composite`**：四种颗粒与渐隐两层遮罩相交需要 Chromium 120+ / Safari 15.4+；更老的内核会退化成两层叠加，颗粒照旧、中心渐隐失效，不影响可用性。字符 / 符号走 SVG `<text>`，字体栈是 Consolas / Segoe UI Symbol，换机器字形会有细微差别。
 - **浓淡依赖相对色语法**：`rgb(from var(--av-dot) …)` 需要 Chromium 119+ / Safari 16.4+；不支持的内核退回主题原色，浓淡滑杆静默失效，其余照旧。
+- **圆要显式退出 DSH 的 `corner-shape`**：ui-theme 给 `*` 挂了 `corner-shape: superellipse(1.5)`，`border-radius: 50%` 会被画成圆角方。本插件的圆钮 / 开关 / 滑轨 / 纸品圆点都补了 `corner-shape: round`，以后加圆形元素别忘了；启动转圈的 `::after` 是宿主漏写的，靠 `[class*="_spinner_"]::after` 兜底，DSH 改类名后缀后会静默失效（转圈重新变方）。细节见 [docs/rendering-notes.md](docs/rendering-notes.md)。
 - **流光要 WebGL2 + 硬件渲染**：SwiftShader / Basic Render Driver 这类软件渲染会被 `src/flow.js` 直接拒掉，切流光时回退点阵并在面板提示；切到流光会新建一个 WebGL 上下文，切走即丢。默认锁 30fps，窗口隐藏 / 系统减少动效时停帧。
 - **流光固定色板仍是绝对的**：默认「跟随主题」不会撞色；手动切到雾蓝 / 暮紫 / 青灰 / 暖沙时是写死的四阶（明暗反转各一套浅色值），不随主题变，仍可能和某些主题不搭。色板的四阶在 `src/components/flow/style.css`（`--av-flow-0..3` / `--av-flow-glow`），5px 像素格与 30fps 在 `src/flow.js` 顶部。
 - **「跟随主题」的流光依赖 `color-mix` 探针**：`flow.js` 会把 `color-mix(...)` 挂到隐藏探针上读计算值；Chromium 111+ 支持 `color-mix`，更老的内核读不到颜色时会退回默认色板。固定色板不受影响。
