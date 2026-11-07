@@ -27,6 +27,13 @@
     `::-webkit-slider-thumb` 本来就是正圆，只有自己画的 `div` 会被压成圆角方；
   - 圆角矩形（卡片、气泡、输入框）**不要**加，superellipse 就是 DSH 的形状语言；
   - 内联 SVG `<circle>` / `clip-path: inset(0 round 999px)` 仍然有效，只是不再必要。
+- **`box-shadow` 不吃 `corner-shape`（2026-11-07 实测）**：同一个元素写了
+  `corner-shape: round` 之后，`background` 和 `border` 都变正圆，但 `box-shadow`
+  （inset 和外阴影都一样）的外轮廓仍是 superellipse(1.5)。所以拿
+  `box-shadow: inset 0 0 0 1.4px …` 画的空心环，出来是「圆角方外框 + 圆孔」——
+  工作区卡片的 done 环就是这么坏的。空心环改用 `border`（配 `box-sizing: border-box`），
+  或者伪元素 + `mask`；同色的遮罩阴影（只为盖住底纹那种）形状看不出来，可以留着。
+  顺带：`border-width` 会被吸附到整设备像素（见第 2 条），1.4px 在 125% 下算成 0.8px。
 - **连带（启动转圈）**：宿主自己的 boot 屏就踩了这个坑 —— `._spinner` 的盒子上写了
   `corner-shape: round`，画弧线的 `::after` 漏了，于是插件一加载、转圈就从圆变方。
   本插件在 `src/theme.css` 用 `[class*="_spinner_"]::after` 兜住了；升级 DSH 后若又变方，
